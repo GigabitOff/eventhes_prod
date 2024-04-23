@@ -109,7 +109,7 @@
                                                 {{ __('translate.Cabinet') }}
                                             </a>
                                         @else
-                                            <a class="dropdown-item" href="/client">
+                                            <a class="dropdown-item" href="/partner">
                                                 {{ __('translate.Cabinet') }}
                                             </a>
                                         @endif

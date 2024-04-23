@@ -13,7 +13,7 @@
     <div id="categories">
         @foreach ($categoryData as $category)
             <div>
-                <input type="radio" name="cours_{{ $category->id }}" id="cat{{ $category->id }}" onchange="handleCheckboxChange('{{ $category->select_id }}', '{{ $category->id }}')" class="category-checkbox" name="category" value="{{ $category->id }}">
+                <input type="radio" name="cours" id="cat{{ $category->id }}" onchange="handleCheckboxChange('{{ $category->select_id }}', '{{ $category->id }}')" class="category-checkbox" name="category" value="{{ $category->id }}">
                 <label for="cat{{ $category->id }}"><span>{{ $category->title }}</span></label>
             </div>
         @endforeach

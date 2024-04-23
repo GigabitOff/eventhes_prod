@@ -1,11 +1,10 @@
 @extends('layouts.filter')
 @section('content')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <div class="container" style="margin-top: -55px;">
+    <div class="container" style="margin-top: 55px;">
         <div class="row justify-content-center">
             <div class="container margin_60">
-                <div class="row" >
+                <div class="row">
                     <aside class="col-lg-3">
                         {{--                        <p>--}}
 {{--                            <a class="btn_map" data-toggle="collapse" style="text-decoration: none;" href="#collapseMap" aria-expanded="false"--}}
@@ -13,8 +12,8 @@
 {{--                               data-text-original="View on map">--}}
 {{--                                {{ __('translate.View on map') }} </a>--}}
 {{--                        </p>--}}
-                        <form id="searchForm" action="{{ route('search') }}" method="GET" >
-                            <div id="filters_col" >
+                        <form action="{{ route('search') }}" method="GET" >
+                            <div id="filters_col">
 {{--                                <div class="collapse show" >--}}
 {{--                                    <div class="filter_type">--}}
 {{--                                        <label for="category">Выберите регион:</label>--}}
@@ -30,36 +29,54 @@
                                 <span>&nbsp;</span>
                                 <div class="collapse show" >
                                     <div class="filter_type">
-                                        <label for="category">{{ __('translate.select_category') }}:</label>
+                                        <label for="category">Выберите категорию:</label>
                                         <select  class="form-control" name="category" id="category">
-                                            <option value="">{{ __('translate.all') }}</option>
-                                            <option value="3">{{ __('translate.events_front') }}</option>
-                                            <option value="2">{{ __('translate.services') }}</option>
-                                            <option value="1">{{ __('translate.courses') }}</option>
+                                            <option value="">Все</option>
+                                            <option value="3">События</option>
+                                            <option value="1">Курсы</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="collapse show" >
+                                    <div class="filter_type">
+                                        <label for="category">Выберите подкатегорию:</label>
+                                        <select  class="form-control" name="category" id="category">
+                                            <option value="">Все</option>
+                                            <option value="3">События</option>
+                                            {{--                                            <option value="2">Услуги</option>--}}
+                                            <option value="1">Курсы</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="collapse show" >
+                                    <div class="filter_type">
+                                        <label for="category">Выберите субкатегорию:</label>
+                                        <select  class="form-control" name="category" id="category">
+                                            <option value="">Все</option>
+                                            <option value="3">События</option>
+                                            {{--                                            <option value="2">Услуги</option>--}}
+                                            <option value="1">Курсы</option>
                                         </select>
                                     </div>
                                 </div>
                                 <span>&nbsp;</span>
-                                <div class="form-group">
-                                    <label for="category">Выберите область:</label>
-                                    <select class="form-control" id="regionSelect" onchange="sendAjaxRequest(this.value)">
-                                        @foreach ($regions as $region)
-                                            <option value="{{ substr($region->code, 0, 2) }}">{{ $region->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-group" id="townSelectContainer" style="display: none;">
-                                    <label for="town">Выберите город:</label>
-                                    <select name="town" class="form-control" id="townSelect">
-                                    </select>
-                                </div>
-                                <div class="collapse show" style="margin-top: 10px;">
+{{--                                <div class="collapse show" >--}}
+{{--                                    <div class="filter_type">--}}
+{{--                                        <label for="category">Выберите область:</label>--}}
+{{--                                        <select class="form-control" id="regionSelect" onchange="regionSet(this.value)">--}}
+{{--                                            @foreach ($regions as $region)--}}
+{{--                                                <option value="{{ $region->code }}">{{ $region->name }}</option>--}}
+{{--                                            @endforeach--}}
+{{--                                        </select>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+                                <span>&nbsp;</span>
+                                <div class="collapse show" >
                                     <div class="filter_type">
                                         <h6>{{ __('translate.Price') }} $ From <output id="ong">50</output> - To <output id="ong2">50</output></h6>
                                         <input id="rng" name="rng" type="range" min="1" max="100" value="50">
                                        <input id="rng2" name="rng2" type="range" min="1" max="100" value="50">
                                     </div>
-
                                 </div>
                             </div>
                             <a href="#" onclick="updateHiddenFieldsAndSubmit(); return false;" style="text-decoration: none;" class="btn_map mb-2">{{ __('translate.Send') }}</a>
@@ -307,49 +324,6 @@
             }
         });
     }
-    function sendAjaxRequest(regionCodePrefix) {
-        var csrfToken = $('meta[name="csrf-token"]').attr('content');
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': csrfToken
-            }
-        });
-        $.ajax({
-            url: '/admin/events/st/' + regionCodePrefix,
-            type: 'POST',
-            dataType: 'json',
-            success: function(response) {
-                $('#townSelectContainer').show();
-                var townSelect = $('#townSelect');
-                townSelect.empty();
-
-                // Сортируем response по названию города перед добавлением в селект
-                response.sort(function(a, b) {
-                    var nameA = a.name.toLowerCase();
-                    var nameB = b.name.toLowerCase();
-                    if (nameA < nameB) return -1;
-                    if (nameA > nameB) return 1;
-                    return 0;
-                });
-
-                // Добавляем отсортированные города в селект
-                $.each(response, function(index, town) {
-                    townSelect.append('<option value="' + town.id + '">' + town.name + '</option>');
-                });
-
-                // Инициализируем Select2 после добавления элементов
-                townSelect.select2({
-                    placeholder: 'Выберите город или начните вводить...',
-                    allowClear: true
-                });
-            },
-            error: function(xhr, status, error) {
-                console.error(error);
-            }
-        });
-    }
-
-
 </script>
 
 

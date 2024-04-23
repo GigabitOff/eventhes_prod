@@ -65,19 +65,6 @@
                                     @endif
                                 </select>
                             </div>
-                            <div class="form-group">
-                                <label for="category">Выберите область:</label>
-                                <select class="form-control" id="regionSelect" onchange="sendAjaxRequest(this.value)">
-                                    @foreach ($regions as $region)
-                                        <option value="{{ substr($region->code, 0, 2) }}">{{ $region->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group" id="townSelectContainer" style="display: none;">
-                                <label for="town">Выберите город:</label>
-                                <select name="town" class="form-control" id="townSelect">
-                                </select>
-                            </div>
                             <div id="content"></div>
                             <div class="form-group">
                                 <label for="title">{{ __('translate.Title') }}</label>
@@ -405,6 +392,8 @@
             this.textContent = 'Раскрыть';
         }
     });
+
+
     $(document).ready(function() {
         $('#category').change(function() {
             var category = $(this).val();
@@ -427,40 +416,14 @@
                     type: 'get',
                     success: function(response) {
 
+                        // Предполагается, что #content - это контейнер, куда будет загружен контент
                         $('#content').html(response);
                     }
                 });
             }
         });
     });
-    function sendAjaxRequest(regionCodePrefix) {
-        var csrfToken = $('meta[name="csrf-token"]').attr('content');
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': csrfToken
-            }
-        });
-        $.ajax({
-            url: '/admin/events/st/' + regionCodePrefix,
-            type: 'POST',
-            dataType: 'json',
-            success: function(response) {
-                $('#townSelectContainer').show();
-                var townSelect = $('#townSelect');
-                townSelect.empty();
-                $.each(response, function(index, town) {
-                    townSelect.append('<option value="' + town.id + '">' + town.name + '</option>');
-                });
-                townSelect.select2({
-                    placeholder: 'Выберите город или начните вводить...',
-                    allowClear: true
-                });
-            },
-            error: function(xhr, status, error) {
-                console.error(error);
-            }
-        });
-    }
+
 </script>
 
 </body>

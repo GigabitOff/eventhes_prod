@@ -4,11 +4,10 @@
 @section('content')
     <main>
 
-
         <p class="container margin_60" >
             <div class="main_title" style="background-color: white;">
-                <p>
-                <h2>{{ $specificLesson->terms }}</h2></p>
+{{--                <p>--}}
+{{--                <h2>{{ $specificLesson->terms }}</h2></p>--}}
             </div>
             <div class="specific_lesson">
                 @foreach ($lessonsWithFiles as $lesson)
@@ -24,14 +23,13 @@
                                height="auto"
                                poster="../../../storage/css/site_logo.png"
                                data-setup="{}" style="border-radius: 10px;">
-                               <source src="{{ asset('videos/' . $lesson->lessonFileText) }}" type="video/mp4" />
+                               <source src="{{ asset('videos/19795.mp4') }}" type="video/mp4" />
                                <p class="vjs-no-js" style="border-radius:4px;">
                                    <a href="https://videojs.com/html5-video-support/" target="_blank"
                                    >supports HTML5 video</a>
                                </p>
                            </video>
 
-                           <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
                        </div></center>
                 @endforeach
             </div>
@@ -41,4 +39,3 @@
             </div>
     </main>
 @endsection
-

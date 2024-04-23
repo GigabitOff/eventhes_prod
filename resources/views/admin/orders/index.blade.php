@@ -68,6 +68,7 @@
                                         <th><?php echo e(__('translate.Order date')); ?></th>
                                         <th><?php echo e(__('translate.Amount')); ?></th>
                                         <th><?php echo e(__('translate.Created')); ?></th>
+                                        <th><?php echo e(__('translate.Status')); ?></th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -80,6 +81,11 @@
                                         <td><?php echo e($order->order_date); ?></td>
                                         <td><?php echo e($order->amount); ?></td>
                                         <td><?php echo e($order->created_at); ?></td>
+                                        <td>
+                                            <div class="form-group">
+                                                 <span style="background-color: {{ $order->status === 0 ? 'yellow' : '' }};border-radius: 4px;">{{ $order->status === 0 ? 'No Pay' : ($order->status === 1 ? 'Pay' : ($order->status === 2 ? 'Pending' : ($order->status === 3 ? 'Canceled' : 'Close'))) }}</span>
+                                            </div>
+                                        </td>
                                     </tr>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </tbody>
@@ -105,7 +111,6 @@
                     <li class="page-item"><a class="page-link" href="{{ $orders->url($i) }}">{{ $i }}</a></li>
                 @endif
             @endfor
-
             <!-- Кнопка "Следующий" -->
             @if ($orders->hasMorePages())
                 <li class="page-item"><a class="page-link" href="{{ $orders->nextPageUrl() }}">{{ __('translate.Next') }}</a></li>
