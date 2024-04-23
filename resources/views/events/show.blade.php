@@ -416,12 +416,9 @@
                     </div>
                     <div class="col-lg-3 col-md-4">
                         <div class="tour_container">
+                            <!-- Перенесли вывод переменных из массива $event -->
                             <div class="ribbon_3 popular">
-                                @if($lessonType)
-                                    <div class="ribbon_3 popular">
-                                        <span>-{{ ($lessonType->discount1 ?? 0) + ($lessonType->discount2 ?? 0) }}%</span>
-                                    </div>
-                                @endif
+                                <span>-{{$lessonType->discount1+$lessonType->discount2}}%</span>
                             </div>
                             <div class="img_container">
                                 <img width="90%" height="70%" src="./storage/css/33333.png" alt="Video Lesson">
@@ -439,12 +436,9 @@
                     </div>
                     <div class="col-lg-3 col-md-4">
                     <div class="tour_container">
+                        <!-- Перенесли вывод переменных из массива $event -->
                         <div class="ribbon_3 popular">
-                            @if($lessonType)
-                                <div class="ribbon_3 popular">
-                                    <span>-{{ ($lessonType->discount2 ?? 0) + ($lessonType->discount3 ?? 0) }}%</span>
-                                </div>
-                            @endif
+                            <span>-{{$lessonType->discount2+$lessonType->discount3}}%</span>
                         </div>
                         <div class="img_container">
                             <img width="90%" height="70%" src="./storage/css/11111.png" alt="Video Lesson">
@@ -452,21 +446,20 @@
                                     <span class="price"></span>
                                 </div>
                         </div>
-                        @if($lessonType)
-                            <div class="tour_title">
-                                <h7>Группа 1</h7>
-                                <p><strong>c {{ $lessonType->timeFrom22Group22 ?? '' }} до {{ $lessonType->timeTo22Group22 ?? '' }}</strong></p>
-                                <h7>Группа 2</h7>
-                                <p><strong>c {{ $lessonType->timeFrom33Group33 ?? '' }} до {{ $lessonType->timeTo33Group33 ?? '' }}</strong></p>
-                                <div class="parent-container" style="display: flex; justify-content: flex-end;">
-                                    <div class="rating"></div><!-- end rating -->
-                                </div>
+                        <div class="tour_title">
+                            <h7>Группа 1</h7>
+                            <p><strong>c {{$lessonType->timeFrom22Group22}} до {{$lessonType->timeTo22Group22}}</strong></p>
+                            <h7>Группа 2</h7>
+                            <p><strong>c {{$lessonType->timeFrom33Group33}} до {{$lessonType->timeTo33Group33}}</strong></p>
+                            <div class="parent-container" style="display: flex; justify-content: flex-end;">
+                                <div class="rating"></div><!-- end rating -->
                             </div>
-                        @endif
+                        </div>
                     </div>
                 </div>
                     <div class="col-lg-3 col-md-4">
                         <div class="tour_container">
+                            <!-- Перенесли вывод переменных из массива $event -->
                             <div class="ribbon_3 popular">
                                 <span>-50%</span>
                             </div>
@@ -569,7 +562,7 @@
                         <form name="bookingForm" action="{{ route('orders.store') }}" method="post"
                               class="booking-form">
                             <h3 class="inner">- {{ __('translate.Booking') }} -</h3>
-                            @if ($event->calendar_orders_views == 1)
+                            @if ($event->type_pay == 1)
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
@@ -584,7 +577,6 @@
                                     </div>
                                 </div>
                             </div>
-                            @endif
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
@@ -602,7 +594,6 @@
                                     </div>
                                 </div>
                             </div>
-                            @if ($event->type_pay == 1)
                             <br>
                             <table class="table table_summary" style="margin-top: -20px;">
                                 <tbody>

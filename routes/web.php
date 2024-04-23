@@ -15,17 +15,22 @@ use App\Http\Controllers\Admin\AdminOrderController;
 use App\Http\Controllers\Admin\AdminPaymentController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\VideoController;
 use App\Http\Controllers\Admin\AdminAlertController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Admin\AdminCategoryController;
 
+use App\Http\Controllers\TestController;
+use App\Http\Controllers\DubleController;
 
 Route::get('/lang/{locale}', function ($locale) {
     App::setLocale($locale);
     session()->put('locale', $locale);
     return redirect()->back();
 });
+
+Route::get('/test', [TestController::class, 'index'])->name('index');
+Route::get('/duble', [DubleController::class, 'index'])->name('index');
+
 
 Route::get('/search', [WelcomeController::class, 'search'])->name('search');
 Route::get('/filter', [WelcomeController::class, 'filter'])->name('filter');
@@ -49,9 +54,6 @@ Route::middleware(['auth'])->group(function () {
         return view('restricted_access'); // убедитесь, что у вас есть соответствующее представление
     })->name('restricted.access');
 
-
-
-
 Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
 Route::get('/home', [HomeController::class, 'index']);
 Route::get('/partner', [HomeController::class, 'member'])->name('admin.member');
@@ -70,11 +72,8 @@ Route::post('/admin/payments', [AdminPaymentController::class, 'store'])->name('
 Route::get('/admin/users/all', [AdminUsersController::class, 'index'])->name('admin.users.index');
 Route::get('/admin/users/create', [AdminUsersController::class, 'create'])->name('admin.users.create');
 Route::post('/admin/users', [AdminUsersController::class, 'store'])->name('admin.users.store');
-Route::post('/admin/users.data', [AdminUsersController::class, 'storeData'])->name('admin.users.storeData');
-Route::get('/admin/users/redact/{id}', [AdminUsersController::class, 'redact'])->name('admin.users.redact');
 Route::get('/admin/users/stats', [AdminUsersController::class, 'statistic'])->name('admin.users.statistic');
 Route::delete('/admin/users/destroy/{user}', [AdminUsersController::class, 'destroy'])->name('admin.users.destroy');
-Route::post('/admin/users/destroy/{id}', [AdminUsersController::class, 'destroyUserData'])->name('admin.users.destroyUserData');
 
 Route::get('/admin/shedules/all', [AdminSheduleController::class, 'index'])->name('admin.shedules.index');
 Route::get('/admin/shedules/create', [AdminSheduleController::class, 'create'])->name('admin.shedules.create');
@@ -102,13 +101,12 @@ Route::get('/admin/event/{id}', [AdminEventController::class, 'show'])->name('ad
 Route::get('/admin/events/{event}/edit', [AdminEventController::class, 'edit'])->name('admin.events.edit');
 Route::put('/admin/events/{event}', [AdminEventController::class, 'update'])->name('admin.events.update');
 Route::post('/admin/events/upload-video', [AdminEventController::class, 'uploadVideo'])->name('admin.events.uploadVideo');
-Route::get('/admin/events/{id}/rl/{lesson}', [AdminEventController::class, 'redactLesson'])->name('admin.events.redactLesson');
-Route::post('/admin/events/{id}/rl/{lesson}/update', [AdminEventController::class, 'redactLessonUpdate'])->name('admin.events.redactLessonUpdate');
+    Route::get('/admin/events/{id}/rl/{lesson}', [AdminEventController::class, 'redactLesson'])->name('admin.events.redactLesson');
+    Route::post('/admin/events/{id}/rl/{lesson}/update', [AdminEventController::class, 'redactLessonUpdate'])->name('admin.events.redactLessonUpdate');
 
 Route::get('/category/{category}', [AdminCategoryController::class, 'getCategoryView']);
 Route::post('/admin/category/fetch-subcategory', [AdminCategoryController::class, 'fetchSubcategory']);
 });
-
 Route::get('/all', [EventController::class, 'all'])->name('events.all');
 Route::get('/events', [EventController::class, 'index'])->name('events.index');
 Route::post('/events', [EventController::class, 'store'])->name('events.store');

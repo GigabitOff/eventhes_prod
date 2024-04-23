@@ -8,10 +8,10 @@ class TestController extends Controller
     public $age = '20';
     public $hobby = 'swim';
 
-//   public function __construct($ret)
-//    {
-//        $this->name = $ret;
-//    }
+   public function __construct($ret)
+    {
+        $this->name = $ret;
+    }
 
     public function setName($name){
         $this->name = $name;

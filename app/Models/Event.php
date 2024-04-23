@@ -38,7 +38,6 @@ class Event extends Model
         return $this->hasOne(Shedule::class);
     }
 
-    // В модели Event
     public function lessonType()
     {
         return $this->hasOne(LessonType::class, 'events_id', 'id');
