@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Event;
-use App\Models\Region;
 use App\Models\Timework;
 use App\Models\User;
 use App\Models\Lesson;
@@ -19,7 +18,8 @@ use App\Models\Statistic;
 use App\Models\PortfolioFoto;
 use Illuminate\Support\Facades\DB;
 use App\Models\LessonFile;
-use App\Models\Town;
+use App\Models\Category;
+use App\Models\Subcategory;
 
 
 class AdminEventController extends Controller
@@ -132,10 +132,8 @@ class AdminEventController extends Controller
 
         return view('admin.events.lesson', compact('admins', 'currentAdmin', 'event', 'events', 'schedules', 'sheduleRes'));
     }
-
     public function storeLesson(Request $request)
     {
-
         $user = Auth::user();
         if (!$user) {
             return redirect()->route('login');
@@ -150,7 +148,6 @@ class AdminEventController extends Controller
 
         return redirect()->route('admin.events.index')->with('success', 'Event created successfully');
     }
-
     public function lessonSaveData(Request $request)
     {
 
@@ -179,6 +176,7 @@ class AdminEventController extends Controller
                 $event->foto_title = 'default_name.jpg'; // Или другое значение по умолчанию
             }
 
+            // Оставшаяся часть кода без изменений...
             $event->updated_at = now();
             $event->created_at = now();
             $additional_fields = json_decode($request->additional_fields);
@@ -189,7 +187,6 @@ class AdminEventController extends Controller
         return redirect()->route('admin.events.lesson', ['id' => $event->events_id])->with('success', 'Event created successfully');
 
     }
-
     public function uploadVideo(Request $request)
     {
         $user = Auth::user();
@@ -222,15 +219,6 @@ class AdminEventController extends Controller
         ]);
     }
 
-    public function searchTown($number){
-
-        $crimeaRegionCode = $number; // первые две цифры
-
-        $citiesOfCrimea = Town::where('code', 'like', $crimeaRegionCode . '%')->get();
-
-        return $citiesOfCrimea;
-    }
-
     public function create()
     {
         $currentAdmin = auth()->user();
@@ -239,20 +227,12 @@ class AdminEventController extends Controller
         $events = Event::all();
         $scheduleExists = Shedule::where('user_id', $user->id)->where('status', 0)->exists();
         $sheduleRes = $scheduleExists ? 1 : 0;
-        $regions = Region::take(100)->get();
-
-        $cities = [];
-        if ($regions->isNotEmpty()) {
-            $firstRegion = $regions->first();
-            $cities = $firstRegion->towns;
-        }
-
         $schedules = [];
         foreach ($admins as $admin) {
             $schedules[$admin->id] = Shedule::where('user_id', $admin->id)->where('status', 0)->get();
         }
 
-        return view('admin.events.create', compact('admins', 'currentAdmin', 'regions', 'events', 'schedules', 'sheduleRes'));
+        return view('admin.events.create', compact('admins', 'currentAdmin', 'events', 'schedules', 'sheduleRes'));
     }
     function generateSlug($string)
     {
@@ -296,7 +276,8 @@ class AdminEventController extends Controller
         $event->user_id = $user->id;
         $event->title = $request->title;
         $event->category = $request->category;
-        $event->town = $request->town;
+        $event->cours = $request->cours;
+        $event->sub_cours = $request->sub_cours;
         $event->data_create_order = '';
         $event->description = $request->input('description');
         $event->slug = $this->generateSlug($request->title);
@@ -343,7 +324,6 @@ class AdminEventController extends Controller
             $image->move(public_path($path), $uniqueFilename);
         }
     }
-
     protected function processAllFotos($allFotos, $user, $eventId)
     {
         if ($allFotos) {
@@ -374,6 +354,8 @@ class AdminEventController extends Controller
         $currentAdmin = auth()->user();
         $admins = User::where('role_id', 1)->get();
         $event = Event::findOrFail($id);
+        $cours = Category::findOrFail($event->cours);
+        $subcategory = Subcategory::findOrFail($event->sub_cours);
 
         $qrOptions = new QROptions([
             'outputType' => QRCode::OUTPUT_IMAGE_PNG,
@@ -410,9 +392,8 @@ class AdminEventController extends Controller
             ->orderBy('updated_at', 'desc')
             ->first();
 
-        return view('admin.events.edit', compact('admins','lessonType', 'lessonTitles', 'event', 'currentAdmin', 'qrCodeData', 'schedule', 'latestFotosString'));
+        return view('admin.events.edit', compact('admins','lessonType', 'cours', 'subcategory','lessonTitles', 'event', 'currentAdmin', 'qrCodeData', 'schedule', 'latestFotosString'));
     }
-
     public function redactLessonUpdate($id)
     {
         $currentAdmin = auth()->user();
@@ -422,7 +403,6 @@ class AdminEventController extends Controller
 
         redirect()->route('admin.events.redactLesson', compact('id','lesson'));
     }
-
     public function redactLesson($id,$lesson)
     {
         $currentAdmin = auth()->user();
@@ -434,7 +414,6 @@ class AdminEventController extends Controller
 
     public function update(Request $request, $id)
     {
-
         $currentAdmin = auth()->user();
         $event = Event::findOrFail($id);
         if ($request->has('description')) {
@@ -447,6 +426,7 @@ class AdminEventController extends Controller
         $event->type_pay = $request->input('type_pay');
         $event->online = $request->input('online');
         $event->discounte = $request->input('discount');
+        $event->calendar_orders_views = $request->first('calendar_off_on') ? 1 : 0;
 
         $event->social_show_facebook = $request->input('social_show_facebook', '');
         $event->social_show_instagram = $request->input('social_show_instagram', '');

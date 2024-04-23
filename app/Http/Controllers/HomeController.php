@@ -62,8 +62,7 @@ class HomeController extends Controller
     {
 
         $user = Auth::user();
-        $orders = Order::where('email', $user->email)->with('event')->get();
-
+        $orders = Order::where('email', $user->email)->get();
         $uuidValue = $request->session()->get('uuid');
 
             Like::updateOrCreate(
@@ -115,7 +114,7 @@ class HomeController extends Controller
         $currentLocale = session('locale', config('app.locale'));
         App::setLocale($currentLocale);
 
-        $lessonRecords = Lesson::where('events_id', $id)->where('lesson_chapter', 0)->get();
+        $lessonRecords = Lesson::where('events_id', $id)->get();
 
         if (!$lessonRecords) {
             return redirect()->back()->withErrors('Lesson not found.');
@@ -139,40 +138,26 @@ class HomeController extends Controller
         $currentLocale = session('locale', config('app.locale'));
         App::setLocale($currentLocale);
 
-        $specificLesson = Lesson::where('events_id', $id)->first();
+        $specificLesson = Lesson::where('events_id', $id)->where('lesson_chapter', 0)->first();
 
-        if (!$specificLesson) {
-            return redirect()->back()->withErrors('Specific lesson not found.');
-        }
+        $lessonsWithFiles = Lesson::where('lesson_id', $lesson_id)->get();
 
-        $lessonRecords = Lesson::where('events_id', $id)->get();
+//        $lessonsWithFiles = DB::table('lesson')
+//            ->join('lesson_files', 'lesson.lesson_id', '=', 'lesson_files.lesson_id')
+//            ->select('lesson.*', 'lesson_files.text as lessonFileText')
+//            ->where('lesson.lesson_id', $lesson_id)
+//            ->get();
 
-        if (!$lessonRecords) {
-              return redirect()->back()->withErrors('Lesson not found.');
-        }
 
-        $lessonRecords = Lesson::where('events_id', $id)->get();
-        $lessonFiles = LessonFile::where('events_id', $id)
-            ->where('lesson_chapter', $specificLesson->lesson_chapter)
-            ->get();
 
-        $lessonsWithFiles = DB::table('lesson')
-            ->leftJoin('lesson_files', function ($join) use ($id) {
-                $join->on('lesson.events_id', '=', 'lesson_files.events_id')
-                    ->on('lesson.lesson_chapter', '=', 'lesson_files.lesson_chapter')
-                    ->where('lesson.events_id', '=', $id);
-            })
-            ->select('lesson.*', 'lesson_files.text as lessonFileText')
-            ->get();
 
         return view('open_lesson', [
             'showTestRecord' => true,
             'specificLesson' => $specificLesson,
             'lessonsWithFiles' => $lessonsWithFiles,
-            'lessonFiles' => $lessonFiles,
+
             'currentLocale' => $currentLocale,
             'orders' => $orders,
-            'lessonRecords' => $lessonRecords
         ]);
     }
 

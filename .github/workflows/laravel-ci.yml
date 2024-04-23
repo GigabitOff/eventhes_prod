@@ -1,0 +1,25 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install SSH key
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: |
+            ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDlr6ryNy/A4yG41Iu3gRqXXJy/cY+62dYOn2qubpHj204iqwpmNsSFkLxGnc32JTOpCShDVMguUjViLDCEB2XFgNfGijGMhF+eqJhSytaSdXw7nwapkc37F4QgOJ1ZRQtDcXq2szkd3fO7P5/ohkovb/gS6nlhE4WMuPPrCx1IsUsQ1VloVoQw0V26eoaLEYRkOeFtG4upeNKW+FiSFtGfyZkDRSw0q1Angny/rbSwQEGf6oT+iarOQWQ7+hhcWYTh1Wx4O4FPcpAPLHbtBc63hsJ7Kcc07iGxekpK/37Fetj6iMi0BRt0U7msF/n6h5+v1ZSFSd1FPvriGDIzs5jy/yRXmkG8DQ3muB2TIj/kI930Mz7KU3jPA4BT8sfbGnYwdNxWmYw1N2Otxy/BDRx6w5VCFSvpuQmG4sss0WwAWnSTPSHyyfO1beteTeg7Nr98u5QLT9K7haTMk2m036hFyFCCoeO7L6qgilKoI5JR14nMIIKW9YLhJ2dVOFssHsm6Ck28+ZEVXLsjYHCqr8Xxaz1Cl7GOA8H6lcVgPQdWJoG6hhoVLwIFaGQnBlOBI2HeDnh3Qfjt7R9bVz3IO/o+NUQ/DRXXDwzki+PmxFrc1tRyymls64JRYHPe45XU7sav/DnmuGPNiovT72hNDzaSUDzOIGJ6SjXd3V8544Yx6Q== itsystems571@gmail.com
+
+
+      - name: Copy files to server
+        run: scp -r /home/admin/domains/eventhes.com/public_html admin@88.218.28.99:/home/admin/domains/eventhes.com/public_html
+

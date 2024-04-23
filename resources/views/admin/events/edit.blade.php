@@ -73,11 +73,22 @@
                         <div class="card-header">
                             <label for="type_pay">{{ __('translate.Category') }}</label>
                             <select name="category" id="category" class="form-control" disabled >
-                                <option value="3" {{ $event->category == "3" ? 'selected' : '' }}>{{ __('translate.Work') }}</option>
-                                <option value="2" {{ $event->category == "2" ? 'selected' : '' }}>{{ __('translate.Event') }}</option>
-                                <option value="1" {{ $event->category == "1" ? 'selected' : '' }}>{{ __('translate.Service') }}</option>
-                                <option value="0" {{ $event->category == "0" ? 'selected' : '' }}>{{ __('translate.Courses') }}</option>
+{{--                                <option value="3" {{ $event->category == "3" ? 'selected' : '' }}>{{ __('translate.Work') }}</option>--}}
+{{--                               --}}
+                                <option value="3" {{ $event->category == "3" ? 'selected' : '' }}>{{ __('translate.Event') }}</option>
+{{--                                <option value="1" {{ $event->category == "1" ? 'selected' : '' }}>{{ __('translate.Service') }}</option>--}}
+{{--                              --}}
+                                <option value="1" {{ $event->category == "1" ? 'selected' : '' }}>{{ __('translate.Courses') }}</option>
                             </select>
+                            <br>
+                            <div class="form-group">
+                                <label for="title">{{ __('translate.Category name') }}</label>
+                                <input type="text"  class="form-control" value="{{$cours->title}}" disabled >
+                            </div>
+                            <div class="form-group">
+                                <label for="title">{{ __('translate.Subcategory name') }}</label>
+                                <input type="text"  class="form-control" value="{{$subcategory->title}}" disabled >
+                            </div>
                             <div class="form-group">
                                  <label for="title">{{ __('translate.Title') }}</label>
                                  <input type="text" name="title" id="title" class="form-control" value="{{$event->title}}" disabled >
@@ -89,6 +100,13 @@
                             <div class="form-group">
                                 <label for="shedule_id">{{ __('translate.Shedule') }}</label>
                                 <input type="text" name="shedule_id" id="shedule_id" class="form-control" value="{{$schedule->reserv}}" disabled >
+                            </div>
+                            <div class="form-group">
+                                <label for="calendar_off_on">{{ __('translate.Calendar for orders') }}</label>
+                                <select name="calendar_off_on" class="form-control">
+                                    <option value="0" {{ $event->calendar_orders_views == 0 ? 'selected' : '' }}>No</option>
+                                    <option value="1" {{ $event->calendar_orders_views == 1 ? 'selected' : '' }}>Yes</option>
+                                </select>
                             </div>
                             <div class="form-group" style="display: none;">
                                 <label for="foto_folder_id">{{ __('translate.Foto num') }}</label>
@@ -231,13 +249,13 @@
                             <div class="form-group">
                                 <label for="foto_title"><a href="#" >All lesson</a></label>
                             </div>
-                            @if($event->category == "0")
+{{--                            @if($event->category == "0")--}}
                                 <div class="form-group">
                                     <label for="title">
                                         <a href="/admin/events/lesson/{{$event->id}}" type="submit" value="Create add Urok" class="btn btn-success float-right">+ Урок</a>
                                     </label>
                                 </div>
-                            @endif
+{{--                            @endif--}}
                             <style>
                                 .lesson-list {
                                     border: 1px solid rgba(0, 0, 0, 0.2); /* Черная рамка */

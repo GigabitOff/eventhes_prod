@@ -131,7 +131,7 @@
                                                     </i> Dashboard
                                                 </a>
                                             @else
-                                                <a href="/client">
+                                                <a href="/partner">
                                                     <i>
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                              fill="currentColor" class="bi bi-speedometer2"
@@ -207,14 +207,14 @@
                                         Dashboard
                                     </a>
                                 @else
-                                    <a class="nav-link"  href="/client" target="_self">
+                                    <a class="nav-link"  href="/partner" target="_self">
                                         Dashboard
                                     </a>
                                 @endif
                             @endguest
                         </div>
                         <li class="nav-item active">
-                            <a class="nav-link" href="/client" target="_self">
+                            <a class="nav-link" href="/partner" target="_self">
                                 <i aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door" viewBox="0 0 16 16">
                                         <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z"/>
                                     </svg></i>  {{ __('translate.Home') }}
@@ -316,67 +316,6 @@
     <div class="container margin_60" style="padding-top: 16px; padding-bottom: 16px;">
         <div class="main_title">
             <h2>
-                <span>Service</span></h2>
-            <p></p>
-        </div>
-        <div class="row">
-            @foreach($services as $service)
-                <div class="col-lg-4 col-md-6 wow zoomIn" data-wow-delay="0.1s">
-                    <div class="tour_container">
-                        <div class="ribbon_3 popular">
-                            <span>{{ $service->discounte ? '- ' . $service->discounte . '%' : 'FREE' }}</span>
-                        </div>
-                        <div class="img_container">
-                            <a href="/{{$service->id}}">
-                                <img src="{{ asset('files/' . $service->user_id . '/' . $service->foto_title) }}"
-                                     width="90%" height="90" class="img-fluid" alt="Image">
-                                <div class="short_info">
-                                    <i></i>{{$service->reserv}}<span
-                                        class="price">@if ($service->amount == 0 || $service->discounte === null)
-                                            FREE
-                                        @else
-                                            @php
-                                                $discountedAmount = $service->amount - ($service->amount * $service->discounte / 100);
-                                            @endphp
-                                            <span style="color:#989fa6;font-size: smaller; text-decoration: line-through;">{{ number_format($service->amount, 2) }}$</span>
-                                            {{ number_format($discountedAmount, 2) }}$
-                                        @endif
-</span>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="tour_title">
-                            <h3>
-                                <strong>{{$service->title}}</strong></h3>
-                            <div class="parent-container" style="display: flex; justify-content: flex-end;">
-                                <div class="rating">
-                                    <i  style="font-size: 30px;  cursor: pointer;"
-                                        onclick="likeButtonClicked({{ $service->id }});"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
-                                        </svg></i>
-                                </div><!-- end rating -->
-                            </div>
-                            <a href="/{{$service->id}}" style="text-decoration: none;" class="btn_1" target="_blank">{{ __('translate.Details') }}</a>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-        </div><!-- End row -->
-        <p class="text-center nopadding">
-            <a href="/all" class="btn_1 medium" style="text-decoration: none;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye"
-                     viewBox="0 0 16 16">
-                    <path
-                        d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
-                    <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
-                </svg>
-                {{ __('translate.View all') }} ({{ count($eventsall) }})
-            </a>
-        </p>
-    </div>
-    <div class="container margin_60" style="padding-top: 1px; padding-bottom: 1px;">
-        <div class="main_title">
-            <h2>
                 <span>Courses</span></h2>
             <p></p>
         </div>
@@ -435,6 +374,69 @@
             </a>
         </p>
     </div>
+    @if(empty($services))
+    <div class="container margin_60" style="padding-top: 16px; padding-bottom: 16px;">
+        <div class="main_title">
+            <h2>
+                <span>Service</span></h2>
+            <p></p>
+        </div>
+        <div class="row">
+            @foreach($services as $service)
+                <div class="col-lg-4 col-md-6 wow zoomIn" data-wow-delay="0.1s">
+                    <div class="tour_container">
+                        <div class="ribbon_3 popular">
+                            <span>{{ $service->discounte ? '- ' . $service->discounte . '%' : 'FREE' }}</span>
+                        </div>
+                        <div class="img_container">
+                            <a href="/{{$service->id}}">
+                                <img src="{{ asset('files/' . $service->user_id . '/' . $service->foto_title) }}"
+                                     width="90%" height="90" class="img-fluid" alt="Image">
+                                <div class="short_info">
+                                    <i></i>{{$service->reserv}}<span
+                                        class="price">@if ($service->amount == 0 || $service->discounte === null)
+                                            FREE
+                                        @else
+                                            @php
+                                                $discountedAmount = $service->amount - ($service->amount * $service->discounte / 100);
+                                            @endphp
+                                            <span style="color:#989fa6;font-size: smaller; text-decoration: line-through;">{{ number_format($service->amount, 2) }}$</span>
+                                            {{ number_format($discountedAmount, 2) }}$
+                                        @endif
+</span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="tour_title">
+                            <h3>
+                                <strong>{{$service->title}}</strong></h3>
+                            <div class="parent-container" style="display: flex; justify-content: flex-end;">
+                                <div class="rating">
+                                    <i  style="font-size: 30px;  cursor: pointer;"
+                                        onclick="likeButtonClicked({{ $service->id }});"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
+                                        </svg></i>
+                                </div><!-- end rating -->
+                            </div>
+                            <a href="/{{$service->id}}" style="text-decoration: none;" class="btn_1" target="_blank">{{ __('translate.Details') }}</a>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div><!-- End row -->
+        <p class="text-center nopadding">
+            <a href="/all" class="btn_1 medium" style="text-decoration: none;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye"
+                     viewBox="0 0 16 16">
+                    <path
+                        d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
+                    <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+                </svg>
+                {{ __('translate.View all') }} ({{ count($eventsall) }})
+            </a>
+        </p>
+    </div>
+    @endif
     <div class="container margin_60" style="padding-top: 16px; padding-bottom: 16px;">
         <div class="main_title">
             <h2>
@@ -473,7 +475,7 @@
                             <div class="parent-container" style="display: flex; justify-content: flex-end;">
                                 <div class="rating">
                                     <i  style="font-size: 30px;  cursor: pointer;"
-                                       onclick="likeButtonClicked({{ $course->id }});"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                                        onclick="likeButtonClicked({{ $course->id }});"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
                                             <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
                                         </svg></i>
                                 </div><!-- end rating -->
@@ -499,7 +501,7 @@
     <div class="white_bg">
         <div class="container margin_60">
             <div class="main_title">
-                <h2> <h2 class="section-title">Найліпший сервіс <span>Знижок та Бонусів</span> за реферали !</h2> </div></h2>
+                <h2><span>{{ __('translate.popular') }}</span></h2></div>
             <div class="row d-flex justify-content-center add_bottom_45">
                 <div class="col-lg-6  other_tours" style="display: grid">
                     <ul>
@@ -523,54 +525,41 @@
             </div>
             <!-- End row -->
             <div class="banner colored">
-                <div class="container">
-                    <div class="row">
-                    <div class="block87__content">
-                        <div class="row">
-                            <div class="col-12">
-                                <h4><span>Отримуйте бонуси з Eventhes</span></h4>
-                                <p>Eventhes - інноваційний сервіс накопичення бонусів, який пропонує широкий спектр послуг для вашого сайту. Ми вже більше 22 років працюємо на ринку IT, надаючи найвищу якість обслуговування для сотень тисяч клієнтів.</p>
-                                <p>Приєднуйтесь до Eventhes та отримуйте бонуси за кожного реферала, який перейде за вашим посиланням. Наша програма лояльності - це шлях до додаткових переваг і винагород за ваші дії.</p>
-                                <p>Реєстрація в програмі проста та швидка. Отримайте ваш унікальний ідентифікатор і почніть отримувати бонуси за кожен перехід. Наша дружня команда завжди готова вам допомогти та відповісти на всі питання.</p>
-                                <h4><span>Приєднуйтесь до Eventhes сьогодні та отримуйте бонуси!</span></h4>
-                                <p>Зареєструйтесь в програмі Eventhes зараз та отримуйте бонуси за кожен реферальний перехід. Наш сервіс - це ваш найкращий помічник для успішного інтернет-бізнесу.</p>
-                                <h4><span>Максимальна продуктивність для вашого сайту</span></h4>
-                                <p>Eventhes використовує передові технології, щоб забезпечити максимальну продуктивність вашого сайту. Приєднуйтесь до нас сьогодні та отримуйте бонуси за кожен перехід.</p>
-                                <h4><span>Зареєструйтеся зараз та отримуйте бонуси з Eventhes</span></h4>
-                                <p>Накапливайте БОНУСЫ вместе с нами и используйте их вместе с нами !</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <h4>
+                    {{ __('translate.Post an events') }}</h4>
+                <p>
+                    {{ __('translate.We have best events!') }}
+                </p>
+                <a href="/home" class="btn_1 white">{{ __('translate.Post') }}</a>
             </div>
-            </div>
-            <div class="row">
 
+            <div class="row">
+                <div class="row">
                     <div class="col-lg-3 col-md-6 text-center">
-                        <h4><span>{{ __('translate.Site views payout for') }}</span>{{ __('translate.events_for_user') }}</h4>
+                        <h4><span>{{ __('translate.Site views payout for') }}</span>{{ __('translate.events') }}</h4>
                         <p>
                             {{ __('translate.all_text_1') }}
                         </p>
                     </div>
                     <div class="col-lg-3 col-md-6 text-center">
-                        <h4><span>{{ __('translate.Site views payout for') }} </span>{{ __('translate.events_for_partner') }}</h4>
+                        <h4><span>{{ __('translate.Quick registration for') }} </span>{{ __('translate.events') }}</h4>
                         <p>
                             {{ __('translate.all_text_2') }}
                         </p>
                     </div>
                     <div class="col-lg-3 col-md-6 text-center">
-                        <h4><span>{{ __('translate._3') }}</span> {{ __('translate._4') }}</h4>
+                        <h4><span>Instant payouts for</span> {{ __('translate.events') }}</h4>
                         <p>
                             {{ __('translate.all_text_3') }}
                         </p>
                     </div>
                     <div class="col-lg-3 col-md-6 text-center">
-                        <h4><span>{{ __('translate._6') }} {{ __('translate._7') }} </span> {{ __('translate._8') }}</h4>
+                        <h4><span>Worldwide payouts for</span> {{ __('translate.events') }}</h4>
                         <p>
                             {{ __('translate.all_text_4') }}
                         </p>
                     </div>
-
+                </div>
             </div>
         </div>
         <style>
@@ -585,8 +574,6 @@
             <div class="promo_full_wp magnific">
                 <div class="video-background">
                     <div class="content">
-                        <h3>{{ __('translate.BONUS ANYWHERE') }} </h3>
-                        <h3>{{ __('translate.CLIENTS ANYWHERE') }} </h3>
                         <h3>{{ __('translate.BELONG ANYWHERE') }} </h3>
                     </div>
                 </div>
@@ -642,6 +629,7 @@
                         <li><span>5</span>{{ __('translate.Safe and fast payment system') }}</li>
                         <li><span>6</span>{{ __('translate.Instant payouts') }}</li>
                     </ul>
+                    <a href="http://eventhes.com/tours" style="text-decoration: none;" class="btn_1">{{ __('translate.Get Started') }}</a>
                 </div>
             </div>
         </div>

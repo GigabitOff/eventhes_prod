@@ -1,7 +1,7 @@
 
 @extends('layouts.filter')
 @section('content')
-    <div class="container" style="margin-top: -55px;">
+    <div class="container" style="margin-top: 75px;">
         <div class="row justify-content-center">
             <div class="container margin_60">
                     <div class="row">
