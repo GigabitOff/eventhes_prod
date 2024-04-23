@@ -18,8 +18,6 @@ use App\Models\Statistic;
 use App\Models\PortfolioFoto;
 use Illuminate\Support\Facades\DB;
 use App\Models\LessonFile;
-use App\Models\Category;
-use App\Models\Subcategory;
 
 
 class AdminEventController extends Controller
@@ -134,6 +132,7 @@ class AdminEventController extends Controller
     }
     public function storeLesson(Request $request)
     {
+
         $user = Auth::user();
         if (!$user) {
             return redirect()->route('login');
@@ -176,7 +175,6 @@ class AdminEventController extends Controller
                 $event->foto_title = 'default_name.jpg'; // Или другое значение по умолчанию
             }
 
-            // Оставшаяся часть кода без изменений...
             $event->updated_at = now();
             $event->created_at = now();
             $additional_fields = json_decode($request->additional_fields);
@@ -276,8 +274,6 @@ class AdminEventController extends Controller
         $event->user_id = $user->id;
         $event->title = $request->title;
         $event->category = $request->category;
-        $event->cours = $request->cours;
-        $event->sub_cours = $request->sub_cours;
         $event->data_create_order = '';
         $event->description = $request->input('description');
         $event->slug = $this->generateSlug($request->title);
@@ -354,8 +350,6 @@ class AdminEventController extends Controller
         $currentAdmin = auth()->user();
         $admins = User::where('role_id', 1)->get();
         $event = Event::findOrFail($id);
-        $cours = Category::findOrFail($event->cours);
-        $subcategory = Subcategory::findOrFail($event->sub_cours);
 
         $qrOptions = new QROptions([
             'outputType' => QRCode::OUTPUT_IMAGE_PNG,
@@ -392,7 +386,7 @@ class AdminEventController extends Controller
             ->orderBy('updated_at', 'desc')
             ->first();
 
-        return view('admin.events.edit', compact('admins','lessonType', 'cours', 'subcategory','lessonTitles', 'event', 'currentAdmin', 'qrCodeData', 'schedule', 'latestFotosString'));
+        return view('admin.events.edit', compact('admins','lessonType', 'lessonTitles', 'event', 'currentAdmin', 'qrCodeData', 'schedule', 'latestFotosString'));
     }
     public function redactLessonUpdate($id)
     {
@@ -414,6 +408,7 @@ class AdminEventController extends Controller
 
     public function update(Request $request, $id)
     {
+
         $currentAdmin = auth()->user();
         $event = Event::findOrFail($id);
         if ($request->has('description')) {
@@ -426,7 +421,6 @@ class AdminEventController extends Controller
         $event->type_pay = $request->input('type_pay');
         $event->online = $request->input('online');
         $event->discounte = $request->input('discount');
-        $event->calendar_orders_views = $request->first('calendar_off_on') ? 1 : 0;
 
         $event->social_show_facebook = $request->input('social_show_facebook', '');
         $event->social_show_instagram = $request->input('social_show_instagram', '');

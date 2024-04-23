@@ -316,68 +316,6 @@
     <div class="container margin_60" style="padding-top: 16px; padding-bottom: 16px;">
         <div class="main_title">
             <h2>
-                <span>Courses</span></h2>
-            <p></p>
-        </div>
-        <div class="row">
-            @foreach($events as $event)
-                <div class="col-lg-4 col-md-6 wow zoomIn" data-wow-delay="0.1s">
-                    <div class="tour_container">
-                        <div class="ribbon_3 popular">
-                            <span>{{ $event->discounte ? '- ' . $event->discounte . '%' : 'FREE' }}</span>
-                        </div>
-                        <div class="img_container">
-                            <a href="/{{$event->id}}">
-                                <img src="{{ asset('files/' . $event->user_id . '/' . $event->foto_title) }}"
-                                     width="90%" height="90" class="img-fluid" alt="Image">
-                                <div class="short_info">
-                                    <i></i>{{$event->reserv}}<span
-                                        class="price">@if ($event->amount == 0 || $event->discounte === null)
-                                            FREE
-                                        @else
-                                            @php
-                                                $discountedAmount = $event->amount - ($event->amount * $event->discounte / 100);
-                                            @endphp
-                                            <span style="color:#989fa6;font-size: smaller; text-decoration: line-through;">{{ number_format($event->amount, 2) }}$</span>
-                                            {{ number_format($discountedAmount, 2) }}$
-                                        @endif
-</span>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="tour_title">
-                            <h3>
-                                <strong>{{$event->title}}</strong></h3>
-                            <div class="parent-container" style="display: flex; justify-content: flex-end;">
-                                <div class="rating">
-                                    <i  style="font-size: 30px;  cursor: pointer;"
-                                        onclick="likeButtonClicked({{ $event->id }});"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
-                                        </svg></i>
-                                </div><!-- end rating -->
-                            </div>
-                            <a href="/{{$event->id}}" style="text-decoration: none;" class="btn_1" target="_blank">{{ __('translate.Details') }}</a>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-        </div><!-- End row -->
-        <p class="text-center nopadding">
-            <a href="/all" class="btn_1 medium" style="text-decoration: none;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye"
-                     viewBox="0 0 16 16">
-                    <path
-                        d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
-                    <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
-                </svg>
-                {{ __('translate.View all') }} ({{ count($eventsall) }})
-            </a>
-        </p>
-    </div>
-    @if(empty($services))
-    <div class="container margin_60" style="padding-top: 16px; padding-bottom: 16px;">
-        <div class="main_title">
-            <h2>
                 <span>Service</span></h2>
             <p></p>
         </div>
@@ -436,7 +374,67 @@
             </a>
         </p>
     </div>
-    @endif
+    <div class="container margin_60" style="padding-top: 16px; padding-bottom: 16px;">
+        <div class="main_title">
+            <h2>
+                <span>Courses</span></h2>
+            <p></p>
+        </div>
+        <div class="row">
+            @foreach($events as $event)
+                <div class="col-lg-4 col-md-6 wow zoomIn" data-wow-delay="0.1s">
+                    <div class="tour_container">
+                        <div class="ribbon_3 popular">
+                            <span>{{ $event->discounte ? '- ' . $event->discounte . '%' : 'FREE' }}</span>
+                        </div>
+                        <div class="img_container">
+                            <a href="/{{$event->id}}">
+                                <img src="{{ asset('files/' . $event->user_id . '/' . $event->foto_title) }}"
+                                     width="90%" height="90" class="img-fluid" alt="Image">
+                                <div class="short_info">
+                                    <i></i>{{$event->reserv}}<span
+                                        class="price">@if ($event->amount == 0 || $event->discounte === null)
+                                            FREE
+                                        @else
+                                            @php
+                                                $discountedAmount = $event->amount - ($event->amount * $event->discounte / 100);
+                                            @endphp
+                                            <span style="color:#989fa6;font-size: smaller; text-decoration: line-through;">{{ number_format($event->amount, 2) }}$</span>
+                                            {{ number_format($discountedAmount, 2) }}$
+                                        @endif
+</span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="tour_title">
+                            <h3>
+                                <strong>{{$event->title}}</strong></h3>
+                            <div class="parent-container" style="display: flex; justify-content: flex-end;">
+                                <div class="rating">
+                                    <i  style="font-size: 30px;  cursor: pointer;"
+                                        onclick="likeButtonClicked({{ $event->id }});"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
+                                        </svg></i>
+                                </div><!-- end rating -->
+                            </div>
+                            <a href="/{{$event->id}}" style="text-decoration: none;" class="btn_1" target="_blank">{{ __('translate.Details') }}</a>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div><!-- End row -->
+        <p class="text-center nopadding">
+            <a href="/all" class="btn_1 medium" style="text-decoration: none;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye"
+                     viewBox="0 0 16 16">
+                    <path
+                        d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
+                    <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+                </svg>
+                {{ __('translate.View all') }} ({{ count($eventsall) }})
+            </a>
+        </p>
+    </div>
     <div class="container margin_60" style="padding-top: 16px; padding-bottom: 16px;">
         <div class="main_title">
             <h2>
@@ -475,7 +473,7 @@
                             <div class="parent-container" style="display: flex; justify-content: flex-end;">
                                 <div class="rating">
                                     <i  style="font-size: 30px;  cursor: pointer;"
-                                        onclick="likeButtonClicked({{ $course->id }});"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                                       onclick="likeButtonClicked({{ $course->id }});"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
                                             <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
                                         </svg></i>
                                 </div><!-- end rating -->

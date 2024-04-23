@@ -33,43 +33,22 @@
                                         <select  class="form-control" name="category" id="category">
                                             <option value="">Все</option>
                                             <option value="3">События</option>
-                                            <option value="1">Курсы</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="collapse show" >
-                                    <div class="filter_type">
-                                        <label for="category">Выберите подкатегорию:</label>
-                                        <select  class="form-control" name="category" id="category">
-                                            <option value="">Все</option>
-                                            <option value="3">События</option>
-                                            {{--                                            <option value="2">Услуги</option>--}}
-                                            <option value="1">Курсы</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="collapse show" >
-                                    <div class="filter_type">
-                                        <label for="category">Выберите субкатегорию:</label>
-                                        <select  class="form-control" name="category" id="category">
-                                            <option value="">Все</option>
-                                            <option value="3">События</option>
-                                            {{--                                            <option value="2">Услуги</option>--}}
+                                            <option value="2">Услуги</option>
                                             <option value="1">Курсы</option>
                                         </select>
                                     </div>
                                 </div>
                                 <span>&nbsp;</span>
-{{--                                <div class="collapse show" >--}}
-{{--                                    <div class="filter_type">--}}
-{{--                                        <label for="category">Выберите область:</label>--}}
-{{--                                        <select class="form-control" id="regionSelect" onchange="regionSet(this.value)">--}}
-{{--                                            @foreach ($regions as $region)--}}
-{{--                                                <option value="{{ $region->code }}">{{ $region->name }}</option>--}}
-{{--                                            @endforeach--}}
-{{--                                        </select>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
+                                <div class="collapse show" >
+                                    <div class="filter_type">
+                                        <label for="category">Выберите область:</label>
+                                        <select class="form-control" id="regionSelect" onchange="regionSet(this.value)">
+                                            @foreach ($regions as $region)
+                                                <option value="{{ $region->code }}">{{ $region->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
                                 <span>&nbsp;</span>
                                 <div class="collapse show" >
                                     <div class="filter_type">

@@ -106,14 +106,17 @@
                             @foreach($ordersdata as $ord)
                                 <div class="col-lg-4 col-md-6 wow zoomIn" data-wow-delay="0.1s">
                                     <div class="tour_container">
+                                        <!-- Перенесли вывод переменных из массива $event -->
                                         <div class="ribbon_3 popular">
                                             <span>{{ $event->discounte ? '- ' . $event->discounte . '%' : 'FREE' }}</span>
                                         </div>
                                         <div class="img_container">
                                             <a href="/open/{{$ord->id}}" target="_blank">
+                                                <!-- Использовали динамические данные из $event -->
                                                 <img src="{{ asset('files/' . $ord->user_id . '/' . $ord->foto_title) }}"
                                                      width="800" height="533" class="img-fluid" alt="Image">
                                                 <div class="short_info">
+                                                    <!-- Использовали динамические данные из $event -->
                                                     <i></i>{{$ord->reserv}}<span class="price">@if ($event->amount == 0 || $event->discounte === null)
                                                                 FREE
                                                             @else
@@ -133,38 +136,42 @@
                                             <div class="parent-container" style="display: flex; justify-content: flex-end;">
                                                 <div class="rating">
                                                     <a href="/open/{{$ord->id}}" target="_blank" class="btn btn-success">Open</a>
+
                                                 </div><!-- end rating -->
                                             </div>
                                         </div>
-                                        <table class="table">
-                                            <thead>
-                                            @if(!empty($ordersdata))
-                                                <tr>
-                                                    <th scope="col">Данные:</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            @foreach($userDataRecords as $data)
-                                                <tr>
-                                                    <th scope="row">{!!$data->settings !!}</th>
-                                                </tr>
-                                            @endforeach
-                                            </tbody>
-                                            @endif
-                                        </table>
                                     </div>
                                 </div>
                             @endforeach
                         @else
                             <p>No events found</p>
                         @endif
+
                     </div>
+                    <table class="table">
+                        <thead>
+                        @if(!empty($ordersdata))
+                        <tr>
+                            <th scope="col">Данные:</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($userDataRecords as $data)
+                            <tr>
+                                <th scope="row">{!!$data->settings !!}</th>
+                            </tr>
+
+                        @endforeach
+                        </tbody>
+                        @endif
+                    </table>
                 </div>
                 <div id="message" class="tab-pane fade">
                 Not message ...
                 </div>
             </div>
         </div><!-- End container -->
+
     </main>
 @endsection
 <script>

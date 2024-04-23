@@ -3,6 +3,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Region;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -73,7 +74,7 @@ class WelcomeController extends Controller
     {
 
         $searchTerm = $request->input('what');
-        $selectedCategory = $request->input('category'); // Получаем выбранную категорию
+        $selectedCategory = $request->input('category');
 
         $user = User::where('id', 1)->where('role_id', 1)->first();
         $phone = $user->phone;
@@ -81,8 +82,8 @@ class WelcomeController extends Controller
         $eventsQuery = Event::where('title', 'like', '%' . $searchTerm . '%')
             ->where('events.status', 1);
 
-        if (!empty($selectedCategory)) { // Проверяем, выбрана ли категория
-            $eventsQuery->where('category', $selectedCategory); // Добавляем условие для выбранной категории
+        if (!empty($selectedCategory)) {
+            $eventsQuery->where('category', $selectedCategory);
         }
 
         $events = $eventsQuery->join('shedules', 'events.id', '=', 'shedules.event_id')
@@ -93,16 +94,23 @@ class WelcomeController extends Controller
        // return view('events.yesearch', compact('events', 'searchTerm', 'phone'));
     }
 
-
     public function search(Request $request)
     {
+        $regions = Region::take(100)->get();
+
+        $cities = [];
+        if ($regions->isNotEmpty()) {
+            $firstRegion = $regions->first();
+            $cities = $firstRegion->towns;
+        }
+
         $currentLocale = session('locale', config('app.locale'));
         App::setLocale($currentLocale);
 
         $searchTerm = $request->input('what');
         $rng1 = $request->input('rng');
         $rng2 = $request->input('rng2');
-        $selectedCategory = $request->input('cat'); // Обратите внимание на изменение здесь
+        $selectedCategory = $request->input('cat');
 
         $eventsQuery = Event::where('title', 'like', '%' . $searchTerm . '%')
             ->where('status', 1);
@@ -111,7 +119,6 @@ class WelcomeController extends Controller
             $eventsQuery->whereBetween('amount', [$rng1, $rng2]);
         }
 
-        // Добавляем условие для выбранной категории, если она была выбрана
         if ($selectedCategory !== null && $selectedCategory !== '') {
             $eventsQuery->where('category', $selectedCategory);
         }
@@ -123,6 +130,8 @@ class WelcomeController extends Controller
             'currentLocale' => $currentLocale,
             'searchTerm' => $searchTerm,
             'rng1' => $rng1,
+            'regions' => $regions,
+            'cities' => $cities,
             'rng2' => $rng2
         ]);
     }
