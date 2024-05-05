@@ -226,6 +226,9 @@ class AdminEventController extends Controller
 
         $crimeaRegionCode = $number;
 
+        $crimeaRegionCode = $number; // первые две цифры
+
+
         $citiesOfCrimea = Town::where('code', 'like', $crimeaRegionCode . '%')->get();
 
         return $citiesOfCrimea;
