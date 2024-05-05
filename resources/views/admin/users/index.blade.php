@@ -65,10 +65,11 @@
                             </table>
                         </div>
                         <form action="{{ route('admin.users.storeData') }}" method="POST">
-                            @csrf
+                            @csrf <!-- CSRF токен для защиты от атак -->
                             <div class="modal fade" id="myModal">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
+                                        <!-- Заголовок и кнопка закрытия модального окна... -->
                                         <div class="modal-body">
                                             <div class="form-group">
                                                 <div class="input-group">
@@ -95,22 +96,29 @@
 </div>
 <script>
     $(document).ready(function(){
+        // Обработчик клика на строке таблицы
         $('table.table-hover tbody tr').on('click', function(){
             $('#myModal').modal('show');
         });
+
+        // Предотвратить всплытие события клика на кнопке редактирования
         $('table.table-hover tbody tr .btn-info').on('click', function(e){
-            e.stopPropagation();
+            e.stopPropagation(); // Предотвращает всплытие к родительским элементам
         });
     });
 </script>
 
 <script>
     $(document).ready(function() {
+        // Когда пользователь кликает на строку таблицы
         $('.user-table tbody tr').on('click', function() {
+            // Получаем user_id из атрибута строки
             var userId = $(this).data('user-id');
 
+            // Устанавливаем значение user_id в скрытое поле формы
             $('#user-id').val(userId);
 
+            // Открываем модальное окно
             $('#myModal').modal('show');
         });
     });

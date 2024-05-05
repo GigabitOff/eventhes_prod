@@ -18,15 +18,20 @@
     <link id="mlc_chatinlie_styletag" rel="stylesheet" href="storage/Home_files/chatinline.css">
     <link rel="stylesheet" href="storage/Home_files/css">
     <title>{{ config('app.name', 'EVENTHES') }}</title>
-    <meta name="description" content="home">
-    <meta name="keywords" content="home">
-    <meta property="og:title" content="Eventhes">
-    <meta property="og:description" content="home">
+    <meta name="description" content="Сервіс бонусов ✔️Реферали✔️Бонуси за послуги✔️Накопичення бонусів✔️ Бонуси за послуги !" />
+    <meta name="keywords" content="Сервіс бонусов ✔️Реферали✔️Бонуси за послуги✔️Накопичення бонусів✔️ Бонуси за послуги !">
+    <meta property="og:title" content="Накопичуй бонуси та витрачай за послуги. Додаткові клієнти для бізнесу!" />
+    <meta property="og:description" content="Сервіс бонусов ✔️Реферали✔️Бонуси за послуги✔️Накопичення бонусів✔️ Бонуси за послуги !" />
     <meta property="og:url" content="https://eventhes.com">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="uploads/settings/site_logo.png">
+    <meta property="og:image" content="https://eventhes.com/storage/AdminLTE/fav.png" />
+    <meta property="og:image:width" content="300" />
+    <meta property="og:image:height" content="300" />
+    <meta property="og:image:type" content="image/png" />
+
+
     <meta name="twitter:title" content="Eventhes">
-    <meta name="twitter:description" content="home">
+    <meta name="twitter:description" content="Сервіс бонусов ✔️Реферали✔️Бонуси за послуги✔️Накопичення бонусів✔️ Бонуси за послуги !">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="apple-touch-icon" sizes="180x180" href="https://eventhes.com/storage/AdminLTE/fav.png">
@@ -42,6 +47,9 @@
     <link media="all" type="text/css" rel="stylesheet" href="storage/Home_files/sweetalert2.css">
     <link media="all" type="text/css" rel="stylesheet" href="storage/Home_files/toastr.min.css">
     <link media="all" type="text/css" rel="stylesheet" href="storage/Home_files/font-awesome.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
     <style>
         header #logo_home h1 a {
@@ -125,7 +133,7 @@
                                                 </i> Dashboard
                                             </a>
                                         @else
-                                            <a href="/partner">
+                                            <a href="/client">
                                                 <i>
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                          fill="currentColor" class="bi bi-speedometer2"
@@ -192,7 +200,7 @@
                         </svg></a>
                     <ul>
                         <li class="nav-item active">
-                            <a class="nav-link" href="/partner" target="_self">
+                            <a class="nav-link" href="/client" target="_self">
                                 <i  aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door" viewBox="0 0 16 16">
                                         <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z"/>
                                     </svg></i>  {{ __('translate.Home') }}
@@ -205,7 +213,7 @@
                             }
                         </style>
                         <li class="nav-item" >
-                            <a style="background-color: #0d6efd; height: 21px;  border-radius: 4px;" class="nav-link" href="/all" target="_self">
+                            <a href="/all" style="background-color: #0d6efd; height: 21px;  border-radius: 4px;" target="_self" >
                                 {{ __('translate.Events') }}
                             </a>
                         </li>
@@ -217,6 +225,11 @@
                         <li class="nav-item ">
                             <a class="nav-link" href="/faq" target="_self">
                                 FAQs
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="/about-us" target="_self">
+                                {{ __('translate.About Us') }}
                             </a>
                         </li>
                         <li class="nav-item ">
@@ -251,20 +264,31 @@
                         <img src="{{ asset('storage/files/' . session('locale', config('app.locale')) . '.png') }}" alt="Flag" class="flag-image">
                     </ul>
                 </div>
-{{--                <ul id="top_tools">--}}
-{{--                    <li>--}}
-{{--                        <a href="j/" class="search-overlay-menu-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">--}}
-{{--                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>--}}
-{{--                            </svg></a>--}}
-{{--                    </li>--}}
-{{--                </ul>--}}
+
             </nav>
         </div>
     </div>
 </header>
-<!-- End Header -->
+<nav aria-label="breadcrumb" style="margin-top:100px;">
+    {{-- Отображение хлебных крошек --}}
+    <div class="breadcrumbs">
+        @if(Request::is('partner'))
+            {{ Breadcrumbs::render('partner') }}
+        @elseif(Request::is('all'))
+            {{ Breadcrumbs::render('all') }}
+        @elseif(Request::is('client'))
+            {{ Breadcrumbs::render('client') }}
+        @elseif(Request::is('search'))
+            {{ Breadcrumbs::render('search') }}
+        @else
+            {{ Breadcrumbs::render('home') }}
+        @endif
+    </div>
+
+</nav>
 @yield('content')
 <!-- Footer================================================== -->
+
 <footer>
 <div class="container">
     <div class="row">
@@ -368,10 +392,50 @@
         </div>
     </div>
 </div>
+    <div class="modal fade modal-transparent" style="margin-top: 50px;" id="bonusModal" tabindex="-1" aria-labelledby="bonusModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="bonusModalLabel">Программа BONUS+</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p style="color: #001f3f;">Это программа распространения реферальных ссылок на услугу!</p>
+                    <h3><p>  <a href="yuiyui" style="color: #001f3f; text-decoration: underline;">Подробнее...</a></p></h3>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </footer>
-<div id="toTop"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-circle" viewBox="0 0 16 16">
-        <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707z"/>
-    </svg></div>
+<style>
+    #scrollToTopBtn {
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 99;
+        border: none;
+        outline: none;
+        background-color: #565a5c;
+        color: white;
+        cursor: pointer;
+        padding: 15px;
+        border-radius: 10px;
+    }
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<button onclick="scrollToTop();" id="scrollToTopBtn" title="Наверх">
+    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-arrow-up-circle"
+         viewBox="0 0 16 16">
+        <path fill-rule="evenodd"
+              d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707z"/>
+    </svg>
+</button>
 <div class="search-overlay-menu">
     <span class="search-overlay-close"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
   <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
@@ -412,4 +476,20 @@
         checkboxClass: 'icheckbox_square-grey',
         radioClass: 'iradio_square-grey'
     });
+
+    window.onscroll = function () {
+        scrollFunction()
+    };
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            document.getElementById("scrollToTopBtn").style.display = "block";
+        } else {
+            document.getElementById("scrollToTopBtn").style.display = "none";
+        }
+    }
+    function scrollToTop() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
 </script>

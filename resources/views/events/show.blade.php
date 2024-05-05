@@ -416,12 +416,9 @@
                     </div>
                     <div class="col-lg-3 col-md-4">
                         <div class="tour_container">
+                            <!-- Перенесли вывод переменных из массива $event -->
                             <div class="ribbon_3 popular">
-                                @if($lessonType)
-                                    <div class="ribbon_3 popular">
-                                        <span>-{{ ($lessonType->discount1 ?? 0) + ($lessonType->discount2 ?? 0) }}%</span>
-                                    </div>
-                                @endif
+                                <span>-{{$lessonType->discount1+$lessonType->discount2}}%</span>
                             </div>
                             <div class="img_container">
                                 <img width="90%" height="70%" src="./storage/css/33333.png" alt="Video Lesson">
@@ -439,12 +436,9 @@
                     </div>
                     <div class="col-lg-3 col-md-4">
                     <div class="tour_container">
+                        <!-- Перенесли вывод переменных из массива $event -->
                         <div class="ribbon_3 popular">
-                            @if($lessonType)
-                                <div class="ribbon_3 popular">
-                                    <span>-{{ ($lessonType->discount2 ?? 0) + ($lessonType->discount3 ?? 0) }}%</span>
-                                </div>
-                            @endif
+                            <span>-{{$lessonType->discount2+$lessonType->discount3}}%</span>
                         </div>
                         <div class="img_container">
                             <img width="90%" height="70%" src="./storage/css/11111.png" alt="Video Lesson">
@@ -452,21 +446,20 @@
                                     <span class="price"></span>
                                 </div>
                         </div>
-                        @if($lessonType)
-                            <div class="tour_title">
-                                <h7>Группа 1</h7>
-                                <p><strong>c {{ $lessonType->timeFrom22Group22 ?? '' }} до {{ $lessonType->timeTo22Group22 ?? '' }}</strong></p>
-                                <h7>Группа 2</h7>
-                                <p><strong>c {{ $lessonType->timeFrom33Group33 ?? '' }} до {{ $lessonType->timeTo33Group33 ?? '' }}</strong></p>
-                                <div class="parent-container" style="display: flex; justify-content: flex-end;">
-                                    <div class="rating"></div><!-- end rating -->
-                                </div>
+                        <div class="tour_title">
+                            <h7>Группа 1</h7>
+                            <p><strong>c {{$lessonType->timeFrom22Group22}} до {{$lessonType->timeTo22Group22}}</strong></p>
+                            <h7>Группа 2</h7>
+                            <p><strong>c {{$lessonType->timeFrom33Group33}} до {{$lessonType->timeTo33Group33}}</strong></p>
+                            <div class="parent-container" style="display: flex; justify-content: flex-end;">
+                                <div class="rating"></div><!-- end rating -->
                             </div>
-                        @endif
+                        </div>
                     </div>
                 </div>
                     <div class="col-lg-3 col-md-4">
                         <div class="tour_container">
+                            <!-- Перенесли вывод переменных из массива $event -->
                             <div class="ribbon_3 popular">
                                 <span>-50%</span>
                             </div>
@@ -569,7 +562,7 @@
                         <form name="bookingForm" action="{{ route('orders.store') }}" method="post"
                               class="booking-form">
                             <h3 class="inner">- {{ __('translate.Booking') }} -</h3>
-                            @if ($event->calendar_orders_views == 1)
+                            @if ($event->type_pay == 1)
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
@@ -584,7 +577,6 @@
                                     </div>
                                 </div>
                             </div>
-                            @endif
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
@@ -602,9 +594,8 @@
                                     </div>
                                 </div>
                             </div>
-                            @if ($event->type_pay == 1)
                             <br>
-                            <table class="table table_summary" style="margin-top: -20px;">
+                            <table class="table table_summary" style="margin-top: -2px;">
                                 <tbody>
                                 <tr>
                                     <td>
@@ -672,16 +663,30 @@
                             @endguest
                         </form>
                     </div>
-                    <a id="my-link"  onclick="likeButtonClicked({{ $event->id }});" class="btn_full_outline ladda-button"
+
+                    <a id="my-link" onclick="likeButtonClicked({{ $event->id }});" class="btn_full_outline ladda-button"
                        data-page_action="toggleSingleTourWishlistButton"
                        data-add_text="Add to wishlist" data-remove_text="Remove from wishlist"
                        data-wishlist_tour_hashed_id="6" data-style="zoom-in">
                         <span class="ladda-label">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-heart-fill" viewBox="0 0 16 16">
   <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
 </svg> {{ __('translate.Ad to wishlist') }}
                         </span>
                         <span class="ladda-spinner"></span></a>
+                    <a id="my-link" style="margin-top:10px; background-color:#FF8C00; border: 2px solid orange;"
+                       onclick="likeButtonClicked({{ $event->id }});" class="btn_full_outline ladda-button"
+                       data-page_action="toggleSingleTourWishlistButton" data-add_text="Add to wishlist"
+                       data-remove_text="Remove from wishlist" data-wishlist_tour_hashed_id="6" data-style="zoom-in">
+    <span class="ladda-label">
+        <span style="color:#ffffff;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-dollar"
+             viewBox="0 0 16 16">
+            <path
+                d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73z"/>
+        </svg>
+       BONUS
+    </span></span></a>
                 </div>
                 <!--/box_style_1 -->
                 <div class="box_style_4">
@@ -690,8 +695,9 @@
                         <path
                             d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877zM11 .5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V1.707l-4.146 4.147a.5.5 0 0 1-.708-.708L14.293 1H11.5a.5.5 0 0 1-.5-.5"/>
                     </svg>
-                    <h4><span>{{ __('translate.Book') }}</span> {{ __('translate.by phone') }}</h4>    <a href="tel://+38{{$event->phone}}"
-                                                                                                          class="phone">+38{{$event->phone}}</a>
+                    <h4><span>{{ __('translate.Book') }}</span> {{ __('translate.by phone') }}</h4>    <a
+                        href="tel://+38{{$event->phone}}"
+                        class="phone">+38{{$event->phone}}</a>
                     <small>Monday to Friday 9.00am - 7.30pm</small>
                 </div>
             </aside>

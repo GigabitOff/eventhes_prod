@@ -1,7 +1,7 @@
 @extends('layouts.filter')
 @section('content')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <div class="container" style="margin-top: 75px;">
+    <div class="container" style="margin-top: -55px;">
         <div class="row justify-content-center">
             <div class="container margin_60">
                 <div class="row" >
@@ -16,30 +16,33 @@
                             <div id="filters_col">
                                 <input type="email" name="what" class="form-control" aria-describedby="emailHelp" placeholder="{{ __('translate.Search') }}">
                                 <span>&nbsp;</span>
+                                <input style="display: none;" id="salesman" name="salesman" value="{{$salesman}}">
                                 <div class="collapse show" >
                                     <div class="filter_type">
                                         <label for="category">Выберите категорию:</label>
                                         <select  class="form-control" name="category" id="category">
                                             <option value="">Все</option>
                                             <option value="3">События</option>
-{{--                                            <option value="2">Услуги</option>--}}
+                                            <option value="2">Услуги</option>
                                             <option value="1">Курсы</option>
                                         </select>
                                     </div>
                                 </div>
                                 <span>&nbsp;</span>
-{{--                                <div class="collapse show" >--}}
-{{--                                    <div class="filter_type">--}}
-{{--                                        <label for="category">Выберите область:</label>--}}
-{{--                                        <select class="form-control" id="regionSelect" onchange="regionSet(this.value)">--}}
-{{--                                            @foreach ($regions as $region)--}}
-{{--                                                <option value="{{ $region->code }}">{{ $region->name }}</option>--}}
-{{--                                            @endforeach--}}
-{{--                                        </select>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-                                <span>&nbsp;</span>
-                                <div class="collapse show">
+                                <div class="form-group">
+                                    <label for="category">Выберите область:</label>
+                                    <select class="form-control" id="regionSelect" onchange="sendAjaxRequest(this.value)">
+                                        @foreach ($regions as $region)
+                                            <option value="{{ substr($region->code, 0, 2) }}">{{ $region->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group" id="townSelectContainer" style="display: none;">
+                                    <label for="town">Выберите город:</label>
+                                    <select name="town" class="form-control" id="townSelect">
+                                    </select>
+                                </div>
+                                <div class="collapse show" style="margin-top: 10px;">
                                     <div class="filter_type">
                                         <h6>{{ __('translate.Price') }} $ From <output id="ong">50</output> - To <output id="ong2">50</output></h6>
                                         <input id="rng" name="rng" type="range" min="1" max="100" value="50">
@@ -76,35 +79,37 @@
                             });
 
                             function updateHiddenFieldsAndSubmit() {
+
+                                var whatValue = $('input[name="what"]').val();
                                 var rngValue = $("#rng").val();
                                 var rng2Value = $("#rng2").val();
                                 var category = $("#category").val();
+                                var salesman = $("#salesman").val();
 
-                                // Записываем значения в скрытые поля
                                 $("input[name='rng']").val(rngValue);
                                 $("input[name='rng2']").val(rng2Value);
                                 $("input[name='category']").val(category); // Добавлено обновление категории
+                                $("input[name='salesman']").val(salesman); // Добавлено обновление категории
 
                                 var currentUrl = window.location.href;
                                 var parts = currentUrl.split('?');
                                 var baseUrl = parts[0];
                                 var params = new URLSearchParams(parts[1] || '');
-                                if (!params.has('what')) {
-                                    var whatValue = localStorage.getItem('whatValue');
+
                                     if (whatValue !== null) {
                                         params.set('what', whatValue);
                                     }
-                                }
+
                                 params.delete('rng');
                                 params.delete('rng2');
-                                params.delete('cat'); // Удалено удаление категории
+                                params.delete('cat');
                                 params.set('rng', rngValue);
                                 params.set('rng2', rng2Value);
-                                params.set('cat', category); // Добавлено добавление категории
-                                var newUrl = "{{ route('search') }}" + "?" + $.param({ what: whatValue, rng: rngValue, rng2: rng2Value, cat:category });
+                                params.set('cat', category);
+                                params.set('salesman', salesman);
+                                var newUrl = "{{ route('search') }}" + "?" + $.param({ what: whatValue, rng: rngValue, rng2: rng2Value, cat:category, salesman:salesman });
                                 window.location.href = newUrl;
                             }
-
 
                         </script>
                         <div class="box_style_2">
@@ -407,6 +412,47 @@
                 });
             },
             error: function (xhr, status, error) {
+                console.error(error);
+            }
+        });
+    }
+    function sendAjaxRequest(regionCodePrefix) {
+        var csrfToken = $('meta[name="csrf-token"]').attr('content');
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': csrfToken
+            }
+        });
+        $.ajax({
+            url: '/admin/events/st/' + regionCodePrefix,
+            type: 'POST',
+            dataType: 'json',
+            success: function(response) {
+                $('#townSelectContainer').show();
+                var townSelect = $('#townSelect');
+                townSelect.empty();
+
+                // Сортируем response по названию города перед добавлением в селект
+                response.sort(function(a, b) {
+                    var nameA = a.name.toLowerCase();
+                    var nameB = b.name.toLowerCase();
+                    if (nameA < nameB) return -1;
+                    if (nameA > nameB) return 1;
+                    return 0;
+                });
+
+                // Добавляем отсортированные города в селект
+                $.each(response, function(index, town) {
+                    townSelect.append('<option value="' + town.id + '">' + town.name + '</option>');
+                });
+
+                // Инициализируем Select2 после добавления элементов
+                townSelect.select2({
+                    placeholder: 'Выберите город или начните вводить...',
+                    allowClear: true
+                });
+            },
+            error: function(xhr, status, error) {
                 console.error(error);
             }
         });
