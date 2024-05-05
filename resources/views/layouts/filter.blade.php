@@ -269,7 +269,7 @@
         </div>
     </div>
 </header>
-<nav aria-label="breadcrumb" style="margin-top:100px;">
+<nav aria-label="breadcrumb" style="margin-top:120px;">
     {{-- Отображение хлебных крошек --}}
     <div class="breadcrumbs">
         @if(Request::is('partner'))
@@ -284,11 +284,9 @@
             {{ Breadcrumbs::render('home') }}
         @endif
     </div>
-
 </nav>
 @yield('content')
 <!-- Footer================================================== -->
-
 <footer>
 <div class="container">
     <div class="row">

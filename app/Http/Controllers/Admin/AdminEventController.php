@@ -224,7 +224,7 @@ class AdminEventController extends Controller
 
     public function searchTown($number){
 
-        $crimeaRegionCode = $number; // первые две цифры
+        $crimeaRegionCode = $number;
 
         $citiesOfCrimea = Town::where('code', 'like', $crimeaRegionCode . '%')->get();
 
