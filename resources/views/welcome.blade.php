@@ -71,6 +71,7 @@
     </style>
     <style id="css-ddslick" type="text/css">
     </style>
+    пппп
     <script type="text/javascript" charset="UTF-8" src="storage/Home_files/common.js"></script>
     <script type="text/javascript" charset="UTF-8" src="storage/Home_files/util.js"></script>
 </head>
