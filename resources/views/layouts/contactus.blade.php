@@ -121,7 +121,7 @@
                                                     </i> Dashboard
                                                 </a>
                                             @else
-                                                <a href="/partner">
+                                                <a href="/client">
                                                     <i>
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                              fill="currentColor" class="bi bi-speedometer2"
@@ -196,7 +196,7 @@
                                         Dashboard
                                     </a>
                                 @else
-                                    <a class="nav-link"  href="/partner" target="_self">
+                                    <a class="nav-link"  href="/client" target="_self">
                                         Dashboard
                                     </a>
                                 @endif

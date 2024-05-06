@@ -105,7 +105,7 @@ class AdminUsersController extends Controller
     public function redact($id)
     {
         $currentAdmin = auth()->user();
-        $admins = User::find($id);
+        $admins = User::where('role_id', 1)->get();
 
         // Получаем записи из users_data для пользователя
         $userDataRecords = UserData::where('user_id', $id)->get();

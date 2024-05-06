@@ -231,13 +231,13 @@
                             <div class="form-group">
                                 <label for="foto_title"><a href="#" >All lesson</a></label>
                             </div>
-                            @if($event->category == "0")
+
                                 <div class="form-group">
                                     <label for="title">
                                         <a href="/admin/events/lesson/{{$event->id}}" type="submit" value="Create add Urok" class="btn btn-success float-right">+ Урок</a>
                                     </label>
                                 </div>
-                            @endif
+
                             <style>
                                 .lesson-list {
                                     border: 1px solid rgba(0, 0, 0, 0.2); /* Черная рамка */

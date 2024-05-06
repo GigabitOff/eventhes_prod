@@ -111,9 +111,13 @@ class WelcomeController extends Controller
         $rng1 = $request->input('rng');
         $rng2 = $request->input('rng2');
         $selectedCategory = $request->input('cat');
+        $salesman = $request->input('salesman');
 
         $eventsQuery = Event::where('title', 'like', '%' . $searchTerm . '%')
-            ->where('status', 1);
+            ->where('status', 1)
+            ->when($salesman !== null, function ($query) use ($salesman) {
+                return $query->where('user_id', $salesman);
+            });
 
         if ($rng1 !== null && $rng2 !== null) {
             $eventsQuery->whereBetween('amount', [$rng1, $rng2]);
@@ -127,6 +131,7 @@ class WelcomeController extends Controller
 
         return view('events.yesearch', [
             'events' => $events,
+            'salesman' => $salesman,
             'currentLocale' => $currentLocale,
             'searchTerm' => $searchTerm,
             'rng1' => $rng1,

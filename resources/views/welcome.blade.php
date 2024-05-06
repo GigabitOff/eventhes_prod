@@ -18,15 +18,18 @@
     <link id="mlc_chatinlie_styletag" rel="stylesheet" href="storage/Home_files/chatinline.css">
     <link rel="stylesheet" href="storage/Home_files/css">
     <title>{{ config('app.name', 'EVENTHES') }} - Home</title>
-    <meta name="description" content="home">
-    <meta name="keywords" content="home">
-    <meta property="og:title" content="Eventhes">
-    <meta property="og:description" content="home">
+    <meta name="description" content="Сервіс бонусов ✔️Реферали✔️Бонуси за послуги✔️Накопичення бонусів✔️ Бонуси за послуги !" />
+    <meta name="keywords" content="Сервіс бонусов ✔️Реферали✔️Бонуси за послуги✔️Накопичення бонусів✔️ Бонуси за послуги !">
+    <meta property="og:title" content="Накопичуй бонуси та витрачай за послуги. Додаткові клієнти для бізнесу!" />
+    <meta property="og:description" content="Сервіс бонусов ✔️Реферали✔️Бонуси за послуги✔️Накопичення бонусів✔️ Бонуси за послуги !">
     <meta property="og:url" content="https://eventhes.com">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="uploads/settings/site_logo.png">
+    <meta property="og:image" content="https://eventhes.com/storage/AdminLTE/fav.png" />
+    <meta property="og:image:width" content="300" />
+    <meta property="og:image:height" content="300" />
+    <meta property="og:image:type" content="image/png" />
     <meta name="twitter:title" content="Eventhes">
-    <meta name="twitter:description" content="home">
+    <meta name="twitter:description" content="Сервіс бонусов ✔️Реферали✔️Бонуси за послуги✔️Накопичення бонусів✔️ Бонуси за послуги !">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="apple-touch-icon" sizes="180x180" href="https://eventhes.com/storage/AdminLTE/fav.png">
@@ -131,7 +134,7 @@
                                                     </i> Dashboard
                                                 </a>
                                             @else
-                                                <a href="/partner">
+                                                <a href="/client">
                                                     <i>
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                              fill="currentColor" class="bi bi-speedometer2"
@@ -207,14 +210,14 @@
                                         Dashboard
                                     </a>
                                 @else
-                                    <a class="nav-link"  href="/partner" target="_self">
+                                    <a class="nav-link"  href="/client" target="_self">
                                         Dashboard
                                     </a>
                                 @endif
                             @endguest
                         </div>
                         <li class="nav-item active">
-                            <a class="nav-link" href="/partner" target="_self">
+                            <a class="nav-link" href="/client" target="_self">
                                 <i aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door" viewBox="0 0 16 16">
                                         <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z"/>
                                     </svg></i>  {{ __('translate.Home') }}
@@ -243,7 +246,7 @@
                         </li>
                         <li class="nav-item ">
                             <a class="nav-link" href="/about-us" target="_self">
-                                About Us
+                                {{ __('translate.About Us') }}
                             </a>
                         </li>
                         <li class="nav-item ">
@@ -374,7 +377,7 @@
             </a>
         </p>
     </div>
-    <div class="container margin_60" style="padding-top: 16px; padding-bottom: 16px;">
+    <div class="container margin_60" style="padding-top: 1px; padding-bottom: 1px;">
         <div class="main_title">
             <h2>
                 <span>Courses</span></h2>
@@ -499,8 +502,8 @@
     <div class="white_bg">
         <div class="container margin_60">
             <div class="main_title">
-                <h2><span>{{ __('translate.popular') }}</span></h2></div>
-            <div class="row d-flex justify-content-center add_bottom_45">
+                <h2 class="section-title">{{ __('translate.best_service_title') }}</h2>
+                <div class="row d-flex justify-content-center add_bottom_45">
                 <div class="col-lg-6  other_tours" style="display: grid">
                     <ul>
                         @foreach($events as $event)
@@ -523,41 +526,55 @@
             </div>
             <!-- End row -->
             <div class="banner colored">
-                <h4>
-                    {{ __('translate.Post an events') }}</h4>
-                <p>
-                    {{ __('translate.We have best events!') }}
-                </p>
-                <a href="/home" class="btn_1 white">{{ __('translate.Post') }}</a>
-            </div>
+                <div class="container">
+                    <div class="row">
+                    <div class="block87__content">
+                        <div class="row">
+                            <div class="col-12">
+                                <h4><span>{{ __('translate.eventhes_bonuses') }}</span></h4>
+                                <p>{{ __('translate.eventhes_description') }}</p>
+                                <p>{{ __('translate.eventhes_join') }}</p>
+                                <p>{{ __('translate.eventhes_registration') }}</p>
+                                <h4><span>{{ __('translate.eventhes_join_today') }}</span></h4>
+                                <p>{{ __('translate.eventhes_register_now') }}</p>
+                                <h4><span>{{ __('translate.eventhes_maximum_performance') }}</span></h4>
+                                <p>{{ __('translate.eventhes_maximum_performance_description') }}</p>
+                                <h4><span>{{ __('translate.eventhes_register_now_and_get_bonuses') }}</span></h4>
+                                <p>{{ __('translate.eventhes_accumulate_bonuses') }}</p>
 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
             <div class="row">
-                <div class="row">
+
                     <div class="col-lg-3 col-md-6 text-center">
-                        <h4><span>{{ __('translate.Site views payout for') }}</span>{{ __('translate.events') }}</h4>
+                        <h4><span>{{ __('translate.Site views payout for') }}</span>{{ __('translate.events_for_user') }}</h4>
                         <p>
                             {{ __('translate.all_text_1') }}
                         </p>
                     </div>
                     <div class="col-lg-3 col-md-6 text-center">
-                        <h4><span>{{ __('translate.Quick registration for') }} </span>{{ __('translate.events') }}</h4>
+                        <h4><span>{{ __('translate.Site views payout for') }} </span>{{ __('translate.events_for_partner') }}</h4>
                         <p>
                             {{ __('translate.all_text_2') }}
                         </p>
                     </div>
                     <div class="col-lg-3 col-md-6 text-center">
-                        <h4><span>Instant payouts for</span> {{ __('translate.events') }}</h4>
+                        <h4><span>{{ __('translate._3') }}</span> {{ __('translate._4') }}</h4>
                         <p>
                             {{ __('translate.all_text_3') }}
                         </p>
                     </div>
                     <div class="col-lg-3 col-md-6 text-center">
-                        <h4><span>Worldwide payouts for</span> {{ __('translate.events') }}</h4>
+                        <h4><span>{{ __('translate._6') }} {{ __('translate._7') }} </span> {{ __('translate._8') }}</h4>
                         <p>
                             {{ __('translate.all_text_4') }}
                         </p>
                     </div>
-                </div>
+
             </div>
         </div>
         <style>
@@ -572,6 +589,8 @@
             <div class="promo_full_wp magnific">
                 <div class="video-background">
                     <div class="content">
+                        <h3>{{ __('translate.BONUS ANYWHERE') }} </h3>
+                        <h3>{{ __('translate.CLIENTS ANYWHERE') }} </h3>
                         <h3>{{ __('translate.BELONG ANYWHERE') }} </h3>
                     </div>
                 </div>
@@ -627,7 +646,6 @@
                         <li><span>5</span>{{ __('translate.Safe and fast payment system') }}</li>
                         <li><span>6</span>{{ __('translate.Instant payouts') }}</li>
                     </ul>
-                    <a href="http://eventhes.com/tours" style="text-decoration: none;" class="btn_1">{{ __('translate.Get Started') }}</a>
                 </div>
             </div>
         </div>

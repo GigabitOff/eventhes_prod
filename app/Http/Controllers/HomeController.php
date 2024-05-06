@@ -62,7 +62,8 @@ class HomeController extends Controller
     {
 
         $user = Auth::user();
-        $orders = Order::where('email', $user->email)->get();
+        $orders = Order::where('email', $user->email)->with('event')->get();
+
         $uuidValue = $request->session()->get('uuid');
 
             Like::updateOrCreate(
