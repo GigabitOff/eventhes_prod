@@ -541,6 +541,7 @@
                                 <p>{{ __('translate.eventhes_maximum_performance_description') }}</p>
                                 <h4><span>{{ __('translate.eventhes_register_now_and_get_bonuses') }}</span></h4>
                                 <p>{{ __('translate.eventhes_accumulate_bonuses') }}</p>
+
                             </div>
                         </div>
                     </div>
