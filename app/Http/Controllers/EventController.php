@@ -248,10 +248,19 @@ class EventController extends Controller
         }
 
         $shedule = Shedule::where('event_id', $id)->first();
-        $reserv = $shedule ? $shedule->reserv : 'Default Value';
-        $time = $shedule ? $shedule->time : null;
-        $mono = $shedule->mono;
-        $datapicker = $shedule->datapicker;
+
+        if ($shedule) {
+            $reserv = $shedule->reserv;
+            $time = $shedule->time;
+            $mono = $shedule->mono;
+            $datapicker = $shedule->datapicker; // Move this inside the conditional block
+        } else {
+            $reserv = 'Default Value';
+            $time = null;
+            $mono = null;
+            $datapicker = null; // or whatever default value you want to assign
+        }
+
         $busyDates = [];
 
         if ($mono == 1) {
