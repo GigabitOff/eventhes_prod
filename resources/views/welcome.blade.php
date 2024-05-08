@@ -320,19 +320,17 @@
 <main>
     <style>
         .tour_container {
-            height: 100%; /* Установите высоту контейнера по желанию */
-            border: 1px solid #ddd; /* Добавьте рамку для визуального отделения */
+            height: 100%;
+            border: 1px solid #ddd;
         }
-
         .row {
-            display: flex; /* Используйте flexbox для распределения элементов */
-            flex-wrap: wrap; /* Обернуть элементы на следующую строку при необходимости */
-            justify-content: space-between; /* Равномерно распределить элементы по ширине родительского контейнера */
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
         }
-
         .col-lg-4 {
-            flex: 0 0 31%; /* Установите ширину колонок по вашему усмотрению (31% - это примерное значение для трех колонок) */
-            margin-bottom: 20px; /* Добавьте небольшой отступ между колонками */
+            flex: 0 0 31%;
+            margin-bottom: 20px;
         }
     </style>
     <div class="container margin_60" style="padding-top: 16px; padding-bottom: 16px;">

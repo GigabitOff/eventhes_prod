@@ -209,7 +209,7 @@ class EventController extends Controller
         return redirect()->route('events.index')->with('success', 'Event created successfully');
     }
 
-    public function show($id)
+    public function show($id,$code=null)
     {
         $this->middleware(function ($request, $next) {
             $locale = session('locale', config('app.locale'));

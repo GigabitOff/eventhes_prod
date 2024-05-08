@@ -429,6 +429,7 @@
         </div>
     </div>
 </footer>
+
 <style>
     #scrollToTopBtn {
         display: none;
@@ -511,9 +512,7 @@
             }
         });
     });
-
 </script>
-
 <script>
     $('input').iCheck({
         checkboxClass: 'icheckbox_square-grey',

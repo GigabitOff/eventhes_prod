@@ -141,7 +141,8 @@ Route::post('/events', [EventController::class, 'store'])->name('events.store');
 Route::get('/events/{event}/edit', [EventController::class, 'edit'])->name('events.edit');
 Route::put('/events/{event}', [EventController::class, 'update'])->name('events.update');
 Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('events.destroy');
-Route::get('/{id}', [EventController::class, 'show'])->name('events.show');
+Route::get('/{id}/{code}', [EventController::class, 'show'])->name('events.show');
+
 
 Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
 Route::post('/orders/store_no_reg', [OrderController::class, 'store_no_reg'])->name('orders.store_no_reg');
