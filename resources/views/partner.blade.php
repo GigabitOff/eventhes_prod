@@ -105,7 +105,7 @@
                     {{--                        </tbody>--}}
                     {{--                    </table>--}}
                     <section class="mb-3 mb-md-4 mt-2 mt-md-3">
-                        <div class="container">
+                        <div class="container" style="margin-top: -40px;">
                             <div class="row align-items-end justify-content-between">
                                 <div class="col-12 col-sm-auto">
                                     <h1 class="section-title mb-4">Ваші замовлення</h1>
