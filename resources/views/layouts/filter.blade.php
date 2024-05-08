@@ -390,6 +390,16 @@
         </div>
     </div>
 </div>
+    <style>
+        /* Сделать чекбокс видимым */
+        #referralCheckbox {
+            visibility: visible;
+            width: auto;
+            height: auto;
+            opacity: 1;
+        }
+    </style>
+
     <div class="modal fade modal-transparent" style="margin-top: 50px;" id="bonusModal" tabindex="-1" aria-labelledby="bonusModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -401,7 +411,14 @@
                 </div>
                 <div class="modal-body">
                     <p style="color: #001f3f;">Это программа распространения реферальных ссылок на услугу!</p>
-                    <h3><p>  <a href="yuiyui" style="color: #001f3f; text-decoration: underline;">Подробнее...</a></p></h3>
+                    <h3>
+                        <p>
+                            <label style="color: #001f3f;">
+                                <input style="color: #001f3f;" type="checkbox" id="referralCheckbox" name="referralCheckbox">
+                                Я согласен(-на) стать участником программы
+                            </label>
+                        </p>
+                    </h3>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
@@ -469,6 +486,32 @@
         });
     });
 </script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('#referralCheckbox').change(function(){
+            if($(this).is(':checked')){
+                $.ajax({
+                    url: '/processReferral',
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        code_part: 1
+                    },
+                    success: function(response){
+                        console.log('Ответ от сервера:', response);
+                        location.reload();
+                    },
+                    error: function(xhr, status, error){
+                        console.error('Ошибка при запросе:', error);
+                    }
+                });
+            }
+        });
+    });
+
+</script>
+
 <script>
     $('input').iCheck({
         checkboxClass: 'icheckbox_square-grey',

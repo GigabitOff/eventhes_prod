@@ -111,6 +111,7 @@ class WelcomeController extends Controller
         $rng1 = $request->input('rng');
         $rng2 = $request->input('rng2');
         $selectedCategory = $request->input('cat');
+        $salesman= $request->input('salesman');
 
         $eventsQuery = Event::where('title', 'like', '%' . $searchTerm . '%')
             ->where('status', 1);
@@ -130,6 +131,7 @@ class WelcomeController extends Controller
             'currentLocale' => $currentLocale,
             'searchTerm' => $searchTerm,
             'rng1' => $rng1,
+           'salesman' => $salesman,
             'regions' => $regions,
             'cities' => $cities,
             'rng2' => $rng2

@@ -269,8 +269,8 @@ class AdminEventController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'foto_logo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'foto_title' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'foto_logo' => 'required|image|max:2048', // Удалено ограничение по типу MIME
+            'foto_title' => 'required|image|max:2048', // Удалено ограничение по типу MIME
             'shedule_id' => 'required',
         ]);
 
@@ -409,6 +409,7 @@ class AdminEventController extends Controller
         }
 
         $latestFotosString = implode(', ', $nearestDateFiles);
+
         $lessonType = LessonType::where('events_id', $event->id)
             ->orderBy('updated_at', 'desc')
             ->first();

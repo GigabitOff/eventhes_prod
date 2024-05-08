@@ -1,7 +1,7 @@
 @extends('layouts.filter')
 @section('content')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <div class="container" style="margin-top: 55px;">
+    <div class="container" style="margin-top: -55px;">
         <div class="row justify-content-center">
             <div class="container margin_60">
                 <div class="row">
@@ -143,18 +143,27 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-2 col-md-2">
-                                    <div class="price_list">
+                                    <div class="price_list" style="font-size: small;">
                                         <div>
-                                            <span>@if ($event->amount == 0 || $event->discounte === null)
+                                            <span>
+                                                @if ($event->amount == 0 || $event->discounte === null)
                                                     FREE
                                                 @else
                                                     @php
                                                         $discountedAmount = $event->amount - ($event->amount * $event->discounte / 100);
+                                                        $currencySymbols = [
+                                                            '0' => '$',
+                                                            '1' => '₽',
+                                                            '2' => '€',
+                                                            '3' => '₴',
+                                                            '4' => 'Zł',
+                                                        ];
+                                                        $currencySymbol = $currencySymbols[$event->currency] ?? ''; // Получаем символ валюты из массива
                                                     @endphp
-                                            </span>
-                                                    <span style="color:#989fa6;font-size: smaller; text-decoration: line-through;">{{ number_format($event->amount, 2) }}$</span><br>
-                                                    {{ number_format($discountedAmount, 2) }}$
-                                                @endif</span>
+                                                    <span style="color:#989fa6;font-size: smaller; text-decoration: line-through;">{{ number_format($event->amount, 2) }}{{ $currencySymbol }}</span><br>
+                                                    {{ number_format($discountedAmount, 2) }}{{ $currencySymbol }}
+                                                @endif
+                                                </span>
                                             <span class="normal_price_list"></span>
                                             <small>*{{ __('translate.Per person') }}</small>
                                             <p><a href="/{{$event->id}}" class="btn_1" target="_blank">{{ __('translate.Details') }}</a>
