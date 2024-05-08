@@ -392,44 +392,7 @@
         </div>
     </div>
 </div>
-    <style>
-        /* Сделать чекбокс видимым */
-        #referralCheckbox {
-            visibility: visible;
-            width: auto;
-            height: auto;
-            opacity: 1;
-        }
-    </style>
-
-    <div class="modal fade modal-transparent" style="margin-top: 50px;" id="bonusModal" tabindex="-1" aria-labelledby="bonusModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="bonusModalLabel">Программа BONUS+</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p style="color: #001f3f;">Это программа распространения реферальных ссылок на услугу!</p>
-                    <h3>
-                        <p>
-                            <label style="color: #001f3f;">
-                                <input style="color: #001f3f;" type="checkbox" id="referralCheckbox" name="referralCheckbox">
-                                Я согласен(-на) стать участником программы
-                            </label>
-                        </p>
-                    </h3>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-                </div>
-            </div>
-        </div>
-    </div>
 </footer>
-
 <style>
     #scrollToTopBtn {
         display: none;

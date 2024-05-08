@@ -55,8 +55,7 @@ class EventController extends Controller
 
         $events = Event::with('shedule')
             ->where('status', 1)
-            ->limit(3)
-            ->get();
+            ->paginate(8);
 
         $user = User::where('id', 1)->where('role_id', 1)->first();
         $phone = $user->phone;

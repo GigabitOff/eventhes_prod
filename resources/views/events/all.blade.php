@@ -39,17 +39,19 @@
                                     </div>
                                 </div>
                                 <span>&nbsp;</span>
-                                <div class="collapse show" >
-                                    <div class="filter_type">
-                                        <label for="category">Выберите область:</label>
-                                        <select class="form-control" id="regionSelect" onchange="regionSet(this.value)">
-                                            @foreach ($regions as $region)
-                                                <option value="{{ $region->code }}">{{ $region->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+                                <div class="form-group">
+                                    <label for="category">Выберите область:</label>
+                                    <select class="form-control" id="regionSelect" onchange="sendAjaxRequest(this.value)">
+                                        @foreach ($regions as $region)
+                                            <option value="{{ substr($region->code, 0, 2) }}">{{ $region->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
-                                <span>&nbsp;</span>
+                                <div class="form-group" id="townSelectContainer" style="display: none;">
+                                    <label for="town">Выберите город:</label>
+                                    <select name="town" class="form-control" id="townSelect">
+                                    </select>
+                                </div>
                                 <div class="collapse show" >
                                     <div class="filter_type">
                                         <h6>{{ __('translate.Price') }} $ From <output id="ong">50</output> - To <output id="ong2">50</output></h6>
@@ -173,7 +175,88 @@
                                 </div>
                             </div>
                         @endforeach
-                        <div id="test"></div>
+                        <style>.pagination {
+                                display: inline-block;
+                                padding-left: 0;
+                                margin: 20px 0;
+                                border-radius: 4px;
+                            }
+
+                            .pagination > li {
+                                display: inline;
+                            }
+
+                            .pagination > li > a,
+                            .pagination > li > span {
+                                position: relative;
+                                float: left;
+                                padding: 6px 12px;
+                                margin-left: -1px;
+                                line-height: 1.42857143;
+                                color: #000000;
+                                text-decoration: none;
+                                background-color: #fff;
+                                border: 1px solid #ddd;
+                            }
+
+                            .pagination > li:first-child > a,
+                            .pagination > li:first-child > span {
+                                margin-left: 0;
+                                border-top-left-radius: 4px;
+                                border-bottom-left-radius: 4px;
+                            }
+
+                            .pagination > li:last-child > a,
+                            .pagination > li:last-child > span {
+                                border-top-right-radius: 4px;
+                                border-bottom-right-radius: 4px;
+                            }
+
+                            .pagination > li > a:hover,
+                            .pagination > li > span:hover,
+                            .pagination > li > a:focus,
+                            .pagination > li > span:focus {
+                                z-index: 2;
+                                color: #000000;
+                                background-color: #eee;
+                                border-color: #ddd;
+                            }
+
+                            .pagination > .active > a,
+                            .pagination > .active > span,
+                            .pagination > .active > a:hover,
+                            .pagination > .active > span:hover,
+                            .pagination > .active > a:focus,
+                            .pagination > .active > span:focus {
+                                z-index: 3;
+                                color: #fff;
+                                background-color: #565a5c;;
+                                border-color: #565a5c;;
+                                cursor: default;
+                            }
+                        </style>
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                @if ($events->onFirstPage())
+                                    <li class="page-item disabled"><span class="page-link">{{ __('translate.Previous') }}</span></li>
+                                @else
+                                    <li class="page-item"><a class="page-link" href="{{ $events->previousPageUrl() }}">{{ __('translate.Previous') }}</a></li>
+                                @endif
+                                @for ($i = 1; $i <= $events->lastPage(); $i++)
+                                    @if ($i == $events->currentPage())
+                                        <li class="page-item active"><span class="page-link">{{ $i }}</span></li>
+                                    @else
+                                        <li class="page-item"><a class="page-link" href="{{ $events->url($i) }}">{{ $i }}</a></li>
+                                    @endif
+                                @endfor
+                                @if ($events->hasMorePages())
+                                    <li class="page-item"><a class="page-link" href="{{ $events->nextPageUrl() }}">{{ __('translate.Next') }}</a></li>
+                                @else
+                                    <li class="page-item disabled"><span class="page-link">{{ __('translate.Next') }}</span></li>
+                                @endif
+                            </ul>
+                        </nav>
+
                     </div>
                 </div>
             </div>
@@ -245,48 +328,6 @@
             });
     }
 
-    let lastEventId = {{ $events->last()->id ?? 0 }};
-    let loading = false;
-    let noMoreEvents = false;
-    function loadMoreEvents() {
-        if (loading || noMoreEvents) return;
-
-        loading = true;
-
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', `/load-more-events/${lastEventId}`, true);
-
-        xhr.onload = function () {
-            if (xhr.status === 200) {
-                const data = JSON.parse(xhr.responseText);
-                const html = data.html;
-                noMoreEvents = data.noMoreEvents;
-
-                const container = document.getElementById('test');
-                container.insertAdjacentHTML('beforeend', html);
-
-                if (noMoreEvents) {
-                    window.removeEventListener('scroll', loadMoreEvents);
-                } else {
-                    lastEventId = container.lastElementChild.dataset.id;
-                    loading = false;
-                }
-            } else {
-                console.error('Request failed.  Returned status of ' + xhr.status);
-                loading = false;
-            }
-        };
-
-        xhr.send();
-    }
-    window.addEventListener('scroll', () => {
-        const {scrollTop, scrollHeight, clientHeight} = document.documentElement;
-        if (scrollTop + clientHeight >= scrollHeight - 100) {
-            loadMoreEvents();
-        }
-    });
-
-    document.addEventListener('DOMContentLoaded', loadMoreEvents);
 </script>
 <script>
 
@@ -313,7 +354,64 @@
         });
     }
 </script>
+<script>
+    function regionSet(value) {
+        var regionId = value;
+        $.ajax({
+            url: "{{ route('cities.by.region', ['region' => ':regionId']) }}".replace(':regionId', regionId),
+            method: 'GET',
+            success: function (response) {
+                $('#citySelect').empty();
+                $.each(response, function (key, value) {
+                    $('#citySelect').append($('<option>', {
+                        value: value.id,
+                        text: value.name
+                    }));
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+            }
+        });
+    }
+    function sendAjaxRequest(regionCodePrefix) {
+        var csrfToken = $('meta[name="csrf-token"]').attr('content');
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': csrfToken
+            }
+        });
+        $.ajax({
+            url: '/admin/events/st/' + regionCodePrefix,
+            type: 'POST',
+            dataType: 'json',
+            success: function(response) {
+                $('#townSelectContainer').show();
+                var townSelect = $('#townSelect');
+                townSelect.empty();
+                response.sort(function(a, b) {
+                    var nameA = a.name.toLowerCase();
+                    var nameB = b.name.toLowerCase();
+                    if (nameA < nameB) return -1;
+                    if (nameA > nameB) return 1;
+                    return 0;
+                });
+                $.each(response, function(index, town) {
+                    townSelect.append('<option value="' + town.id + '">' + town.name + '</option>');
+                });
+                townSelect.select2({
+                    placeholder: 'Выберите город или начните вводить...',
+                    allowClear: true
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    }
 
+
+</script>
 
 
 

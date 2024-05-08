@@ -142,7 +142,7 @@ Route::get('/events/{event}/edit', [EventController::class, 'edit'])->name('even
 Route::put('/events/{event}', [EventController::class, 'update'])->name('events.update');
 Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('events.destroy');
 Route::get('/{id}/{code}', [EventController::class, 'show'])->name('events.show');
-
+Route::get('/{id}', [EventController::class, 'show'])->name('events.show');
 
 Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
 Route::post('/orders/store_no_reg', [OrderController::class, 'store_no_reg'])->name('orders.store_no_reg');
@@ -150,11 +150,6 @@ Route::post('/orders/store_no_reg', [OrderController::class, 'store_no_reg'])->n
 
 Route::post('/like', [EventController::class, 'handleLike']);
 Route::post('/likeno', [EventController::class, 'handleLikeNo']);
-Route::get('/load-more-events/{lastEventId}', [EventController::class, 'loadMoreEvents']);
-//Route::get('/load-search-more-events/{lastEventId}', [WelcomeController::class, 'loadMoreEvents']);
-Route::get('/load-search-more-events/{searchTerm}/{lastEventId}', [WelcomeController::class, 'loadMoreEvents'])->name('loadMoreEvents');
-
-
 
 
 
