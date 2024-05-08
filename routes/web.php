@@ -43,7 +43,7 @@ Route::post('/delete-foto', [AdminEventController::class, 'deleteFoto'])->name('
 
 Route::get('/cities/{region}', 'EventController@getCitiesByRegion')->name('cities.by.region');
 Breadcrumbs::for('home', function ($trail) {
-    $trail->push('Home', route('home')); // Хлебные крошки для домашней страницы
+    $trail->push('Home', route('home'));
 });
 
 Auth::routes();
@@ -58,18 +58,18 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
 
-    Route::get('/home', [HomeController::class, 'index'])->name('home'); // Маршрут для домашней страницы
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-    Route::get('/partner', [HomeController::class, 'member'])->name('partner'); // Маршрут для страницы "Partner"
+    Route::get('/partner', [HomeController::class, 'member'])->name('partner');
     Breadcrumbs::for('partner', function ($trail) {
-        $trail->parent('home'); // Родительская хлебная крошка для домашней страницы
-        $trail->push('Partner', route('partner')); // Текущая хлебная крошка "Partner"
+        $trail->parent('home');
+        $trail->push('Partner', route('partner'));
     });
 
     Route::get('/client', [HomeController::class, 'member'])->name('member');
     Breadcrumbs::for('client', function ($trail) {
-        $trail->parent('home'); // Родительская хлебная крошка для домашней страницы
-        $trail->push('Client', route('member')); // Текущая хлебная крошка "Partner"
+        $trail->parent('home');
+        $trail->push('Client', route('member'));
     });
 
     Route::get('/open/{id}', [HomeController::class, 'open'])->name('admin.open');
@@ -129,11 +129,11 @@ Route::get('/all', [EventController::class, 'all'])->name('all');
 Route::get('/search', [WelcomeController::class, 'search'])->name('search');
 Breadcrumbs::for('all', function ($trail) {
     $trail->parent('home'); // Родительская хлебная крошка для домашней страницы
-    $trail->push('All', route('all')); // Текущая хлебная крошка "All"
+    $trail->push('All', route('all'));
 });
 Breadcrumbs::for('search', function ($trail) {
-    $trail->parent('home'); // Родительская хлебная крошка для домашней страницы
-    $trail->push('Search', route('search')); // Текущая хлебная крошка "All"
+    $trail->parent('home');
+    $trail->push('Search', route('search'));
 });
 
 Route::get('/events', [EventController::class, 'index'])->name('events.index');
