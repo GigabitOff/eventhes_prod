@@ -663,6 +663,7 @@
                             @endguest
                         </form>
                     </div>
+                    @if(auth()->check())
                     <a id="my-link"  onclick="likeButtonClicked({{ $event->id }});" class="btn_full_outline ladda-button"
                        data-page_action="toggleSingleTourWishlistButton"
                        data-add_text="Add to wishlist" data-remove_text="Remove from wishlist"
@@ -673,6 +674,7 @@
 </svg> {{ __('translate.Ad to wishlist') }}
                         </span>
                         <span class="ladda-spinner"></span></a>
+                    @endif
                 </div>
                 <!--/box_style_1 -->
                 <div class="box_style_4">

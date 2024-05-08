@@ -170,6 +170,7 @@
                                         @endauth
                                         </li>
                                     @endguest
+                                    @if(auth()->check())
                                     <li class="dropdown" id="hover-dropdown">
                                         <a href="" style="text-decoration: none;">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -178,6 +179,7 @@
                                                       d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
                                             </svg> {{ __('translate.Wishlist') }}</a>
                                     </li>
+                                    @endif
                            </ul>
 
                 </div>
@@ -316,8 +318,24 @@
     </div>
 </section>
 <main>
-    <div class="container margin_60" style="padding-top: 16px; padding-bottom: 16px;">
+    <style>
+        .tour_container {
+            height: 100%; /* Установите высоту контейнера по желанию */
+            border: 1px solid #ddd; /* Добавьте рамку для визуального отделения */
+        }
 
+        .row {
+            display: flex; /* Используйте flexbox для распределения элементов */
+            flex-wrap: wrap; /* Обернуть элементы на следующую строку при необходимости */
+            justify-content: space-between; /* Равномерно распределить элементы по ширине родительского контейнера */
+        }
+
+        .col-lg-4 {
+            flex: 0 0 31%; /* Установите ширину колонок по вашему усмотрению (31% - это примерное значение для трех колонок) */
+            margin-bottom: 20px; /* Добавьте небольшой отступ между колонками */
+        }
+    </style>
+    <div class="container margin_60" style="padding-top: 16px; padding-bottom: 16px;">
         <div class="row">
             @foreach($services as $service)
                 <div class="col-lg-4 col-md-6 wow zoomIn" data-wow-delay="0.1s">
@@ -370,7 +388,6 @@
                 </div>
             @endforeach
         </div><!-- End row -->
-
     </div>
     <div class="container margin_60" style="padding-top: 1px; padding-bottom: 1px;">
         <div class="row">
