@@ -444,10 +444,11 @@
                     </div>
                     <div class="col-lg-3 col-md-4">
                         <div class="tour_container">
-                            <!-- Перенесли вывод переменных из массива $event -->
-                            <div class="ribbon_3 popular">
-                                <span>-{{$lessonType->discount1+$lessonType->discount2}}%</span>
-                            </div>
+                            @if ($lessonType)
+                                <div class="ribbon_3 popular">
+                                    <span>-{{$lessonType->discount1 + $lessonType->discount2}}%</span>
+                                </div>
+                            @endif
                             <div class="img_container">
                                 <img width="90%" height="70%" src="./storage/css/33333.png" alt="Video Lesson">
                                 <div class="short_info"><i>On to on</i>
@@ -464,27 +465,28 @@
                     </div>
                     <div class="col-lg-3 col-md-4">
                         <div class="tour_container">
-                            <!-- Перенесли вывод переменных из массива $event -->
+                            @if ($lessonType)
                             <div class="ribbon_3 popular">
                                 <span>-{{$lessonType->discount2+$lessonType->discount3}}%</span>
                             </div>
+                            @endif
                             <div class="img_container">
                                 <img width="90%" height="70%" src="./storage/css/11111.png" alt="Video Lesson">
                                 <div class="short_info"><i>Grop on-line</i>
                                     <span class="price"></span>
                                 </div>
                             </div>
-                            <div class="tour_title">
-                                <h7>Группа 1</h7>
-                                <p><strong>c {{$lessonType->timeFrom22Group22}}
-                                        до {{$lessonType->timeTo22Group22}}</strong></p>
-                                <h7>Группа 2</h7>
-                                <p><strong>c {{$lessonType->timeFrom33Group33}}
-                                        до {{$lessonType->timeTo33Group33}}</strong></p>
-                                <div class="parent-container" style="display: flex; justify-content: flex-end;">
-                                    <div class="rating"></div><!-- end rating -->
-                                </div>
-                            </div>
+                                @if ($lessonType)
+                                    <div class="tour_title">
+                                        <h7>Группа 1</h7>
+                                        <p><strong>c {{$lessonType->timeFrom22Group22 ?? ''}} до {{$lessonType->timeTo22Group22 ?? ''}}</strong></p>
+                                        <h7>Группа 2</h7>
+                                        <p><strong>c {{$lessonType->timeFrom33Group33 ?? ''}} до {{$lessonType->timeTo33Group33 ?? ''}}</strong></p>
+                                        <div class="parent-container" style="display: flex; justify-content: flex-end;">
+                                            <div class="rating"></div>
+                                        </div>
+                                    </div>
+                                @endif
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-4">
