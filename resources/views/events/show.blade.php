@@ -1054,17 +1054,10 @@
                         </option>
                         <option value="{{ url('/lang/ru') }}" {{ App::getLocale() == 'ru' ? 'selected' : '' }}>Русский
                         </option>
-                        <option value="{{ url('/lang/es') }}" {{ App::getLocale() == 'es' ? 'selected' : '' }}>Español
-                        </option>
-                        <option value="{{ url('/lang/fr') }}" {{ App::getLocale() == 'fr' ? 'selected' : '' }}>
-                            Français
-                        </option>
                         <option value="{{ url('/lang/pl') }}" {{ App::getLocale() == 'pl' ? 'selected' : '' }}>Polski
                         </option>
                         <option value="{{ url('/lang/ua') }}" {{ App::getLocale() == 'ua' ? 'selected' : '' }}>
                             Українська
-                        </option>
-                        <option value="{{ url('/lang/de') }}" {{ App::getLocale() == 'de' ? 'selected' : '' }}>Deutsch
                         </option>
                     </select>
                 </div>

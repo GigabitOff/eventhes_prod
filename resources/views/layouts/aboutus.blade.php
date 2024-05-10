@@ -245,11 +245,8 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="{{ url('/lang/en') }}">English</a></li>
                                 <li><a class="dropdown-item" href="{{ url('/lang/ru') }}">Русский</a></li>
-                                <li><a class="dropdown-item" href="{{ url('/lang/es') }}">Español</a></li>
-                                <li><a class="dropdown-item" href="{{ url('/lang/fr') }}">Français</a></li>
                                 <li><a class="dropdown-item" href="{{ url('/lang/pl') }}">Polski</a></li>
                                 <li><a class="dropdown-item" href="{{ url('/lang/ua') }}">Українська</a></li>
-                                <li><a class="dropdown-item" href="{{ url('/lang/de') }}">Deutsch</a></li>
                             </ul>
                         </li>
                         <style>.flag-image {
@@ -378,11 +375,8 @@
                     <select name="lang" id="lang">
                         <option value="{{ url('/lang/en') }}" {{ App::getLocale() == 'en' ? 'selected' : '' }}>English</option>
                         <option value="{{ url('/lang/ru') }}" {{ App::getLocale() == 'ru' ? 'selected' : '' }}>Русский</option>
-                        <option value="{{ url('/lang/es') }}" {{ App::getLocale() == 'es' ? 'selected' : '' }}>Español</option>
-                        <option value="{{ url('/lang/fr') }}" {{ App::getLocale() == 'fr' ? 'selected' : '' }}>Français</option>
                         <option value="{{ url('/lang/pl') }}" {{ App::getLocale() == 'pl' ? 'selected' : '' }}>Polski</option>
                         <option value="{{ url('/lang/ua') }}" {{ App::getLocale() == 'ua' ? 'selected' : '' }}>Українська</option>
-                        <option value="{{ url('/lang/de') }}" {{ App::getLocale() == 'de' ? 'selected' : '' }}>Deutsch</option>
                     </select>
                 </div>
                 <script>
