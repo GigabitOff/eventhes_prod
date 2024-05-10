@@ -1,7 +1,7 @@
 @extends('layouts.filter')
 @section('content')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <div class="container" style="margin-top: -55px;">
+    <div class="container" >
         <div class="row justify-content-center">
             <div class="container margin_60">
                 <div class="row">
@@ -27,20 +27,20 @@
 
                                 <input name="what" class="form-control" aria-describedby="emailHelp" placeholder="Search">
                                 <span>&nbsp;</span>
-                                <div class="collapse show" >
+                                <div class="collapse show">
                                     <div class="filter_type">
-                                        <label for="category">Выберите категорию:</label>
-                                        <select  class="form-control" name="category" id="category">
-                                            <option value="">Все</option>
-                                            <option value="3">События</option>
-                                            <option value="2">Услуги</option>
-                                            <option value="1">Курсы</option>
+                                        <label for="category">{{ __('translate.Select category') }}:</label>
+                                        <select class="form-control" name="category" id="category">
+                                            <option value="">{{ __('translate.All') }}</option>
+                                            <option value="3">{{ __('translate.Events') }}</option>
+                                            <option value="2">{{ __('translate.Services') }}</option>
+                                            <option value="1">{{ __('translate.Courses') }}</option>
                                         </select>
                                     </div>
                                 </div>
                                 <span>&nbsp;</span>
                                 <div class="form-group">
-                                    <label for="category">Выберите область:</label>
+                                    <label for="category">{{ __('translate.Select region') }}:</label>
                                     <select class="form-control" id="regionSelect" onchange="sendAjaxRequest(this.value)">
                                         @foreach ($regions as $region)
                                             <option value="{{ substr($region->code, 0, 2) }}">{{ $region->name }}</option>
@@ -48,7 +48,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group" id="townSelectContainer" style="display: none;">
-                                    <label for="town">Выберите город:</label>
+                                    <label for="town">{{ __('translate.Select town') }}:</label>
                                     <select name="town" class="form-control" id="townSelect">
                                     </select>
                                 </div>

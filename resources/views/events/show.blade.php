@@ -72,14 +72,14 @@
           data-turbolinks-eval="false" data-turbo-eval="false">
     <style>
         header #logo_home h1 a {
-            background-image: url("@if(!empty($event->foto_logo)){{ asset('files/'.$user->id.'/'.$event->foto_logo) }}@else{{ asset('storage/css/site_logo.png') }}@endif");
+            background-image: url("{{ asset('storage/css/site_logo.png') }}");
 
             background-repeat: no-repeat;
             margin-top: -11px;
         }
 
         header.sticky #logo_home h1 a {
-            background-image: url("@if(!empty($event->foto_logo)){{ asset('files/'.$user->id.'/'.$event->foto_logo) }}@else{{ asset('storage/css/site_logo.png') }}@endif");
+            background-image: url("{{ asset('storage/css/site_logo.png') }}");
 
             background-repeat: no-repeat;
             margin-top: -11px;
@@ -260,47 +260,47 @@
         <div class="container">
             <div class="row">
                 <h1>
-                    <span style="background-color: #1bacea; border-radius: 5px; width: 5%;">&nbsp;&nbsp;&nbsp;{{ $event->title }}&nbsp;&nbsp;&nbsp; </span>
+                   <span style="background-color:#201c23; opacity: 0.7; border-radius: 5px; padding: 5px;"><span style="opacity: 1;">{{ $event->title }}</span></span>
                 </h1>
                 <hr style="border: 0; border-top: 1px solid #000;">
-                <div class="col-md-8">
-                    @php
-                        $parts = explode('|', $reserv);
-                        $startDateString = trim(str_replace('Start date:', '', $parts[0]));
-                        $startDate = date('Y-m-d', strtotime($startDateString));
-                        $endDateString = trim(str_replace('End date:', '', $parts[1]));
-                        $endDate = date('Y-m-d', strtotime($endDateString));
-                    @endphp
-                    <h3 style="font-size: 17px;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
-                             fill="currentColor"
-                             class="bi bi-calendar-week" viewBox="0 0 16 16">
-                            <path
-                                d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-5 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z"/>
-                            <path
-                                d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
-                        </svg>
-                        - <i>{{ $startDate}} - {{$endDate}}</i></h3>
-                </div>
+{{--                <div class="col-md-8">--}}
+{{--                    @php--}}
+{{--                        $parts = explode('|', $reserv);--}}
+{{--                        $startDateString = trim(str_replace('Start date:', '', $parts[0]));--}}
+{{--                        $startDate = date('Y-m-d', strtotime($startDateString));--}}
+{{--                        $endDateString = trim(str_replace('End date:', '', $parts[1]));--}}
+{{--                        $endDate = date('Y-m-d', strtotime($endDateString));--}}
+{{--                    @endphp--}}
+{{--                    <h3 style="font-size: 17px;">--}}
+{{--                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"--}}
+{{--                             fill="currentColor"--}}
+{{--                             class="bi bi-calendar-week" viewBox="0 0 16 16">--}}
+{{--                            <path--}}
+{{--                                d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-5 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z"/>--}}
+{{--                            <path--}}
+{{--                                d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>--}}
+{{--                        </svg>--}}
+{{--                        - <i>{{ $startDate}} - {{$endDate}}</i></h3>--}}
+{{--                </div>--}}
                 <div class="row">
                     @if($time == '00:00:00')
                         <span>
-        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-clock"
-             viewBox="0 0 16 16">
-            <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/>
-            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0"/>
-        </svg>
-        - {{ __('translate.Any time') }}
+{{--        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-clock"--}}
+{{--             viewBox="0 0 16 16">--}}
+{{--            <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/>--}}
+{{--            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0"/>--}}
+{{--        </svg>--}}
+{{--        - {{ __('translate.Any time') }}--}}
     </span>
                         <br>
                     @else
                         <span>
-        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-clock"
-             viewBox="0 0 16 16">
-            <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/>
-            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0"/>
-        </svg>
-        - {{ $time }}
+{{--        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-clock"--}}
+{{--             viewBox="0 0 16 16">--}}
+{{--            <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/>--}}
+{{--            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0"/>--}}
+{{--        </svg>--}}
+{{--        - {{ $time }}--}}
     </span>
                     @endif
                 </div>
@@ -437,7 +437,8 @@
                         </div>
                     @endforeach
                 </div>
-                <hr>
+                @if ($lessonType)
+                    <hr>
                 <div class="row">
                     <div class="col-lg-3">
                         <h3>{{ __('translate.Group') }}</h3>
@@ -510,6 +511,7 @@
                         </div>
                     </div>
                 </div>
+                @endif
                 <hr>
                 <div class="row">
                     <div class="col-lg-3">
@@ -718,7 +720,7 @@
                             @endguest
                         </form>
                     </div>
-                    @if(auth()->check())
+
                         <a id="my-link" onclick="likeButtonClicked({{ $event->id }});"
                            class="btn_full_outline ladda-button"
                            data-page_action="toggleSingleTourWishlistButton"
@@ -731,11 +733,11 @@
 </svg> {{ __('translate.Ad to wishlist') }}
                         </span>
                             <span class="ladda-spinner"></span></a>
-                        <button type="button" data-toggle="modal" data-target="#bonusProgramModal"
-                                style="background-color: #ff8f40; margin-top: 10px; border-color: #e27513;"
-                                class="btn_full">BONUS +
-                        </button>
-                    @endif
+
+                    <button type="button" data-toggle="modal" data-target="#bonusProgramModal"
+                            style="background-color: #ff8f40; margin-top: 10px; border-color: #e27513;"
+                            class="btn_full">BONUS +
+                    </button>
                 </div>
                 <div class="box_style_4">
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
@@ -1089,10 +1091,12 @@
                     <div class="modal-body">
                         <p style="color: #001f3f;">Это программа распространения реферальных ссылок на услугу!</p>
                         <h3>
-                            <p> <?php $user = auth()->user(); ?>
-                                @if( $user->code_part != NULL)
-                                    <label style="color: #001f3f;">
-                                        Реферальная ссылка - <a href="{{ route('events.show', ['id' => $event->id, 'code' => $user->code_part]) }}">https://eventhes.com/{{$event->id}}/{{$user->code_part}}</a>
+                            <p>
+                                @auth
+                                    <?php $user = auth()->user(); ?>
+                                    @if($user->code_part != NULL)
+                                        <label style="color: #001f3f;">
+                                            Реферальная ссылка - <a href="{{ route('events.show', ['id' => $event->id, 'code' => $user->code_part]) }}">https://eventhes.com/{{$event->id}}/{{$user->code_part}}</a>
                             <p><a style="color: #575151;"
                                   href="https://telegram.me/share/url?url=https://eventhes.com/{{$event->id}}/{{$user->code_part}}"
                                   data-share="https://telegram.me/share/url?url=https://www.facebook.com/sharer/sharer.php?u=https://eventhes.com/{{$event->id}}/{{$user->code_part}}"
@@ -1120,10 +1124,18 @@
                                            name="referralCheckbox">
                                     Я согласен(-на) стать участником программы
                                 </label>
-                                @endif
-                                </p>
-                                <p style="color: #575151;">Поделитесь ссылкой и получите БОНУСЫ</p>
+                            @endif
+                            @else
+                                <label style="color: #001f3f;">
+                                    <input style="color: #001f3f;" type="checkbox" id="referralCheckbox"
+                                           name="referralCheckbox">
+                                    Я согласен(-на) стать участником программы
+                                </label>
+                            @endauth
+                            <p style="color: #575151;">Поделитесь ссылкой и получите БОНУСЫ</p>
+                            </p>
                         </h3>
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="close" data-dismiss="modal">Close</button>

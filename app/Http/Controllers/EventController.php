@@ -220,14 +220,20 @@ class EventController extends Controller
             return abort(404);
         }
 
+        $patch = isset($_SERVER["HTTP_HOST"]) && isset($_SERVER["REQUEST_URI"]) ? $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"] : null;
+        $client = isset($_SERVER["HTTP_USER_AGENT"]) ? $_SERVER["HTTP_USER_AGENT"] : null;
+        $ip = isset($_SERVER["REMOTE_ADDR"]) ? $_SERVER["REMOTE_ADDR"] : null;
+        $event_id = isset($_SERVER["REQUEST_URI"]) ? $_SERVER["REQUEST_URI"] : null;
+
         $data = [
             [
-                'patch' => $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"],
-                'client' => $_SERVER["HTTP_USER_AGENT"],
-                'ip' => $_SERVER["REMOTE_ADDR"],
-                'event_id' => $_SERVER["REQUEST_URI"]
+                'patch' => $patch,
+                'client' => $client,
+                'ip' => $ip,
+                'event_id' => $event_id
             ],
         ];
+
 
         $response = Http::withToken(env('NODEJS_API_TOKEN'))
             ->post('http://88.218.28.99:3000/api/statistics', $data);
@@ -252,12 +258,12 @@ class EventController extends Controller
             $reserv = $shedule->reserv;
             $time = $shedule->time;
             $mono = $shedule->mono;
-            $datapicker = $shedule->datapicker; // Move this inside the conditional block
+            $datapicker = $shedule->datapicker;
         } else {
             $reserv = 'Default Value';
             $time = null;
             $mono = null;
-            $datapicker = null; // or whatever default value you want to assign
+            $datapicker = null;
         }
 
         $busyDates = [];
@@ -269,16 +275,14 @@ class EventController extends Controller
 
         $formattedBusyDates = [];
 
-        foreach ($busyDates as $date) {
-            try {
-                $formattedDate = \Carbon\Carbon::createFromFormat('d/m/Y', $date)->format('Y-m-d');
-                $formattedBusyDates[] = $formattedDate;
-            } catch (\Exception $e) {
-                // Log or handle the invalid date gracefully
-                // For example:
-                // Log::error("Invalid date encountered: $date");
-                // Skip the invalid date
-                continue;
+        if (!empty($busyDates)) {
+            foreach ($busyDates as $date) {
+                try {
+                    $formattedDate = \Carbon\Carbon::createFromFormat('d/m/Y', $date)->format('Y-m-d');
+                    $formattedBusyDates[] = $formattedDate;
+                } catch (\Exception $e) {
+                    continue;
+                }
             }
         }
 
@@ -286,10 +290,10 @@ class EventController extends Controller
             ->orderBy('updated_at', 'desc')
             ->first();
 
-        // Найдем все записи из таблицы timeworks, принадлежащие определенному shedule_id
         $timeworks = Timework::join('shedules', 'timeworks.shedule_id', '=', 'shedules.id')
             ->where('shedules.event_id', $id)
             ->get();
+
         return view('events.show', compact('event', 'lessonType', 'reserv', 'time', 'imageData', 'formattedBusyDates', 'user', 'timeworks', 'datapicker'));
 
     }

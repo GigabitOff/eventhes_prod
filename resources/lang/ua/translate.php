@@ -3,6 +3,7 @@ return [
     'welcome' => 'Welcome to our website!',
     'Cabinet' => 'Кабінет',
     'Wishlist' => 'Список бажань',
+    'Catalog events' => 'Каталог подій',
     'Home' => 'Головна',
     'Events' => 'Події',
     'Blog' => 'Блог',
@@ -159,6 +160,12 @@ return [
     'Edit' => 'Редагувати',
     'Your summ' => 'Ваша сума',
     'Save' => 'Зберегти',
+
+    'Select category' => 'Виберіть категорію',
+    'Services' => 'Послуги',
+    'Select region' => 'Виберіть область',
+    'Select town' => 'Виберіть місто',
+
 
     'Foto num' => 'Номер фото',
     'Events All' => 'Всі події',

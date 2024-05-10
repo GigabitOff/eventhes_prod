@@ -2,6 +2,7 @@
 return [
     'Cabinet' => 'Cabinet',
     'Wishlist' => 'Wishlist',
+    'Catalog events' => 'Catalog events',
     'Home' => 'Home',
     'Events' => 'Events',
     'Blog' => 'Blog',
@@ -114,6 +115,8 @@ return [
     'Time' => 'Time',
     'Ticket' => 'Ticket',
     'Here' => 'Here',
+
+
     'Write your review' => 'Write your review',
     'You need to login to be able to leave a review' => 'You need to login to be able to leave a review',
     'Search' => 'Search',
@@ -144,6 +147,8 @@ return [
     'Oll Visitors' => 'Oll Visitors',
     'Unique Visitors' => 'Unique Visitors',
     'Order date' => 'Order date',
+
+
     'Amount' => 'Amount',
     'Visitors' => 'Visitors',
     'Count' => 'Count',
@@ -205,6 +210,8 @@ return [
     'Thursday' => 'Thursday',
     'Wednesday' => 'Wednesday',
     'Tuesday' => 'Tuesday',
+
+
     'Statistic All' => 'Statistic All',
     'Saturday' => 'Saturday',
     'Sunday' => 'Sunday',
@@ -227,6 +234,14 @@ return [
     '_6' => 'Security',
     '_7' => 'and',
     '_8' => 'modernity',
+
+
+    'Select category' => 'Select category',
+    'Services' => 'Services',
+    'Select region' => 'Select region',
+    'Select town' => 'Select town',
+
+
     'CLIENTS ANYWHERE' => 'New clients!',
     'BONUS ANYWHERE' => 'Lots of bonuses and discounts!',
     'During registration, choose your account type - User or Partner. Partners receive monetary rewards for views of their events, while users are simply website visitors.' => 'During registration, choose your account type - User or Partner. Partners receive monetary rewards for views of their events, while users are simply website visitors.',
@@ -250,6 +265,9 @@ return [
     'H24 Support' => 'H24 Support',
     'Furthermore, we\'re delighted to offer our service in 10 languages, ensuring accessibility and inclusivity for our global community. Moreover, we provide round-the-clock support (H24 Support), ensuring that assistance is available whenever you need it. Thank you for your faith in us and your ongoing support in our journey. We are proud to have you in our community.' => 'Furthermore, we\'re delighted to offer our service in 10 languages, ensuring accessibility and inclusivity for our global community. Moreover, we provide round-the-clock support (H24 Support), ensuring that assistance is available whenever you need it. Thank you for your faith in us and your ongoing support in our journey. We are proud to have you in our community.',
     '10 Languages available' => '10 Languages available',
+
+
+
 
 
 ];
