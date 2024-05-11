@@ -5,6 +5,7 @@ return [
     'Home' => 'Главная',
     'Catalog events' => 'Каталог событий',
     'Events' => 'События',
+    'Events all' => 'Все События',
     'events_for_user' => 'ПОСЕТИТЕЛЯ',
     'events_for_partner' => 'ПАРТНЕРА',
     'Blog' => 'Блог',

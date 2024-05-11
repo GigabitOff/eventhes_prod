@@ -11,7 +11,15 @@ class Order extends Model
 
     protected $guarded = ['id', 'created_at', 'updated_at', 'data_create_order'];
 
+    protected $fillable = [
+        // ваші поля
+    ];
 
+    public function event()
+    {
+        return $this->belongsTo(Event::class, 'order_id', 'id');
+       // return $this->hasMany(Event::class, 'id', 'order_id');
+    }
 }
 
 

@@ -6,6 +6,7 @@ return [
     'Catalog events' => 'Каталог подій',
     'Home' => 'Головна',
     'Events' => 'Події',
+    'Events all' => 'Всі Події',
     'Blog' => 'Блог',
     'Contact Us' => 'Зв`яжіться з нами',
     'Language' => 'Мова',

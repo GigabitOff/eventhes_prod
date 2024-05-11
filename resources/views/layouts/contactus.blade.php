@@ -220,7 +220,7 @@
                         </style>
                         <li class="nav-item" >
                             <a style="background-color: #0d6efd; height: 21px;  border-radius: 4px;" class="nav-link" href="/all" target="_self">
-                                {{ __('translate.Events') }}
+                                {{ __('translate.Events all') }}
                             </a>
                         </li>
                         <li class="nav-item ">

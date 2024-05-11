@@ -6,25 +6,8 @@
             <div class="container margin_60">
                 <div class="row">
                     <aside class="col-lg-3">
-                        {{--                        <p>--}}
-{{--                            <a class="btn_map" data-toggle="collapse" style="text-decoration: none;" href="#collapseMap" aria-expanded="false"--}}
-{{--                               aria-controls="collapseMap" data-text-swap="Hide map"--}}
-{{--                               data-text-original="View on map">--}}
-{{--                                {{ __('translate.View on map') }} </a>--}}
-{{--                        </p>--}}
                         <form action="{{ route('search') }}" method="GET" >
                             <div id="filters_col">
-{{--                                <div class="collapse show" >--}}
-{{--                                    <div class="filter_type">--}}
-{{--                                        <label for="category">Выберите регион:</label>--}}
-{{--                                        <select class="form-control" id="citySelect">--}}
-{{--                                            @foreach ($cities as $city)--}}
-{{--                                                <option value="{{ $city->id }}">{{ $city->name }}</option>--}}
-{{--                                            @endforeach--}}
-{{--                                        </select>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-
                                 <input name="what" class="form-control" aria-describedby="emailHelp" placeholder="Search">
                                 <span>&nbsp;</span>
                                 <div class="collapse show">
@@ -38,6 +21,58 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div id="content"></div>
+                                <script>
+                                    $(document).ready(function() {
+                                        $('#category').change(function() {
+                                            var category = $(this).val();
+                                            var url = '';
+
+                                            switch(category) {
+                                                case '3':
+                                                    url = '/category/event';
+                                                    break;
+                                                case '2':
+                                                    url = '/category/trade';
+                                                    break;
+                                                case '1':
+                                                    url = '/category/courses';
+                                                    break;
+                                            }
+                                            if (url) {
+                                                $.ajax({
+                                                    url: url,
+                                                    headers: {
+                                                        'Content-Type': 'application/json',
+                                                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                                    },
+                                                    type: 'get',
+                                                    success: function(response) {
+                                                        $('#content').html(response);
+                                                        // Добавляем код для переключения содержимого
+                                                        toggleContent(); // Вызываем функцию после загрузки контента
+                                                    }
+                                                });
+                                            }
+                                        });
+
+                                        // Функция для переключения содержимого
+                                        function toggleContent() {
+                                            document.getElementById('toggleLink').addEventListener('click', function(event) {
+                                                event.preventDefault(); // Предотвращаем стандартное поведение ссылки
+                                                var content = document.getElementById('toggleContent');
+                                                if (content.style.display === 'none') {
+                                                    content.style.display = 'block';
+                                                    this.textContent = 'Close';
+                                                } else {
+                                                    content.style.display = 'none';
+                                                    this.textContent = 'Раскрыть';
+                                                }
+                                            });
+                                        }
+                                    });
+                                </script>
+
                                 <span>&nbsp;</span>
                                 <div class="form-group">
                                     <label for="category">{{ __('translate.Select region') }}:</label>
@@ -54,13 +89,13 @@
                                 </div>
                                 <div class="collapse show" >
                                     <div class="filter_type">
-                                        <h6>{{ __('translate.Price') }} $ From <output id="ong">50</output> - To <output id="ong2">50</output></h6>
-                                        <input id="rng" name="rng" type="range" min="1" max="100" value="50">
-                                       <input id="rng2" name="rng2" type="range" min="1" max="100" value="50">
+                                        <h6>{{ __('translate.Price') }} $ From <output id="ong">0</output> - To <output id="ong2">10000</output></h6>
+                                        <input id="rng" name="rng" type="range" min="1" max="10000" value="0">
+                                       <input id="rng2" name="rng2" type="range" min="1" max="10000" value="10000">
                                     </div>
                                 </div>
                             </div>
-                            <a href="#" onclick="updateHiddenFieldsAndSubmit(); return false;" style="text-decoration: none;" class="btn_map mb-2">{{ __('translate.Send') }}</a>
+                            <a href="#" onclick="updateHiddenFieldsAndSubmit(); return false;" style="text-decoration: none; " class="btn_map mb-2">{{ __('translate.Send') }}</a>
                         </form>
                         <script>
                             function updateHiddenFieldsAndSubmit() {
@@ -168,8 +203,14 @@
                                                 </span>
                                             <span class="normal_price_list"></span>
                                             <small>*{{ __('translate.Per person') }}</small>
-                                            <p><a href="/{{$event->id}}" class="btn_1" target="_blank">{{ __('translate.Details') }}</a>
-                                            </p>
+                                            <p><a href="/{{$event->id}}" class="btn_1" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                                                        <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
+                                                        <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+                                                    </svg> {{ __('translate.Details') }}</a></p>
+                                            <p><a href="/{{$event->id}}" type="button" data-toggle="modal" data-target="#bonusProgramModal"  style="text-decoration: none; color: #ffffff; background-color: #eaad14; padding: 10px 20px; border-radius: 5px; display: inline-block;" class="btn_1" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-check" viewBox="0 0 16 16">
+                                                        <path fill-rule="evenodd" d="M10.854 8.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708 0"/>
+                                                        <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>
+                                                    </svg> BONUS</a></p>
                                         </div>
                                     </div>
                                 </div>
@@ -287,6 +328,7 @@
         </svg>
     </button>
 @endsection
+
 <script>
     window.onscroll = function () {
         scrollFunction()
@@ -409,7 +451,6 @@
             }
         });
     }
-
 
 </script>
 

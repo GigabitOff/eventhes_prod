@@ -735,8 +735,11 @@
                             <span class="ladda-spinner"></span></a>
 
                     <button type="button" data-toggle="modal" data-target="#bonusProgramModal"
-                            style="background-color: #ff8f40; margin-top: 10px; border-color: #e27513;"
-                            class="btn_full">BONUS +
+                            style="background-color: #e8aa1b; margin-top: 10px; border-color: #e27513;"
+                            class="btn_full"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-check" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M10.854 8.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708 0"/>
+                            <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>
+                        </svg> BONUS +
                     </button>
                 </div>
                 <div class="box_style_4">
@@ -1082,53 +1085,44 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p style="color: #001f3f;">Это программа распространения реферальных ссылок на услугу!</p>
-                        <h3>
-                            <p>
-                                @auth
-                                    <?php $user = auth()->user(); ?>
-                                    @if($user->code_part != NULL)
-                                        <label style="color: #001f3f;">
-                                            Реферальная ссылка - <a href="{{ route('events.show', ['id' => $event->id, 'code' => $user->code_part]) }}">https://eventhes.com/{{$event->id}}/{{$user->code_part}}</a>
-                            <p><a style="color: #575151;"
-                                  href="https://telegram.me/share/url?url=https://eventhes.com/{{$event->id}}/{{$user->code_part}}"
-                                  data-share="https://telegram.me/share/url?url=https://www.facebook.com/sharer/sharer.php?u=https://eventhes.com/{{$event->id}}/{{$user->code_part}}"
-                                  data-type="telegram" target="_blank" role="button">Поделиться в
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                         class="bi bi-telegram" viewBox="0 0 16 16">
-                                        <path
-                                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.287 5.906q-1.168.486-4.666 2.01-.567.225-.595.442c-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294q.39.01.868-.32 3.269-2.206 3.374-2.23c.05-.012.12-.026.166.016s.042.12.037.141c-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8 8 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629q.14.092.27.187c.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.4 1.4 0 0 0-.013-.315.34.34 0 0 0-.114-.217.53.53 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09"/>
-                                    </svg>
-                                </a></p>
-                            <p><a style="color: #575151;"
-                                  href="https://www.facebook.com/sharer/sharer.php?u=https://eventhes.com/{{$event->id}}/{{$user->code_part}}"
-                                  data-share="https://www.facebook.com/sharer/sharer.php?u=https://eventhes.com/{{$event->id}}/{{$user->code_part}}"
-                                  target="_blank" role="button"> Поделиться в
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                         class="bi bi-facebook" viewBox="0 0 16 16">
-                                        <path
-                                            d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"/>
-                                    </svg>
-                                </a></p>
-                            </label>
-                            @else
-                                <label style="color: #001f3f;">
-                                    <input style="color: #001f3f;" type="checkbox" id="referralCheckbox"
-                                           name="referralCheckbox">
-                                    Я согласен(-на) стать участником программы
-                                </label>
-                            @endif
-                            @else
-                                <label style="color: #001f3f;">
-                                    <input style="color: #001f3f;" type="checkbox" id="referralCheckbox"
-                                           name="referralCheckbox">
-                                    Я согласен(-на) стать участником программы
-                                </label>
-                            @endauth
-                            <p style="color: #575151;">Поделитесь ссылкой и получите БОНУСЫ</p>
-                            </p>
-                        </h3>
-
+                        <center><p style="color: #001f3f;">Это программа распространения реферальных ссылок на услугу!</p>
+                            <h3>
+                                <p>
+                                    @auth
+                                        <?php $user = auth()->user(); ?>
+                                        @if($user->code_part != NULL)
+                                            <label style="color: #001f3f;">
+                                                Реферальная ссылка - <a style="color: #001f3f;" href="{{ route('events.show', ['id' => $event->id, 'code' => $user->code_part]) }}">https://eventhes.com/{{$event->id}}/{{$user->code_part}}</a>
+                                            </label>
+                                <p>
+                                    <a style="color: #575151;" href="https://telegram.me/share/url?url=https://eventhes.com/{{$event->id}}/{{$user->code_part}}" data-share="https://telegram.me/share/url?url=https://www.facebook.com/sharer/sharer.php?u=https://eventhes.com/{{$event->id}}/{{$user->code_part}}" data-type="telegram" target="_blank" role="button">Поделиться в
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telegram" viewBox="0 0 16 16">
+                                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.287 5.906q-1.168.486-4.666 2.01-.567.225-.595.442c-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294q.39.01.868-.32 3.269-2.206 3.374-2.23c.05-.012.12-.026.166.016s.042.12.037.141c-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8 8 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629q.14.092.27.187c.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.4 1.4 0 0 0-.013-.315.34.34 0 0 0-.114-.217.53.53 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09"/>
+                                        </svg>
+                                    </a>
+                                </p>
+                                <p>
+                                    <a style="color: #575151;" href="https://www.facebook.com/sharer/sharer.php?u=https://eventhes.com/{{$event->id}}/{{$user->code_part}}" data-share="https://www.facebook.com/sharer/sharer.php?u=https://eventhes.com/{{$event->id}}/{{$user->code_part}}" target="_blank" role="button"> Поделиться в
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
+                                            <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"/>
+                                        </svg>
+                                    </a>
+                                </p>
+                                @else
+                                    <label style="color: #001f3f;">
+                                        <input style="color: #001f3f;" type="checkbox" id="referralCheckbox" name="referralCheckbox">
+                                        Я согласен(-на) стать участником программы
+                                    </label>
+                                @endif
+                                @endauth
+                                @guest
+                                    <label style="color: #001f3f;">
+                                           Автаризуйтесь сначала!
+                                    </label>
+                                @endguest
+                                <p style="color: #575151; font-size: 13px;">Распрастраняйте ссылки на услугу и получайте BONUS </p>
+                                </p>
+                            </h3></center>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="close" data-dismiss="modal">Close</button>

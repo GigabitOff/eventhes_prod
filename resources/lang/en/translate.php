@@ -5,6 +5,7 @@ return [
     'Catalog events' => 'Catalog events',
     'Home' => 'Home',
     'Events' => 'Events',
+    'Events all' => 'All Events',
     'Blog' => 'Blog',
     'Contact Us' => 'Contact Us',
     'Language' => 'Language',

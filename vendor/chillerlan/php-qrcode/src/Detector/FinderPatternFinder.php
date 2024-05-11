@@ -719,7 +719,7 @@ final class FinderPatternFinder{
 	}
 
 	/**
-	 * Order an array of three ResultPoints in an order [A,B,C] such that AB is less than AC
+	 * Orders an array of three ResultPoints in an order [A,B,C] such that AB is less than AC
 	 * and BC is less than AC, and the angle between BC and BA is less than 180 degrees.
 	 *
 	 * @param \chillerlan\QRCode\Detector\FinderPattern[] $patterns array of three FinderPattern to order

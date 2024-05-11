@@ -190,7 +190,7 @@
         <div class="row">
             <div class="col-3">
                 <div id="logo_home">
-                    <h1><a href="" title="EVENTHES">EVENTHES</a></h1>
+                    <h1><a href="/" title="EVENTHES">EVENTHES</a></h1>
                 </div>
             </div>
             <nav class="col-9">
@@ -233,7 +233,7 @@
                         </style>
                         <li class="nav-item" >
                             <a style="background-color: #0d6efd; height: 21px;  border-radius: 4px;" class="nav-link" href="/all" target="_self">
-                                {{ __('translate.Events') }}
+                                {{ __('translate.Events all') }}
                             </a>
                         </li>
                         @if(Auth::check() && (Auth::user()->role_id == 1 || Auth::user()->role_id == 3 ))
@@ -388,7 +388,14 @@
                                         </svg></i>
                                 </div><!-- end rating -->
                             </div>
-                            <a href="/{{$service->id}}" style="text-decoration: none;" class="btn_1" target="_blank">{{ __('translate.Details') }}</a>
+                            <a href="/{{$service->id}}" style="text-decoration: none;" class="btn_1" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                                    <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
+                                    <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+                                </svg> {{ __('translate.Details') }}</a>
+                            <a href="/{{$service->id}}"  type="button" data-toggle="modal" data-target="#bonusProgramModal" style="text-decoration: none; color: #ffffff; background-color: #e8aa1b; padding: 10px 20px; border-radius: 5px; display: inline-block;" class="btn_1" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-check" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M10.854 8.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708 0"/>
+                                    <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>
+                                </svg> BONUS</a>
                         </div>
                     </div>
                 </div>
@@ -443,6 +450,10 @@
                                 </div><!-- end rating -->
                             </div>
                             <a href="/{{$event->id}}" style="text-decoration: none;" class="btn_1" target="_blank">{{ __('translate.Details') }}</a>
+                            <a href="/{{$service->id}}"  type="button" data-toggle="modal" data-target="#bonusProgramModal" style="text-decoration: none; color: #ffffff; background-color: #e8aa1b; padding: 10px 20px; border-radius: 5px; display: inline-block;" class="btn_1" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-check" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M10.854 8.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708 0"/>
+                                    <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>
+                                </svg> BONUS</a>
                         </div>
                     </div>
                 </div>
@@ -497,6 +508,10 @@
                                 </div><!-- end rating -->
                             </div>
                             <a href="/{{$course->id}}" style="text-decoration: none;" class="btn_1" target="_blank">{{ __('translate.Details') }}</a>
+                            <a href="/{{$service->id}}"  type="button" data-toggle="modal" data-target="#bonusProgramModal" style="text-decoration: none; color: #ffffff; background-color: #e8aa1b; padding: 10px 20px; border-radius: 5px; display: inline-block;" class="btn_1" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-check" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M10.854 8.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708 0"/>
+                                    <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>
+                                </svg> BONUS</a>
                         </div>
                     </div>
                 </div>
@@ -649,6 +664,62 @@
         </div>
 </main>
 <!-- Footer================================================== -->
+<div class="modal fade modal-transparent" style="margin-top: 50px;" id="bonusProgramModal" tabindex="-1"
+     aria-labelledby="bonusModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="bonusModalLabel" style="color: #001f3f;">Программа BONUS+</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <center><p style="color: #001f3f;">Это программа распространения реферальных ссылок на услугу!</p>
+                <h3>
+                    <p>
+                        @auth
+                            <?php $user = auth()->user(); ?>
+                            @if($user->code_part != NULL)
+                                <label style="color: #001f3f;">
+                                    Реферальная ссылка - <a href="{{ route('events.show', ['id' => $event->id, 'code' => $user->code_part]) }}">https://eventhes.com/{{$event->id}}/{{$user->code_part}}</a>
+                                </label>
+                    <p>
+                        <a style="color: #575151;" href="https://telegram.me/share/url?url=https://eventhes.com/{{$event->id}}/{{$user->code_part}}" data-share="https://telegram.me/share/url?url=https://www.facebook.com/sharer/sharer.php?u=https://eventhes.com/{{$event->id}}/{{$user->code_part}}" data-type="telegram" target="_blank" role="button">Поделиться в
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telegram" viewBox="0 0 16 16">
+                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.287 5.906q-1.168.486-4.666 2.01-.567.225-.595.442c-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294q.39.01.868-.32 3.269-2.206 3.374-2.23c.05-.012.12-.026.166.016s.042.12.037.141c-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8 8 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629q.14.092.27.187c.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.4 1.4 0 0 0-.013-.315.34.34 0 0 0-.114-.217.53.53 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09"/>
+                            </svg>
+                        </a>
+                    </p>
+                    <p>
+                        <a style="color: #575151;" href="https://www.facebook.com/sharer/sharer.php?u=https://eventhes.com/{{$event->id}}/{{$user->code_part}}" data-share="https://www.facebook.com/sharer/sharer.php?u=https://eventhes.com/{{$event->id}}/{{$user->code_part}}" target="_blank" role="button"> Поделиться в
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
+                                <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"/>
+                            </svg>
+                        </a>
+                    </p>
+                    @else
+                        <label style="color: #001f3f;">
+                            <input style="color: #001f3f;" type="checkbox" id="referralCheckbox" name="referralCheckbox">
+                            Я согласен(-на) стать участником программы
+                        </label>
+                    @endif
+                    @endauth
+                    @guest
+                        <label style="color: #001f3f;">
+                            Автаризуйтесь сначала!
+                        </label>
+                    @endguest
+                    <p style="color: #575151; font-size: 13px;">Распрастраняйте ссылки на услугу и получайте BONUS </p>
+                    </p>
+                </h3></center>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="close" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 <footer>
     <div class="container">
         <div class="row">
@@ -788,6 +859,36 @@
 <script src="storage/Home_files/common_scripts_min.js"></script>
 <script src="storage/Home_files/functions.js"></script>
 <script src="storage/Home_files/cat_nav_mobile.js"></script>
+<script>
+    // Используем jQuery для простоты, убедитесь, что jQuery подключен на странице
+
+    $(document).ready(function () {
+        // Добавляем обработчик события нажатия на кнопку закрытия модального окна
+        $('#bonusProgramModal .close').click(function () {
+            $('#bonusProgramModal').modal('hide'); // Закрываем модальное окно
+        });
+    });
+
+    // Ждем загрузки DOM, чтобы гарантировать, что все элементы уже доступны
+    document.addEventListener("DOMContentLoaded", function () {
+        // Находим кнопку, которая открывает модальное окно
+        var modalButton = document.querySelector('[data-target="#bonusProgramModal"]');
+
+        // Если кнопка найдена
+        if (modalButton) {
+            // Добавляем обработчик события клика
+            modalButton.addEventListener("click", function () {
+                // Находим модальное окно по его идентификатору
+                var modal = document.querySelector('#bonusProgramModal');
+                // Показываем модальное окно
+                if (modal) {
+                    var modal = new bootstrap.Modal(modal);
+                    modal.show();
+                }
+            });
+        }
+    });
+</script>
 <script>
     $('#cat_nav').mobileMenu();
 </script>

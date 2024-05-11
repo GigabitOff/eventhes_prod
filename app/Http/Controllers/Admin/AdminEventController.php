@@ -409,7 +409,6 @@ class AdminEventController extends Controller
         }
 
         $latestFotosString = implode(', ', $nearestDateFiles);
-
         $lessonType = LessonType::where('events_id', $event->id)
             ->orderBy('updated_at', 'desc')
             ->first();

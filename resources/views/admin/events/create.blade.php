@@ -27,6 +27,8 @@
     }
 
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <div class="content-wrapper">
     <section class="content-header">
         <div class="container-fluid">
@@ -415,8 +417,6 @@
                     url: url,
                     type: 'get',
                     success: function(response) {
-
-                        // Предполагается, что #content - это контейнер, куда будет загружен контент
                         $('#content').html(response);
                     }
                 });
