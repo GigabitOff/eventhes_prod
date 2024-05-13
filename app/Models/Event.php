@@ -48,6 +48,11 @@ class Event extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
+    public function town()
+    {
+        return $this->belongsTo(Town::class, 'town_id', 'id');
+    }
+
 
 }
 

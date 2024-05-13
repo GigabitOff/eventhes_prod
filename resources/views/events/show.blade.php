@@ -221,11 +221,8 @@
                                 style="background-color: #000000;">
                                 <li><a class="dropdown-item" href="{{ url('/lang/en') }}">English</a></li>
                                 <li><a class="dropdown-item" href="{{ url('/lang/ru') }}">Русский</a></li>
-                                <li><a class="dropdown-item" href="{{ url('/lang/es') }}">Español</a></li>
-                                <li><a class="dropdown-item" href="{{ url('/lang/fr') }}">Français</a></li>
                                 <li><a class="dropdown-item" href="{{ url('/lang/pl') }}">Polski</a></li>
                                 <li><a class="dropdown-item" href="{{ url('/lang/ua') }}">Українська</a></li>
-                                <li><a class="dropdown-item" href="{{ url('/lang/de') }}">Deutsch</a></li>
                             </ul>
                         </li>
                         <script>   document.querySelector('.dropdown-menu').addEventListener('click', function (e) {
@@ -262,26 +259,27 @@
                 <h1>
                    <span style="background-color:#201c23; opacity: 0.7; border-radius: 5px; padding: 5px;"><span style="opacity: 1;">{{ $event->title }}</span></span>
                 </h1>
-                <hr style="border: 0; border-top: 1px solid #000;">
-{{--                <div class="col-md-8">--}}
-{{--                    @php--}}
-{{--                        $parts = explode('|', $reserv);--}}
-{{--                        $startDateString = trim(str_replace('Start date:', '', $parts[0]));--}}
-{{--                        $startDate = date('Y-m-d', strtotime($startDateString));--}}
-{{--                        $endDateString = trim(str_replace('End date:', '', $parts[1]));--}}
-{{--                        $endDate = date('Y-m-d', strtotime($endDateString));--}}
-{{--                    @endphp--}}
-{{--                    <h3 style="font-size: 17px;">--}}
-{{--                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"--}}
-{{--                             fill="currentColor"--}}
-{{--                             class="bi bi-calendar-week" viewBox="0 0 16 16">--}}
-{{--                            <path--}}
-{{--                                d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-5 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z"/>--}}
-{{--                            <path--}}
-{{--                                d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>--}}
-{{--                        </svg>--}}
-{{--                        - <i>{{ $startDate}} - {{$endDate}}</i></h3>--}}
-{{--                </div>--}}
+                <hr style="border: 0; border-top: 1px solid #000; margin-top: 10px;">
+                <h5>
+    <span>
+        <img src="https://eventhes.com/storage/files/ua.png" alt="Flag" style="vertical-align: middle; margin-top:-5px; width: 2%;">
+        <span style="color: white;">
+            @if ($event->town)
+                м.{{ $event->town->name }}
+            @else
+                On-Line
+            @endif
+        </span>
+            @if($event->shedule)
+            <p style="width: 33%; white-space: nowrap; overflow: hidden; font-weight: bold; border-radius: 5px; background-color: #eeeeee; margin-top:20px;">{{ $event->shedule->reserv }}</p>
+        @else
+            <p>No schedule available</p>
+        @endif
+    </span>
+                </h5>
+
+                </h5>
+
                 <div class="row">
                     @if($time == '00:00:00')
                         <span>

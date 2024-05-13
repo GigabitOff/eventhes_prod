@@ -294,6 +294,7 @@ class EventController extends Controller
             ->where('shedules.event_id', $id)
             ->get();
 
+
         return view('events.show', compact('event', 'lessonType', 'reserv', 'time', 'imageData', 'formattedBusyDates', 'user', 'timeworks', 'datapicker'));
 
     }

@@ -378,8 +378,7 @@
                             </a>
                         </div>
                         <div class="tour_title">
-                            <h3>
-                                <strong>{{$service->title}}</strong></h3>
+                            <h3><img src="https://eventhes.com/storage/files/ua.png" alt="Flag" style="vertical-align: middle; width: 6%;"><strong>{{$service->title}}</strong></h3>
                             <div class="parent-container" style="display: flex; justify-content: flex-end;">
                                 <div class="rating">
                                     <i  style="font-size: 30px;  cursor: pointer;"
@@ -439,8 +438,7 @@
                             </a>
                         </div>
                         <div class="tour_title">
-                            <h3>
-                                <strong>{{$event->title}}</strong></h3>
+                            <h3><img src="https://eventhes.com/storage/files/ua.png" alt="Flag" style="vertical-align: middle; width: 5%;"><strong>{{$event->title}}</strong></h3>
                             <div class="parent-container" style="display: flex; justify-content: flex-end;">
                                 <div class="rating">
                                     <i  style="font-size: 30px;  cursor: pointer;"
@@ -497,8 +495,7 @@
                             </a>
                         </div>
                         <div class="tour_title">
-                            <h3>
-                                <strong>{{$course->title}}</strong></h3>
+                            <h3><img src="https://eventhes.com/storage/files/ua.png" alt="Flag" style="vertical-align: middle; width: 5%;"><strong>{{$course->title}}</strong></h3>
                             <div class="parent-container" style="display: flex; justify-content: flex-end;">
                                 <div class="rating">
                                     <i  style="font-size: 30px;  cursor: pointer;"

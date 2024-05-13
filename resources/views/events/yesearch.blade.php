@@ -15,7 +15,6 @@
                         <form action="{{ route('search') }}" method="GET">
                             <div id="filters_col">
                                 <input type="email" name="what" class="form-control" aria-describedby="emailHelp" placeholder="{{ __('translate.Search') }}">
-                                <span>&nbsp;</span>
                                 <input style="display: none;" id="salesman" name="salesman" value="{{$salesman}}">
                                 <div class="collapse show">
                                     <div class="filter_type">
@@ -28,7 +27,6 @@
                                         </select>
                                     </div>
                                 </div>
-                                <span>&nbsp;</span>
                                 <div class="form-group">
                                     <label for="category">{{ __('translate.Select region') }}:</label>
                                     <select class="form-control" id="regionSelect" onchange="sendAjaxRequest(this.value)">
@@ -49,8 +47,9 @@
                                         <input id="rng2" name="rng2" type="range" min="1" max="10000" value="10000">
                                     </div>
                                 </div>
+                                <span>&nbsp;</span>
+                                <a href="#" onclick="updateHiddenFieldsAndSubmit(); return false;" style="text-decoration: none; margin-top:20px; " class="btn_map mb-2">{{ __('translate.Send') }}</a>
                             </div>
-                            <a href="#" onclick="updateHiddenFieldsAndSubmit(); return false;" style="text-decoration: none;" class="btn_map mb-2">{{ __('translate.Send') }}</a>
                         </form>
                         <script>
                             $(function() {
@@ -156,12 +155,19 @@
                                                 @endfor
                                             </div>
                                         </div>
-                                        <a href="http://eventhes.com/tours/galata-tower" class="tour_title"><strong>{{$event->title}}</strong></a>
+                                        <a href="http://eventhes.com/tours/galata-tower" class="tour_title"><img src="https://eventhes.com/storage/files/ua.png" alt="Flag" style="vertical-align: middle; width: 5%;"><strong>{{$event->title}}</strong></a>
                                         @if($event->shedule)
                                             <p style="width: 100%; white-space: nowrap; overflow: hidden; font-weight: bold; border-radius: 5px; background-color: #eeeeee">{{ $event->shedule->reserv }}</p>
                                         @else
                                             <p>No schedule available</p>
                                         @endif
+                                        <span>
+                                        @if ($event->town)
+                                                м.{{ $event->town->name }}
+                                            @else
+                                                On-Line
+                                            @endif
+                                        </span>
                                         <p>{!! $event->phone !!}</p>
                                         <i style="font-size: 30px; cursor: pointer;" onclick="likeButtonClicked({{ $event->id }});"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
                                                 <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
