@@ -21,23 +21,32 @@ class WelcomeController extends Controller
         $currentLocale = session('locale', config('app.locale'));
         App::setLocale($currentLocale);
 
-        $events = Event::latest()
-            ->where('status', 1)
+        $events = Event::where('status', 1)
             ->where('category', 1)
+            ->inRandomOrder()
             ->take(3)
             ->get();
 
-        $courses = Event::latest()
-            ->where('status', 1)
+        $goods= Event::where('status', 1)
+            ->where('category', 4)
+            ->inRandomOrder()
+            ->take(3)
+            ->get();
+
+        $courses = Event::where('status', 1)
             ->where('category', 3)
+            ->inRandomOrder()
             ->take(3)
             ->get();
 
-        $services = Event::latest()
-            ->where('status', 1)
+        $services = Event::where('status', 1)
             ->where('category', 2)
+            ->inRandomOrder()
             ->take(3)
             ->get();
+
+
+
 
         $eventsall = Event::latest()->where('status', 1)->get();
 
@@ -51,10 +60,10 @@ class WelcomeController extends Controller
         }
 
         if ($user && $user->role_id == 1) {
-            return view('welcome', ['showTestRecord' => true, 'currentLocale' => $currentLocale,'services' => $services,  'courses' => $courses, 'events' => $events, 'eventsall' => $eventsall]);
+            return view('welcome', ['showTestRecord' => true, 'currentLocale' => $currentLocale, 'goods' => $goods,  'services' => $services,  'courses' => $courses, 'events' => $events, 'eventsall' => $eventsall]);
         } else {
             $currentLocale = app()->getLocale();
-            return view('welcome', ['showTestRecord' => false, 'currentLocale' => $currentLocale, 'services' => $services, 'courses' => $courses, 'events' => $events, 'eventsall' => $eventsall]);
+            return view('welcome', ['showTestRecord' => false, 'currentLocale' => $currentLocale, 'goods' => $goods,  'services' => $services, 'courses' => $courses, 'events' => $events, 'eventsall' => $eventsall]);
         }
 
     }
@@ -94,6 +103,7 @@ class WelcomeController extends Controller
        // return view('events.yesearch', compact('events', 'searchTerm', 'phone'));
     }
 
+    //...
     public function search(Request $request)
     {
         $regions = Region::take(100)->get();
@@ -111,7 +121,7 @@ class WelcomeController extends Controller
         $rng1 = $request->input('rng');
         $rng2 = $request->input('rng2');
         $selectedCategory = $request->input('cat');
-        $salesman= $request->input('salesman');
+        $user_id = $request->input('salesman');
 
         $eventsQuery = Event::where('title', 'like', '%' . $searchTerm . '%')
             ->where('status', 1);
@@ -124,6 +134,10 @@ class WelcomeController extends Controller
             $eventsQuery->where('category', $selectedCategory);
         }
 
+        if ($user_id !== null) {
+            $eventsQuery->where('user_id', $user_id);
+        }
+
         $events = $eventsQuery->orderBy('events.id')->paginate(10);
 
         return view('events.yesearch', [
@@ -131,12 +145,14 @@ class WelcomeController extends Controller
             'currentLocale' => $currentLocale,
             'searchTerm' => $searchTerm,
             'rng1' => $rng1,
-           'salesman' => $salesman,
+            'user_id' => $user_id, // Исправлено на user_id
             'regions' => $regions,
             'cities' => $cities,
+            'salesman' => $user_id, // Добавлена переменная salesman
             'rng2' => $rng2
         ]);
     }
+
 
 }
 

@@ -215,7 +215,22 @@ class EventController extends Controller
             App::setLocale($locale);
             return $next($request);
         });
+
         $event = Event::find($id);
+        $event_type_pay = $event->type_pay;
+        $event_amount = $event->amount;
+        $event_discount = $event->discount;
+
+        if ($event) {
+            $userId = $event->user_id;
+            $events = Event::where('user_id', $userId)
+                ->whereNotIn('id', [$id]) // исключаем выбранный $id
+                ->take(6)
+                ->get();
+        } else {
+            $events = collect();
+        }
+
         if (!$event) {
             return abort(404);
         }
@@ -233,7 +248,6 @@ class EventController extends Controller
                 'event_id' => $event_id
             ],
         ];
-
 
         $response = Http::withToken(env('NODEJS_API_TOKEN'))
             ->post('http://88.218.28.99:3000/api/statistics', $data);
@@ -295,7 +309,7 @@ class EventController extends Controller
             ->get();
 
 
-        return view('events.show', compact('event', 'lessonType', 'reserv', 'time', 'imageData', 'formattedBusyDates', 'user', 'timeworks', 'datapicker'));
+        return view('events.show', compact('event', 'event_type_pay', 'event_discount', 'event_amount', 'events','lessonType', 'reserv', 'time', 'imageData', 'formattedBusyDates', 'user', 'timeworks', 'datapicker'));
 
     }
 

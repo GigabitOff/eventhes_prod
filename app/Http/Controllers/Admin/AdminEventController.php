@@ -252,7 +252,7 @@ class AdminEventController extends Controller
 
         $schedules = [];
         foreach ($admins as $admin) {
-            $schedules[$admin->id] = Shedule::where('user_id', $admin->id)->where('status', 0)->get();
+            $schedules[$admin->id] = Shedule::where('user_id', $user->id)->where('status', 0)->get();
         }
 
         return view('admin.events.create', compact('admins', 'currentAdmin', 'regions', 'events', 'schedules', 'sheduleRes'));
@@ -299,7 +299,7 @@ class AdminEventController extends Controller
         $event->user_id = $user->id;
         $event->title = $request->title;
         $event->category = $request->category;
-        $event->town = $request->town;
+        $event->town_id = $request->town;
         $event->data_create_order = '';
         $event->description = $request->input('description');
         $event->slug = $this->generateSlug($request->title);

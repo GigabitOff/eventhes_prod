@@ -25,7 +25,7 @@ class AdminOrderController extends Controller
                 ->paginate(10);
         } elseif ($currentAdmin->role_id == 3 or $currentAdmin->role_id == 2) {
             $eventIds = Event::where('user_id', $currentAdmin->id)->pluck('id');
-            $orders = Order::whereIn('event_id', $eventIds)
+            $orders = Order::whereIn('order_id', $eventIds)
                 ->orderBy('created_at', 'desc')
                 ->paginate(10);
         }

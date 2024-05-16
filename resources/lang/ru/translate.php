@@ -13,6 +13,8 @@ return [
     'Category' => 'Категория',
     'Work' => 'Работа',
     'Trade' => 'Продажи',
+    'Buy' => 'Купить',
+    'Goods' => 'Товары',
     'Select category' => 'Выберите категорию',
     'Services' => 'Услуги',
     'Courses' => 'Курсы',

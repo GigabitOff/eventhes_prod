@@ -55,12 +55,14 @@
                                 <label for="type_pay">{{ __('translate.Category') }}</label>
                                     @if(isset($event->category))
                                     <select name="category" id="category" class="form-control" disabled>
-                                    <option value="2" {{ $event->category == "3" ? 'selected' : '' }}>{{ __('translate.Event') }}</option>
-                                    <option value="1" {{ $event->category == "4" ? 'selected' : '' }}>{{ __('translate.Service') }}</option>
-                                    <option value="0" {{ $event->category == "1" ? 'selected' : '' }}>{{ __('translate.Courses') }}</option>
+                                    <option {{ $event->category == "4" ? 'selected' : '' }}>{{ __('translate.Goods') }}</option>
+                                    <option {{ $event->category == "3" ? 'selected' : '' }}>{{ __('translate.Event') }}</option>
+                                    <option {{ $event->category == "2" ? 'selected' : '' }}>{{ __('translate.Service') }}</option>
+                                    <option {{ $event->category == "1" ? 'selected' : '' }}>{{ __('translate.Courses') }}</option>
                                     @else
                                          <select name="category" id="category" class="form-control" >
                                         <option value="0">Select options</option>
+                                        <option value="4">{{ __('translate.Goods') }}</option>
                                         <option value="2">{{ __('translate.Event') }}</option>
                                         <option value="3">{{ __('translate.Service') }}</option>
                                         <option value="1">{{ __('translate.Courses') }}</option>
@@ -103,8 +105,9 @@
                             <div class="form-group">
                                 <label for="type_pay">{{ __('translate.Event paymant') }}</label>
                                 <select name="type_pay" id="type_pay" class="form-control" required onchange="showHidePanel()">
-                                    <option value="1">{{ __('translate.Yes') }}</option>
-                                    <option value="0">{{ __('translate.No') }}</option>
+                                    <option value="1" >{{ __('translate.Оплата з календарем') }}</option>
+                                    <option value="0" >{{ __('translate.Оплата без календаря') }}</option>
+                                    <option value="2" >{{ __('translate.Календарь без оплати') }}</option>
                                 </select>
                             </div>
                             <div class="form-group" >
@@ -402,6 +405,9 @@
             var url = '';
 
             switch(category) {
+                case '4':
+                    url = '/category/goods';
+                    break;
                 case '3':
                     url = '/category/event';
                     break;

@@ -202,14 +202,21 @@
                                 <i class="fa fa fa-home fa-fw"></i> Home
                             </a>
                         </li>
+                        @if ($event->category == 4)
+                        <li class="nav-item ">
+                            <a class="nav-link" href="#" data-target="goods">
+                                {{ __('translate.Goods') }}
+                            </a>
+                        </li>
+                        @endif
                         <li class="nav-item ">
                             <a class="nav-link" href="#" data-target="descript">
-                                Description
+                                {{ __('translate.Description') }}
                             </a>
                         </li>
                         <li class="nav-item ">
                             <a class="nav-link" href="#" data-target="portfol">
-                                Portfolio
+                                {{ __('translate.Portfolio') }}
                             </a>
                         </li>
                         <li class="nav-item dropdown">
@@ -270,10 +277,12 @@
                 On-Line
             @endif
         </span>
+         @if ($event->category != 4)
             @if($event->shedule)
             <p style="width: 33%; white-space: nowrap; overflow: hidden; font-weight: bold; border-radius: 5px; background-color: #eeeeee; margin-top:20px;">{{ $event->shedule->reserv }}</p>
         @else
             <p>No schedule available</p>
+        @endif
         @endif
     </span>
                 </h5>
@@ -307,7 +316,7 @@
     </div>
 </section>
 <main>
-    <div id="position" style="background-color: #e04f67; opacity: 0.8">
+    <div  style="background-color: #e04f67; opacity: 0.8">
         <center>
         </center>
     </div>
@@ -365,16 +374,13 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{!empty($event->is_links) ? $event->is_links : 'javascript:void(0);'}}"
+                            <a href="{{!empty($event->social_show_youtube) ? $event->social_show_youtube : 'javascript:void(0);'}}"
                                target="_blank"
                                style="{{empty($event->is_links) ? 'cursor: default; pointer-events: none;' : ''}}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
-                                     fill="{{empty($event->is_links) ? '#000000' : 'currentColor'}}"
+                                     fill="{{empty($event->social_show_youtube) ? '#000000' : 'currentColor'}}"
                                      class="bi bi-link-45deg" viewBox="0 0 16 16">
-                                    <path
-                                        d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1 1 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4 4 0 0 1-.128-1.287z"/>
-                                    <path
-                                        d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243z"/>
+                                    <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.01 2.01 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.01 2.01 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31 31 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.01 2.01 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A100 100 0 0 1 7.858 2zM6.4 5.209v4.818l4.157-2.408z"></path>
                                 </svg>
                             </a>
                         </li>
@@ -421,6 +427,58 @@
                     </div>
                 </div>
                 <hr>
+                @if($event->category == 4)
+                <div class="row" id="goods" data-target="goods">
+        <h3>Товари</h3>
+    </span>
+                    @foreach($events as $event)
+                        <div class="col-lg-4 col-md-6 wow zoomIn" data-wow-delay="0.1s">
+                            <div class="tour_container">
+                                <div class="ribbon_3 popular">
+                                    <span>{{ $event->discounte ? '- ' . $event->discounte . '%' : 'FREE' }}</span>
+                                </div>
+                                <div class="img_container">
+                                    <a href="/{{$event->id}}">
+                                        <img src="{{ asset('files/' . $event->user_id . '/' . $event->foto_title) }}"
+                                             width="90%" height="90" class="img-fluid" alt="Image">
+                                        <div class="short_info">
+                                            <i></i>{{$event->reserv}}<span
+                                                class="price">@if ($event->amount == 0 || $event->discounte === null)
+                                                    FREE
+                                                @else
+                                                    @php
+                                                        $discountedAmount = $event->amount - ($event->amount * $event->discounte / 100);
+                                                        $currencySymbols = [
+                                                            '0' => '$',
+                                                            '1' => '₽',
+                                                            '2' => '€',
+                                                            '3' => '₴',
+                                                            '4' => 'Zł',
+                                                        ];
+                                                        $currencySymbol = $currencySymbols[$event->currency] ?? '';
+                                                    @endphp
+                                                    <span style="color:#989fa6;font-size: smaller; text-decoration: line-through;">{{ number_format($event->amount, 2) }} {{ $currencySymbol }}</span>
+                                                    {{ number_format($discountedAmount, 2) }} {{ $currencySymbol }}
+                                                @endif
+                                            </span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="tour_title">
+                                    <h3><img src="https://eventhes.com/storage/files/ua.png" alt="Flag" style="vertical-align: middle;  width: 5%;"><strong style="font-size: 13px;">{{$event->title}}</strong></h3>
+                                    <a href="/{{$event->id}}" style="text-decoration: none;" class="btn_1" target="_blank">{{ __('translate.Details') }}</a>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                    <div class="row">
+                        <center>
+                            <h3><a href="{{ url('search?what=&rng=&rng2=&cat=&salesman=' . $event->user_id) }}">Всі товари</a></h3>
+                        </center>
+                    </div>
+                </div>
+                <hr>
+                @endif
                 <div class="row">
     <span>
         <h3>{{ __('translate.Portfolio') }}</h3>
@@ -612,10 +670,14 @@
             <aside class="col-lg-4">
                 <div class="box_style_1 expose">
                     <div id="booking-vue">
-                        <form name="bookingForm" action="{{ route('orders.store') }}" method="post"
-                              class="booking-form">
+                        <form name="bookingForm" action="{{ route('orders.store') }}" method="post" class="booking-form">
+                            @if ($event->category != 4)
                             <h3 class="inner">- {{ __('translate.Booking') }} -</h3>
-                            @if ($event->type_pay == 1)
+                            @else
+                                <h3 class="inner">- {{ __('translate.Buy') }} -</h3>
+                            @endif
+                            @if ($event_type_pay != 3)
+                                @if ($event_type_pay== 1 or $event_type_pay == 2)
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
@@ -630,6 +692,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                @endif
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
@@ -670,11 +733,11 @@
                                             {{ $currencySymbol }}
                                         </td>
                                         <td class="text-right" id="totalAmount">
-                                            @if ($event->amount == 0 || $event->discounte === null)
+                                            @if ($event_amount == 0 and $event_discount === null)
                                                 FREE
                                             @else
                                                 @php
-                                                    echo  $event->amount - ($event->amount * $event->discounte / 100);
+                                                    echo  $event_amount - ($event_amount * $event_discount / 100);
                                                 @endphp
                                             @endif
                                         </td>
@@ -697,25 +760,27 @@
                                             {{ $currencySymbolTu }}
                                         </td>
                                         <td class="text-right" id="totalCost">
-                                            @if ($event->amount == 0 || $event->discounte === null)
+                                            @if ($event_amount == 0 and $event_discount === null)
                                                 FREE
                                             @else
                                                 @php
-                                                    echo  $event->amount - ($event->amount * $event->discounte / 100);
+                                                    echo  $event_amount - ($event_amount * $event_discount / 100);
                                                 @endphp
                                             @endif
                                         </td>
                                     </tr>
                                     </tbody>
                                 </table>
-                            @endif
                             @guest
+
                                 <button type="submit" class="btn_full">{{ __('translate.Send') }}</button>
                                 <input type="text" style="display: none;" value="0" id="reg1">
+
                             @else
                                 <input type="text" style="display: none;" value="1" id="reg2">
                                 <button type="submit" class="btn_full">{{ __('translate.Send') }}</button>
                             @endguest
+                            @endif
                         </form>
                     </div>
 
@@ -746,7 +811,7 @@
                         <path
                             d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877zM11 .5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V1.707l-4.146 4.147a.5.5 0 0 1-.708-.708L14.293 1H11.5a.5.5 0 0 1-.5-.5"/>
                     </svg>
-                    <h4><span>{{ __('translate.Book') }}</span> {{ __('translate.by phone') }}</h4>    <a
+                    <h4><span>  @if ($event->category != 4){{ __('translate.Book') }}@else{{ __('translate.Buy') }}@endif</span> {{ __('translate.by phone') }}</h4>    <a
                         href="tel://+38{{$event->phone}}" class="phone">+38{{$event->phone}}</a>
                     <small>Monday to Friday 9.00am - 7.30pm</small>
                 </div>
@@ -1077,20 +1142,20 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="bonusModalLabel" style="color: #001f3f;">Программа BONUS+</h5>
+                        <h5 class="modal-title" id="bonusModalLabel" style="color: #001f3f;">Програма BONUS+</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <center><p style="color: #001f3f;">Это программа распространения реферальных ссылок на услугу!</p>
+                        <center><p style="color: #001f3f;">Це програма розповсюдження реферальних посилань на послугу!</p>
                             <h3>
                                 <p>
                                     @auth
                                         <?php $user = auth()->user(); ?>
                                         @if($user->code_part != NULL)
                                             <label style="color: #001f3f;">
-                                                Реферальная ссылка - <a style="color: #001f3f;" href="{{ route('events.show', ['id' => $event->id, 'code' => $user->code_part]) }}">https://eventhes.com/{{$event->id}}/{{$user->code_part}}</a>
+                                                Реферальне посилання - <a style="color: #001f3f;" href="{{ route('events.show', ['id' => $event->id, 'code' => $user->code_part]) }}">https://eventhes.com/{{$event->id}}/{{$user->code_part}}</a>
                                             </label>
                                 <p>
                                     <a style="color: #575151;" href="https://telegram.me/share/url?url=https://eventhes.com/{{$event->id}}/{{$user->code_part}}" data-share="https://telegram.me/share/url?url=https://www.facebook.com/sharer/sharer.php?u=https://eventhes.com/{{$event->id}}/{{$user->code_part}}" data-type="telegram" target="_blank" role="button">Поделиться в
@@ -1109,16 +1174,16 @@
                                 @else
                                     <label style="color: #001f3f;">
                                         <input style="color: #001f3f;" type="checkbox" id="referralCheckbox" name="referralCheckbox">
-                                        Я согласен(-на) стать участником программы
+                                        Я згоден(-на) стати участником програми
                                     </label>
                                 @endif
                                 @endauth
                                 @guest
                                     <label style="color: #001f3f;">
-                                           Автаризуйтесь сначала!
+                                        Автаризуйтесь спочатку!
                                     </label>
                                 @endguest
-                                <p style="color: #575151; font-size: 13px;">Распрастраняйте ссылки на услугу и получайте BONUS </p>
+                                <p style="color: #575151; font-size: 13px;">Поширюйте посилання на нас та отримуйте BONUS </p>
                                 </p>
                             </h3></center>
                     </div>
@@ -1502,6 +1567,15 @@
 
         $('html, body').animate({
             scrollTop: $portfolioElement.offset().top - headerHeight
+        }, 1000);
+    });
+    $('nav a[data-target="goods"]').click(function (e) {
+        e.preventDefault();
+        var headerHeight = 100; // Замените это значением фактической высоты вашего меню.
+        var $goodsElement = $('#goods');
+
+        $('html, body').animate({
+            scrollTop: $goodsElement.offset().top - headerHeight
         }, 1000);
     });
 </script>

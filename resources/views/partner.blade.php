@@ -114,8 +114,8 @@
                                     <div class="mb-4 text-start text-sm-end">
                                         Ви накопичили <strong>442 грн</strong>
                                     </div>
-                                    @if($use == NULL)
-                                        <a class="btn btn-warning" id="buttonBonusModal" href="#" data-toggle="modal"
+                                    @if (is_null($use->code_part))
+                                        <a class="btn btn-warning" type="button" data-toggle="modal" data-target="#bonusProgramModal"  href="#" data-toggle="modal"
                                            data-target="#bonusModal">Получить Бонус !</a>
                                     @else
                                         <a class="btn btn-success" id="buttonBonusModalSucc">BONUS + (active)</a>

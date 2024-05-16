@@ -221,7 +221,7 @@
                         </li>
                         @if(Auth::check() && (Auth::user()->role_id == 1 || Auth::user()->role_id == 3 ))
                         <li class="nav-item">
-                            <a style=" height: 21px;  border-radius: 4px;" href="/admin" target="_blank"  class="btn btn-success nav-link" role="button">+ Add Events</a>
+                            <a style=" height: 21px;  border-radius: 4px;" href="/admin"  class="btn btn-success" target="_blank"  >+ Add Events</a>
                         </li>
                         @endif
                         <li class="nav-item ">
@@ -291,20 +291,20 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="bonusModalLabel" style="color: #001f3f;">Программа BONUS+</h5>
+                <h5 class="modal-title" id="bonusModalLabel" style="color: #001f3f;">Програма BONUS+</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <center><p style="color: #001f3f;">Это программа распространения реферальных ссылок на услугу!</p>
+                <center><p style="color: #001f3f;">Це програма розповсюдження реферальних посилань на послугу!</p>
                     <h3>
                         <p>
                             @auth
                                 <?php $user = auth()->user(); ?>
                                 @if($user->code_part != NULL)
                                     <label style="color: #001f3f;">
-                                        Реферальная ссылка - <a href="{{ route('events.show', ['id' => $event->id, 'code' => $user->code_part]) }}">https://eventhes.com/{{$event->id}}/{{$user->code_part}}</a>
+                                        Реферальне посилання - <a style="color: #001f3f;" href="{{ route('events.show', ['id' => $event->id, 'code' => $user->code_part]) }}">https://eventhes.com/{{$event->id}}/{{$user->code_part}}</a>
                                     </label>
                         <p>
                             <a style="color: #575151;" href="https://telegram.me/share/url?url=https://eventhes.com/{{$event->id}}/{{$user->code_part}}" data-share="https://telegram.me/share/url?url=https://www.facebook.com/sharer/sharer.php?u=https://eventhes.com/{{$event->id}}/{{$user->code_part}}" data-type="telegram" target="_blank" role="button">Поделиться в
@@ -323,16 +323,16 @@
                         @else
                             <label style="color: #001f3f;">
                                 <input style="color: #001f3f;" type="checkbox" id="referralCheckbox" name="referralCheckbox">
-                                Я согласен(-на) стать участником программы
+                                Я згоден(-на) стати участником програми
                             </label>
                         @endif
                         @endauth
                         @guest
                             <label style="color: #001f3f;">
-                                Автаризуйтесь сначала!
+                                Автаризуйтесь спочатку!
                             </label>
                         @endguest
-                        <p style="color: #575151; font-size: 13px;">Распрастраняйте ссылки на услугу и получайте BONUS </p>
+                        <p style="color: #575151; font-size: 13px;">Поширюйте посилання на нас та отримуйте BONUS </p>
                         </p>
                     </h3></center>
             </div>

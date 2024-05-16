@@ -222,6 +222,8 @@ return [
     'Click here to select' => 'Click here to select',
     'Add' => 'Add',
     'Users All' => 'Users All',
+    'Buy' => 'Buy',
+    'Goods' => 'Goods',
     'Text' => 'Text',
     'ДЛЯ КОРИСТУВАЧА' => 'FOR USER',
     'ДЛЯ ПАРТНЕРА' => 'FOR PARTNER',
