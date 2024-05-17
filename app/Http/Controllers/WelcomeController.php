@@ -30,7 +30,7 @@ class WelcomeController extends Controller
         $goods= Event::where('status', 1)
             ->where('category', 4)
             ->inRandomOrder()
-            ->take(3)
+            ->take(6)
             ->get();
 
         $courses = Event::where('status', 1)
@@ -42,11 +42,8 @@ class WelcomeController extends Controller
         $services = Event::where('status', 1)
             ->where('category', 2)
             ->inRandomOrder()
-            ->take(3)
+            ->take(6)
             ->get();
-
-
-
 
         $eventsall = Event::latest()->where('status', 1)->get();
 

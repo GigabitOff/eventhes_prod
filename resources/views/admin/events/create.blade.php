@@ -56,16 +56,16 @@
                                     @if(isset($event->category))
                                     <select name="category" id="category" class="form-control" disabled>
                                     <option {{ $event->category == "4" ? 'selected' : '' }}>{{ __('translate.Goods') }}</option>
-                                    <option {{ $event->category == "3" ? 'selected' : '' }}>{{ __('translate.Event') }}</option>
+{{--                                    <option {{ $event->category == "3" ? 'selected' : '' }}>{{ __('translate.Event') }}</option>--}}
                                     <option {{ $event->category == "2" ? 'selected' : '' }}>{{ __('translate.Service') }}</option>
-                                    <option {{ $event->category == "1" ? 'selected' : '' }}>{{ __('translate.Courses') }}</option>
+{{--                                    <option {{ $event->category == "1" ? 'selected' : '' }}>{{ __('translate.Courses') }}</option>--}}
                                     @else
                                          <select name="category" id="category" class="form-control" >
                                         <option value="0">Select options</option>
                                         <option value="4">{{ __('translate.Goods') }}</option>
-                                        <option value="2">{{ __('translate.Event') }}</option>
+{{--                                        <option value="2">{{ __('translate.Event') }}</option>--}}
                                         <option value="3">{{ __('translate.Service') }}</option>
-                                        <option value="1">{{ __('translate.Courses') }}</option>
+{{--                                        <option value="1">{{ __('translate.Courses') }}</option>--}}
                                     @endif
                                 </select>
                             </div>

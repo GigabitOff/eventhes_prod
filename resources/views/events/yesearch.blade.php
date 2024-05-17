@@ -21,9 +21,8 @@
                                         <label for="category">{{ __('translate.Select category') }}:</label>
                                         <select class="form-control" name="category" id="category">
                                             <option value="">{{ __('translate.All') }}</option>
-                                            <option value="3">{{ __('translate.Events') }}</option>
+                                            <option value="4">{{ __('translate.Goods') }}</option>
                                             <option value="2">{{ __('translate.Services') }}</option>
-                                            <option value="1">{{ __('translate.Courses') }}</option>
                                         </select>
                                     </div>
                                 </div>

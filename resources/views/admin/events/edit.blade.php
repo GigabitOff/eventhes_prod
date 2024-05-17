@@ -104,9 +104,9 @@
                                 <label for="type_pay">{{ __('translate.Event payment') }}</label>
                                 <select name="type_pay" id="type_pay" class="form-control"  onchange="showHidePanel()">
                                     <option {{ $event->category == "4" ? 'selected' : '' }}>{{ __('translate.Goods') }}</option>
-                                    <option {{ $event->category == "3" ? 'selected' : '' }}>{{ __('translate.Event') }}</option>
+{{--                                    <option {{ $event->category == "3" ? 'selected' : '' }}>{{ __('translate.Event') }}</option>--}}
                                     <option {{ $event->category == "2" ? 'selected' : '' }}>{{ __('translate.Service') }}</option>
-                                    <option {{ $event->category == "1" ? 'selected' : '' }}>{{ __('translate.Courses') }}</option>
+{{--                                    <option {{ $event->category == "1" ? 'selected' : '' }}>{{ __('translate.Courses') }}</option>--}}
                                 </select>
                             </div>
                             <div class="form-group" id="discount_panel" style="display: none;">
