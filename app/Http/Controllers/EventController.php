@@ -55,8 +55,7 @@ class EventController extends Controller
 
         $events = Event::with('shedule')
             ->where('status', 1)
-            ->limit(3)
-            ->get();
+            ->paginate(8);
 
         $user = User::where('id', 1)->where('role_id', 1)->first();
         $phone = $user->phone;
@@ -209,7 +208,7 @@ class EventController extends Controller
         return redirect()->route('events.index')->with('success', 'Event created successfully');
     }
 
-    public function show($id)
+    public function show($id,$code=null)
     {
         $this->middleware(function ($request, $next) {
             $locale = session('locale', config('app.locale'));
@@ -230,11 +229,11 @@ class EventController extends Controller
             ],
         ];
 
-//        $response = Http::withToken(env('NODEJS_API_TOKEN'))
-//            ->post('http://88.218.28.99:3000/api/statistics', $data);
-//        if (!$response->successful()) {
-//            return response('Ошибка при отправке данных на сервер Node.js', 500);
-//        }
+        $response = Http::withToken(env('NODEJS_API_TOKEN'))
+            ->post('http://88.218.28.99:3000/api/statistics', $data);
+        if (!$response->successful()) {
+            return response('Ошибка при отправке данных на сервер Node.js', 500);
+        }
 
         $user = $event->user;
         $images = PortfolioFoto::where('event_id', $id)->get();
@@ -248,10 +247,19 @@ class EventController extends Controller
         }
 
         $shedule = Shedule::where('event_id', $id)->first();
-        $reserv = $shedule ? $shedule->reserv : 'Default Value';
-        $time = $shedule ? $shedule->time : null;
-        $mono = $shedule->mono;
-        $datapicker = $shedule->datapicker;
+
+        if ($shedule) {
+            $reserv = $shedule->reserv;
+            $time = $shedule->time;
+            $mono = $shedule->mono;
+            $datapicker = $shedule->datapicker; // Move this inside the conditional block
+        } else {
+            $reserv = 'Default Value';
+            $time = null;
+            $mono = null;
+            $datapicker = null; // or whatever default value you want to assign
+        }
+
         $busyDates = [];
 
         if ($mono == 1) {
@@ -266,6 +274,10 @@ class EventController extends Controller
                 $formattedDate = \Carbon\Carbon::createFromFormat('d/m/Y', $date)->format('Y-m-d');
                 $formattedBusyDates[] = $formattedDate;
             } catch (\Exception $e) {
+                // Log or handle the invalid date gracefully
+                // For example:
+                // Log::error("Invalid date encountered: $date");
+                // Skip the invalid date
                 continue;
             }
         }
@@ -274,12 +286,14 @@ class EventController extends Controller
             ->orderBy('updated_at', 'desc')
             ->first();
 
+        // Найдем все записи из таблицы timeworks, принадлежащие определенному shedule_id
         $timeworks = Timework::join('shedules', 'timeworks.shedule_id', '=', 'shedules.id')
             ->where('shedules.event_id', $id)
             ->get();
         return view('events.show', compact('event', 'lessonType', 'reserv', 'time', 'imageData', 'formattedBusyDates', 'user', 'timeworks', 'datapicker'));
 
     }
+
 
     public function edit($id)
     {

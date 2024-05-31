@@ -169,6 +169,7 @@
                                     @endauth
                                     </li>
                                 @endguest
+                                @if(auth()->check())
                                 <li class="dropdown" id="hover-dropdown">
                                     <a href="" style="text-decoration: none;">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -177,6 +178,7 @@
                                                   d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
                                         </svg> {{ __('translate.Wishlist') }}</a>
                                 </li>
+                                @endif
                             </ul>
                 </div>
             </div>
@@ -390,25 +392,6 @@
         </div>
     </div>
 </div>
-    <div class="modal fade modal-transparent" style="margin-top: 50px;" id="bonusModal" tabindex="-1" aria-labelledby="bonusModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="bonusModalLabel">Программа BONUS+</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p style="color: #001f3f;">Это программа распространения реферальных ссылок на услугу!</p>
-                    <h3><p>  <a href="yuiyui" style="color: #001f3f; text-decoration: underline;">Подробнее...</a></p></h3>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-                </div>
-            </div>
-        </div>
-    </div>
 </footer>
 <style>
     #scrollToTopBtn {
@@ -466,6 +449,30 @@
     $("select.ddslick").each(function () {
         $(this).ddslick({
             showSelectedHTML: true
+        });
+    });
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('#referralCheckbox').change(function(){
+            if($(this).is(':checked')){
+                $.ajax({
+                    url: '/processReferral',
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        code_part: 1
+                    },
+                    success: function(response){
+                        console.log('Ответ от сервера:', response);
+                        location.reload();
+                    },
+                    error: function(xhr, status, error){
+                        console.error('Ошибка при запросе:', error);
+                    }
+                });
+            }
         });
     });
 </script>

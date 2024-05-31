@@ -1,11 +1,10 @@
 @extends('layouts.filter')
 @section('content')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
     <div class="container" style="margin-top: -55px;">
         <div class="row justify-content-center">
             <div class="container margin_60">
-                <div class="row" >
+                <div class="row">
                     <aside class="col-lg-3">
                         {{--                        <p>--}}
 {{--                            <a class="btn_map" data-toggle="collapse" style="text-decoration: none;" href="#collapseMap" aria-expanded="false"--}}
@@ -13,8 +12,8 @@
 {{--                               data-text-original="View on map">--}}
 {{--                                {{ __('translate.View on map') }} </a>--}}
 {{--                        </p>--}}
-                        <form id="searchForm" action="{{ route('search') }}" method="GET" >
-                            <div id="filters_col" >
+                        <form action="{{ route('search') }}" method="GET" >
+                            <div id="filters_col">
 {{--                                <div class="collapse show" >--}}
 {{--                                    <div class="filter_type">--}}
 {{--                                        <label for="category">Выберите регион:</label>--}}
@@ -30,12 +29,12 @@
                                 <span>&nbsp;</span>
                                 <div class="collapse show" >
                                     <div class="filter_type">
-                                        <label for="category">{{ __('translate.select_category') }}:</label>
+                                        <label for="category">Выберите категорию:</label>
                                         <select  class="form-control" name="category" id="category">
-                                            <option value="">{{ __('translate.all') }}</option>
-                                            <option value="3">{{ __('translate.events_front') }}</option>
-                                            <option value="2">{{ __('translate.services') }}</option>
-                                            <option value="1">{{ __('translate.courses') }}</option>
+                                            <option value="">Все</option>
+                                            <option value="3">События</option>
+                                            <option value="2">Услуги</option>
+                                            <option value="1">Курсы</option>
                                         </select>
                                     </div>
                                 </div>
@@ -53,13 +52,12 @@
                                     <select name="town" class="form-control" id="townSelect">
                                     </select>
                                 </div>
-                                <div class="collapse show" style="margin-top: 10px;">
+                                <div class="collapse show" >
                                     <div class="filter_type">
                                         <h6>{{ __('translate.Price') }} $ From <output id="ong">50</output> - To <output id="ong2">50</output></h6>
                                         <input id="rng" name="rng" type="range" min="1" max="100" value="50">
                                        <input id="rng2" name="rng2" type="range" min="1" max="100" value="50">
                                     </div>
-
                                 </div>
                             </div>
                             <a href="#" onclick="updateHiddenFieldsAndSubmit(); return false;" style="text-decoration: none;" class="btn_map mb-2">{{ __('translate.Send') }}</a>
@@ -147,18 +145,27 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-2 col-md-2">
-                                    <div class="price_list">
+                                    <div class="price_list" style="font-size: small;">
                                         <div>
-                                            <span>@if ($event->amount == 0 || $event->discounte === null)
+                                            <span>
+                                                @if ($event->amount == 0 || $event->discounte === null)
                                                     FREE
                                                 @else
                                                     @php
                                                         $discountedAmount = $event->amount - ($event->amount * $event->discounte / 100);
+                                                        $currencySymbols = [
+                                                            '0' => '$',
+                                                            '1' => '₽',
+                                                            '2' => '€',
+                                                            '3' => '₴',
+                                                            '4' => 'Zł',
+                                                        ];
+                                                        $currencySymbol = $currencySymbols[$event->currency] ?? ''; // Получаем символ валюты из массива
                                                     @endphp
-                                            </span>
-                                                    <span style="color:#989fa6;font-size: smaller; text-decoration: line-through;">{{ number_format($event->amount, 2) }}$</span><br>
-                                                    {{ number_format($discountedAmount, 2) }}$
-                                                @endif</span>
+                                                    <span style="color:#989fa6;font-size: smaller; text-decoration: line-through;">{{ number_format($event->amount, 2) }}{{ $currencySymbol }}</span><br>
+                                                    {{ number_format($discountedAmount, 2) }}{{ $currencySymbol }}
+                                                @endif
+                                                </span>
                                             <span class="normal_price_list"></span>
                                             <small>*{{ __('translate.Per person') }}</small>
                                             <p><a href="/{{$event->id}}" class="btn_1" target="_blank">{{ __('translate.Details') }}</a>
@@ -168,7 +175,88 @@
                                 </div>
                             </div>
                         @endforeach
-                        <div id="test"></div>
+                        <style>.pagination {
+                                display: inline-block;
+                                padding-left: 0;
+                                margin: 20px 0;
+                                border-radius: 4px;
+                            }
+
+                            .pagination > li {
+                                display: inline;
+                            }
+
+                            .pagination > li > a,
+                            .pagination > li > span {
+                                position: relative;
+                                float: left;
+                                padding: 6px 12px;
+                                margin-left: -1px;
+                                line-height: 1.42857143;
+                                color: #000000;
+                                text-decoration: none;
+                                background-color: #fff;
+                                border: 1px solid #ddd;
+                            }
+
+                            .pagination > li:first-child > a,
+                            .pagination > li:first-child > span {
+                                margin-left: 0;
+                                border-top-left-radius: 4px;
+                                border-bottom-left-radius: 4px;
+                            }
+
+                            .pagination > li:last-child > a,
+                            .pagination > li:last-child > span {
+                                border-top-right-radius: 4px;
+                                border-bottom-right-radius: 4px;
+                            }
+
+                            .pagination > li > a:hover,
+                            .pagination > li > span:hover,
+                            .pagination > li > a:focus,
+                            .pagination > li > span:focus {
+                                z-index: 2;
+                                color: #000000;
+                                background-color: #eee;
+                                border-color: #ddd;
+                            }
+
+                            .pagination > .active > a,
+                            .pagination > .active > span,
+                            .pagination > .active > a:hover,
+                            .pagination > .active > span:hover,
+                            .pagination > .active > a:focus,
+                            .pagination > .active > span:focus {
+                                z-index: 3;
+                                color: #fff;
+                                background-color: #565a5c;;
+                                border-color: #565a5c;;
+                                cursor: default;
+                            }
+                        </style>
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                @if ($events->onFirstPage())
+                                    <li class="page-item disabled"><span class="page-link">{{ __('translate.Previous') }}</span></li>
+                                @else
+                                    <li class="page-item"><a class="page-link" href="{{ $events->previousPageUrl() }}">{{ __('translate.Previous') }}</a></li>
+                                @endif
+                                @for ($i = 1; $i <= $events->lastPage(); $i++)
+                                    @if ($i == $events->currentPage())
+                                        <li class="page-item active"><span class="page-link">{{ $i }}</span></li>
+                                    @else
+                                        <li class="page-item"><a class="page-link" href="{{ $events->url($i) }}">{{ $i }}</a></li>
+                                    @endif
+                                @endfor
+                                @if ($events->hasMorePages())
+                                    <li class="page-item"><a class="page-link" href="{{ $events->nextPageUrl() }}">{{ __('translate.Next') }}</a></li>
+                                @else
+                                    <li class="page-item disabled"><span class="page-link">{{ __('translate.Next') }}</span></li>
+                                @endif
+                            </ul>
+                        </nav>
+
                     </div>
                 </div>
             </div>
@@ -240,48 +328,6 @@
             });
     }
 
-    let lastEventId = {{ $events->last()->id ?? 0 }};
-    let loading = false;
-    let noMoreEvents = false;
-    function loadMoreEvents() {
-        if (loading || noMoreEvents) return;
-
-        loading = true;
-
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', `/load-more-events/${lastEventId}`, true);
-
-        xhr.onload = function () {
-            if (xhr.status === 200) {
-                const data = JSON.parse(xhr.responseText);
-                const html = data.html;
-                noMoreEvents = data.noMoreEvents;
-
-                const container = document.getElementById('test');
-                container.insertAdjacentHTML('beforeend', html);
-
-                if (noMoreEvents) {
-                    window.removeEventListener('scroll', loadMoreEvents);
-                } else {
-                    lastEventId = container.lastElementChild.dataset.id;
-                    loading = false;
-                }
-            } else {
-                console.error('Request failed.  Returned status of ' + xhr.status);
-                loading = false;
-            }
-        };
-
-        xhr.send();
-    }
-    window.addEventListener('scroll', () => {
-        const {scrollTop, scrollHeight, clientHeight} = document.documentElement;
-        if (scrollTop + clientHeight >= scrollHeight - 100) {
-            loadMoreEvents();
-        }
-    });
-
-    document.addEventListener('DOMContentLoaded', loadMoreEvents);
 </script>
 <script>
 
@@ -295,6 +341,27 @@
                 $('#citySelect').empty();
 
                 // Добавляем новые города в список
+                $.each(response, function (key, value) {
+                    $('#citySelect').append($('<option>', {
+                        value: value.id,
+                        text: value.name
+                    }));
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+            }
+        });
+    }
+</script>
+<script>
+    function regionSet(value) {
+        var regionId = value;
+        $.ajax({
+            url: "{{ route('cities.by.region', ['region' => ':regionId']) }}".replace(':regionId', regionId),
+            method: 'GET',
+            success: function (response) {
+                $('#citySelect').empty();
                 $.each(response, function (key, value) {
                     $('#citySelect').append($('<option>', {
                         value: value.id,
@@ -322,8 +389,6 @@
                 $('#townSelectContainer').show();
                 var townSelect = $('#townSelect');
                 townSelect.empty();
-
-                // Сортируем response по названию города перед добавлением в селект
                 response.sort(function(a, b) {
                     var nameA = a.name.toLowerCase();
                     var nameB = b.name.toLowerCase();
@@ -331,13 +396,9 @@
                     if (nameA > nameB) return 1;
                     return 0;
                 });
-
-                // Добавляем отсортированные города в селект
                 $.each(response, function(index, town) {
                     townSelect.append('<option value="' + town.id + '">' + town.name + '</option>');
                 });
-
-                // Инициализируем Select2 после добавления элементов
                 townSelect.select2({
                     placeholder: 'Выберите город или начните вводить...',
                     allowClear: true
@@ -351,7 +412,6 @@
 
 
 </script>
-
 
 
 

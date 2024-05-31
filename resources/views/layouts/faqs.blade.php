@@ -121,7 +121,7 @@
                                                     </i> Dashboard
                                                 </a>
                                             @else
-                                                <a href="/client">
+                                                <a href="/partner">
                                                     <i>
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                              fill="currentColor" class="bi bi-speedometer2"
@@ -157,6 +157,7 @@
                                         @endauth
                                         </li>
                                     @endguest
+                                    @if(auth()->check())
                                     <li class="dropdown" id="hover-dropdown">
                                         <a href="" style="text-decoration: none;">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -165,6 +166,7 @@
                                                       d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
                                             </svg> {{ __('translate.Wishlist') }}</a>
                                     </li>
+                                    @endif
                                 </ul>
                 </div>
             </div>
@@ -196,7 +198,7 @@
                                         Dashboard
                                     </a>
                                 @else
-                                    <a class="nav-link"  href="/client" target="_self">
+                                    <a class="nav-link"  href="/partner" target="_self">
                                         Dashboard
                                     </a>
                                 @endif
@@ -227,7 +229,7 @@
                         </li>
                         <li class="nav-item ">
                             <a class="nav-link" href="/about-us" target="_self">
-                                {{ __('translate.About Us') }}
+                                About Us
                             </a>
                         </li>
                         <li class="nav-item ">
@@ -262,6 +264,13 @@
                         <img src="{{ asset('/storage/files/' . session('locale', config('app.locale')) . '.png') }}" alt="Flag" class="flag-image">
                     </ul>
                 </div>
+{{--                <ul id="top_tools">--}}
+{{--                    <li>--}}
+{{--                        <a href="/" class="search-overlay-menu-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">--}}
+{{--                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>--}}
+{{--                            </svg></a>--}}
+{{--                    </li>--}}
+{{--                </ul>--}}
             </nav>
         </div>
     </div>
@@ -269,19 +278,19 @@
 <!-- End Header -->
 <div class="container margin_60" style="margin-top:50px;">
     <div class="main_title">
-        <h2>{{ __('translate.FAQ') }} <span>{{ __('translate.this') }}</span> {{ __('translate.sites') }}</h2>
+        <h2>FAQ <span>this </span>sites</h2>
     </div>
     <div class="row">
         <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeIn;">
             <div class="feature"><i>1</i>
-                <h3><span>{{ __('translate.Registration') }}</span></h3>
-                <p>{{ __('translate.Register') }}. {{ __('translate.During registration, choose your account type - User or Partner. Partners receive monetary rewards for views of their events, while users are simply website visitors.') }} - <a href="https://eventhes.com/register">{{ __('translate.Link to registration') }}</a></p>
+                <h3><span>Registration</span></h3>
+                <p>Register. During registration, choose your account type - User or Partner. Partners receive monetary rewards for views of their events, while users are simply website visitors. - <a href="https://eventhes.com/register">Link to registration</a></p>
             </div>
         </div>
         <div class="col-lg-6 wow fadeIn" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeIn;">
             <div class="feature"><i>2</i>
-                <h3><span>{{ __('translate.Authorization') }}</span></h3>
-                <p>{{ __('translate.Log in, and depending on the type of account you chose, you will be redirected to your personal dashboard and control panel.') }} - <a href="https://eventhes.com/register">{{ __('translate.Link to Login') }}</a></p>
+                <h3><span>Authorization</span></h3>
+                <p>Log in, and depending on the type of account you chose, you will be redirected to your personal dashboard and control panel. - <a href="https://eventhes.com/register">Link to Login</a></p>
             </div>
         </div>
     </div>
@@ -289,14 +298,14 @@
     <div class="row">
         <div class="col-lg-6 wow fadeIn" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeIn;">
             <div class="feature"><i>3</i>
-                <h3><span>{{ __('translate.Panel Users') }}</span></h3>
-                <p>{{ __('translate.The user panel looks like this:') }}</p>
-            </div>
+                <h3><span>Panel Users</span></h3>
+                <p>The user panel looks like this:</p>
+                  </div>
         </div>
         <div class="col-lg-6 wow fadeIn" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeIn;">
             <div class="feature"><i>4</i>
-                <h3><span>{{ __('translate.Panel Partners') }}</span></h3>
-                <p>{{ __('translate.The partner panel looks like this:') }}</p>
+                <h3><span>Panel Partners</span></h3>
+                <p>The user panel looks like this:</p>
             </div>
         </div>
     </div>
@@ -304,18 +313,17 @@
     <div class="row">
         <div class="col-lg-6 wow fadeIn" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeIn;">
             <div class="feature"><i>5</i>
-                <h3><span>{{ __('translate.For work panel Users') }}</span></h3>
-                <p>{{ __('translate.In the user panel, there is a Wishlist board, showing orders made by the user, and system messages.') }}</p>
+                <h3><span>For work panel Users</span></h3>
+                <p>In the user panel, there is a Wishlist board, showing orders made by the user, and system messages.</p>
             </div>
         </div>
         <div class="col-lg-6 wow fadeIn" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeIn;">
             <div class="feature"><i>6</i>
-                <h3><span>{{ __('translate.For work panel Partners') }}</span></h3>
-                <p>{{ __('translate.In the partner panel, there is a board for creating and managing all events created by the user. Detailed instructions for creating, posting, and managing events are available in the Partner Dashboard.') }}</p>
+                <h3><span>For work panel Partners</span></h3>
+                <p>In the partner panel, there is a board for creating and managing all events created by the user. Detailed instructions for creating, posting, and managing events are available in the Partner Dashboard.</p>
             </div>
         </div>
     </div>
-
 </div>
 <!-- Footer================================================== -->
 <footer>

@@ -121,7 +121,7 @@
                                                     </i> Dashboard
                                                 </a>
                                             @else
-                                                <a href="/client">
+                                                <a href="/partner">
                                                     <i>
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                              fill="currentColor" class="bi bi-speedometer2"
@@ -157,14 +157,17 @@
                                         @endauth
                                         </li>
                                     @endguest
-                                    <li class="dropdown" id="hover-dropdown">
-                                        <a href="" style="text-decoration: none;">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                 fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
-                                                <path fill-rule="evenodd"
-                                                      d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
-                                            </svg> {{ __('translate.Wishlist') }}</a>
-                                    </li>
+                                    @if(auth()->check())
+                                        <li class="dropdown" id="hover-dropdown">
+                                            <a href="" style="text-decoration: none;">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                     fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd"
+                                                          d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
+                                                </svg> {{ __('translate.Wishlist') }}
+                                            </a>
+                                        </li>
+                                    @endif
                                 </ul>
                 </div>
             </div>
@@ -196,7 +199,7 @@
                                         Dashboard
                                     </a>
                                 @else
-                                    <a class="nav-link"  href="/client" target="_self">
+                                    <a class="nav-link"  href="/partner" target="_self">
                                         Dashboard
                                     </a>
                                 @endif

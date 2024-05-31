@@ -13,7 +13,7 @@ use App\Models\Event;
 use App\Models\Order;
 use App\Models\UserData;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Str;
 
 
 class HomeController extends Controller
@@ -26,6 +26,15 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+    }
+
+    public function processReferral(Request $request)
+    {
+        $user = auth()->user();
+        $randomCode = Str::random(6);
+        $user->update(['code_part' => $randomCode]);
+
+        return response()->json(['message' => 'Success']);
     }
 
     public function handleLikeNo(Request $request)
@@ -49,39 +58,36 @@ class HomeController extends Controller
         }
     }
 
-
-
     /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
 
-
     public function member(Request $request)
     {
-
         $user = Auth::user();
-        $orders = Order::where('email', $user->email)->with('event')->get();
+        $use = User::where('email', $user->email)->first();
 
+        $orders = Order::where('email', $user->email)->get();
         $uuidValue = $request->session()->get('uuid');
 
-            Like::updateOrCreate(
-                ['hash' => $uuidValue],
-                ['user_id' => $user->id]
-            );
+        Like::updateOrCreate(
+            ['hash' => $uuidValue],
+            ['user_id' => $user->id]
+        );
 
-            $likes = Like::where('user_id', $user->id)->get();
-            $events = [];
+        $likes = Like::where('user_id', $user->id)->get();
+        $events = [];
 
-            foreach ($likes as $like) {
-                $event = Event::find($like->event_id);
-                if ($event) {
-                    $events[] = $event;
-                }
+        foreach ($likes as $like) {
+            $event = Event::find($like->event_id);
+            if ($event) {
+                $events[] = $event;
             }
+        }
 
-        $ordersData =  $user->ordersWithStatus(3)->get();
+        $ordersData = $user->ordersWithStatus(3)->get();
 
         $ordersdata = [];
 
@@ -93,19 +99,20 @@ class HomeController extends Controller
         }
 
         $userDataRecords = UserData::where('user_id', $user->id)->get();
-            $currentLocale = session('locale', config('app.locale'));
-            App::setLocale($currentLocale);
+        $currentLocale = session('locale', config('app.locale'));
+        App::setLocale($currentLocale);
 
-            if ($user->role_id == 1 or $user->role_id == 3) {
-                return view('partner', ['showTestRecord' => true, 'ordersdata'=>$ordersdata, 'userDataRecords'=>$userDataRecords, 'currentLocale' => $currentLocale, 'events' => $events, 'orders' => $orders]);
-            } elseif ($user->role_id == 2) {
-                return view('partner', ['showTestRecord' => true,'ordersdata'=>$ordersdata,  'currentLocale' => $currentLocale, 'userDataRecords '=>$userDataRecords, 'events' => $events, 'orders' => $orders]);
-            }
-
+        if ($user->role_id == 1 or $user->role_id == 3) {
+            return view('partner', ['showTestRecord' => true, 'use' => $use, 'ordersdata' => $ordersdata, 'userDataRecords' => $userDataRecords, 'currentLocale' => $currentLocale, 'events' => $events, 'orders' => $orders]);
+        } elseif ($user->role_id == 2) {
+            return view('partner', ['showTestRecord' => true, 'ordersdata' => $ordersdata, 'use' => $use, 'currentLocale' => $currentLocale, 'userDataRecords ' => $userDataRecords, 'events' => $events, 'orders' => $orders]);
         }
 
+    }
 
-    public function open($id) {
+
+    public function open($id)
+    {
         $user = Auth::user();
         $orders = $user->orders;
 
@@ -131,7 +138,8 @@ class HomeController extends Controller
         ]);
     }
 
-    public function openLesson($id,$lesson_id) {
+    public function openLesson($id, $lesson_id)
+    {
         $user = Auth::user();
         $orders = $user->orders()->get();
 
@@ -148,7 +156,7 @@ class HomeController extends Controller
         $lessonRecords = Lesson::where('events_id', $id)->get();
 
         if (!$lessonRecords) {
-              return redirect()->back()->withErrors('Lesson not found.');
+            return redirect()->back()->withErrors('Lesson not found.');
         }
 
         $lessonRecords = Lesson::where('events_id', $id)->get();
@@ -179,18 +187,14 @@ class HomeController extends Controller
     public function index()
     {
         $user = Auth::user();
-
         $currentLocale = session('locale', config('app.locale'));
-
         App::setLocale($currentLocale);
 
-        if ($user->role_id == 1 or $user->role_id == 3 ) {
-
+        if ($user->role_id == 1 or $user->role_id == 3) {
             return view('home', ['showTestRecord' => true, 'currentLocale' => $currentLocale]);
         }
 
         if ($user->role_id == 2) {
-
             return view('partner', ['showTestRecord' => true, 'currentLocale' => $currentLocale]);
         }
 

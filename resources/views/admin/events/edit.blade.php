@@ -73,10 +73,9 @@
                         <div class="card-header">
                             <label for="type_pay">{{ __('translate.Category') }}</label>
                             <select name="category" id="category" class="form-control" disabled >
-                                <option value="3" {{ $event->category == "3" ? 'selected' : '' }}>{{ __('translate.Work') }}</option>
-                                <option value="2" {{ $event->category == "2" ? 'selected' : '' }}>{{ __('translate.Event') }}</option>
-                                <option value="1" {{ $event->category == "1" ? 'selected' : '' }}>{{ __('translate.Service') }}</option>
-                                <option value="0" {{ $event->category == "0" ? 'selected' : '' }}>{{ __('translate.Courses') }}</option>
+                                <option value="2" {{ $event->category == "3" ? 'selected' : '' }}>{{ __('translate.Event') }}</option>
+                                <option value="1" {{ $event->category == "4" ? 'selected' : '' }}>{{ __('translate.Service') }}</option>
+                                <option value="0" {{ $event->category == "1" ? 'selected' : '' }}>{{ __('translate.Courses') }}</option>1
                             </select>
                             <div class="form-group">
                                  <label for="title">{{ __('translate.Title') }}</label>
@@ -128,7 +127,7 @@
                             <div class="form-group" id="currency_panel">
                                 <label for="amount_id">Type lesson</label>
                                 <div class="custom-control custom-checkbox">
-                                    <input class="custom-control-input" type="checkbox" name="customCheckbox1" id="customCheckbox1" {{ $lessonType->customCheckbox1 ? 'checked' : '' }}>
+                                    <input class="custom-control-input" type="checkbox" name="customCheckbox1" id="customCheckbox1" {{ isset($lessonType) && $lessonType->customCheckbox1 ? 'checked' : '' }}>
                                     <label for="customCheckbox1" class="custom-control-label">One to one teacher</label>
                                 </div>
                                 <!-- Панель для customCheckbox1 -->
@@ -158,7 +157,7 @@
                                 </div>
 
                                 <div class="custom-control custom-checkbox">
-                                    <input class="custom-control-input" type="checkbox" name="customCheckbox2" id="customCheckbox2" {{ $lessonType->customCheckbox2 ? 'checked' : '' }}>
+                                    <input class="custom-control-input" type="checkbox" name="customCheckbox2" id="customCheckbox2" {{ isset($lessonType) && $lessonType->customCheckbox2 ? 'checked' : '' }}>
                                     <label for="customCheckbox2" class="custom-control-label">Online group</label>
                                 </div>
                                 <!-- Панель для customCheckbox2 -->
