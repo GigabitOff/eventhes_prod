@@ -703,7 +703,6 @@
                                                 @endphp
                                             @endif
                                         </td>
-
                                     </tr>
                                     </tbody>
                                 </table>
