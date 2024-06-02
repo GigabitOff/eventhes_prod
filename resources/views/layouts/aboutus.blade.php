@@ -219,7 +219,7 @@
                         </style>
                         <li class="nav-item" >
                             <a style="background-color: #0d6efd; height: 21px;  border-radius: 4px;" class="nav-link" href="/all" target="_self">
-                                {{ __('translate.Events') }}
+                                {{ __('translate.Events all') }}
                             </a>
                         </li>
                         <li class="nav-item ">
@@ -245,11 +245,8 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="{{ url('/lang/en') }}">English</a></li>
                                 <li><a class="dropdown-item" href="{{ url('/lang/ru') }}">Русский</a></li>
-                                <li><a class="dropdown-item" href="{{ url('/lang/es') }}">Español</a></li>
-                                <li><a class="dropdown-item" href="{{ url('/lang/fr') }}">Français</a></li>
                                 <li><a class="dropdown-item" href="{{ url('/lang/pl') }}">Polski</a></li>
                                 <li><a class="dropdown-item" href="{{ url('/lang/ua') }}">Українська</a></li>
-                                <li><a class="dropdown-item" href="{{ url('/lang/de') }}">Deutsch</a></li>
                             </ul>
                         </li>
                         <style>.flag-image {
@@ -285,23 +282,14 @@
             <div class="feature"><i><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
                         <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/>
                     </svg></i>
-                <h3><span>+ 1000</span> Customers</h3>
-                <p>We are thrilled to announce that our family has grown by another one thousand!
-                    One thousand new customers have chosen us to meet their needs, and we are incredibly grateful for their trust. Your participation in our service means a lot to us, and we strive to provide you with only the highest standards of service.
-                    This milestone is a tremendous achievement for us - a testament to our commitment to quality and excellence. We are working to continue to evolve and improve our service so that you can enjoy it even more.
-                    Thank you for your faith in us and your ongoing support in our journey. We are proud to have you in our community.</p>
+                <h3><span>+ 120</span> Користувачів на хвилину</h3>
             </div>
         </div>
         <div class="col-lg-6 wow fadeIn" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeIn;">
             <div class="feature"><i><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-node-plus" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M11 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8M6.025 7.5a5 5 0 1 1 0 1H4A1.5 1.5 0 0 1 2.5 10h-1A1.5 1.5 0 0 1 0 8.5v-1A1.5 1.5 0 0 1 1.5 6h1A1.5 1.5 0 0 1 4 7.5zM11 5a.5.5 0 0 1 .5.5v2h2a.5.5 0 0 1 0 1h-2v2a.5.5 0 0 1-1 0v-2h-2a.5.5 0 0 1 0-1h2v-2A.5.5 0 0 1 11 5M1.5 7a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5z"/>
                     </svg></i>
-                <h3><span>+120</span> Events for time</h3>
-                <p>We are thrilled to announce that our family has grown by another one thousand!
-                    One thousand new customers have chosen us to meet their needs, and we are incredibly grateful for their trust. Your participation in our service means a lot to us, and we strive to provide you with only the highest standards of service.
-                    This milestone is a tremendous achievement for us - a testament to our commitment to quality and excellence. We are working to continue to evolve and improve our service so that you can enjoy it even more.
-                    In addition, we're excited to share that we've hosted 120 events during this time, providing valuable experiences and opportunities for our community to come together and connect.
-                    Thank you for your faith in us and your ongoing support in our journey. We are proud to have you in our community.</p>
+                <h3><span>+7</span> Подій на годину</h3>
             </div>
         </div>
     </div>
@@ -312,13 +300,7 @@
                         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
                         <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
                     </svg></i>
-                <h3><span>H24</span> Support</h3>
-                <p>We are thrilled to announce that our family has grown by another one thousand!
-                    One thousand new customers have chosen us to meet their needs, and we are incredibly grateful for their trust. Your participation in our service means a lot to us, and we strive to provide you with only the highest standards of service.
-                    This milestone is a tremendous achievement for us - a testament to our commitment to quality and excellence. We are working to continue to evolve and improve our service so that you can enjoy it even more.
-                    In addition, we're excited to share that we've hosted 120 events during this time, providing valuable experiences and opportunities for our community to come together and connect.
-                    Furthermore, we're delighted to offer our service in 10 languages, ensuring accessibility and inclusivity for our global community.
-                    Thank you for your faith in us and your ongoing support in our journey. We are proud to have you in our community.</p>
+                <h3><span>24/7</span> Підтримка технічна</h3>
             </div>
         </div>
         <div class="col-lg-6 wow fadeIn" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeIn;">
@@ -326,14 +308,7 @@
                         <path d="M4.545 6.714 4.11 8H3l1.862-5h1.284L8 8H6.833l-.435-1.286zm1.634-.736L5.5 3.956h-.049l-.679 2.022z"/>
                         <path d="M0 2a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v3h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-3H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zm7.138 9.995q.289.451.63.846c-.748.575-1.673 1.001-2.768 1.292.178.217.451.635.555.867 1.125-.359 2.08-.844 2.886-1.494.777.665 1.739 1.165 2.93 1.472.133-.254.414-.673.629-.89-1.125-.253-2.057-.694-2.82-1.284.681-.747 1.222-1.651 1.621-2.757H14V8h-3v1.047h.765c-.318.844-.74 1.546-1.272 2.13a6 6 0 0 1-.415-.492 2 2 0 0 1-.94.31"/>
                     </svg></i>
-                <h3><span>10 Languages</span> available</h3>
-                <p>We are thrilled to announce that our family has grown by another one thousand!
-                    One thousand new customers have chosen us to meet their needs, and we are incredibly grateful for their trust. Your participation in our service means a lot to us, and we strive to provide you with only the highest standards of service.
-                    This milestone is a tremendous achievement for us - a testament to our commitment to quality and excellence. We are working to continue to evolve and improve our service so that you can enjoy it even more.
-                    In addition, we're excited to share that we've hosted 120 events during this time, providing valuable experiences and opportunities for our community to come together and connect.
-                    Furthermore, we're delighted to offer our service in 10 languages, ensuring accessibility and inclusivity for our global community.
-                    Moreover, we provide round-the-clock support (H24 Support), ensuring that assistance is available whenever you need it.
-                    Thank you for your faith in us and your ongoing support in our journey. We are proud to have you in our community.</p>
+                <h3><span>6</span> Язиків інтерфейсу</h3>
             </div>
         </div>
     </div>
@@ -378,11 +353,8 @@
                     <select name="lang" id="lang">
                         <option value="{{ url('/lang/en') }}" {{ App::getLocale() == 'en' ? 'selected' : '' }}>English</option>
                         <option value="{{ url('/lang/ru') }}" {{ App::getLocale() == 'ru' ? 'selected' : '' }}>Русский</option>
-                        <option value="{{ url('/lang/es') }}" {{ App::getLocale() == 'es' ? 'selected' : '' }}>Español</option>
-                        <option value="{{ url('/lang/fr') }}" {{ App::getLocale() == 'fr' ? 'selected' : '' }}>Français</option>
                         <option value="{{ url('/lang/pl') }}" {{ App::getLocale() == 'pl' ? 'selected' : '' }}>Polski</option>
                         <option value="{{ url('/lang/ua') }}" {{ App::getLocale() == 'ua' ? 'selected' : '' }}>Українська</option>
-                        <option value="{{ url('/lang/de') }}" {{ App::getLocale() == 'de' ? 'selected' : '' }}>Deutsch</option>
                     </select>
                 </div>
                 <script>

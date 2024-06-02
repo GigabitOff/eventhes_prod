@@ -10,10 +10,10 @@
     <title>Eventhes</title>
     <meta name="description" content="home">
     <meta name="keywords" content="home">
-    <meta property="og:title" content="Eventhes">
-    <meta property="og:description" content="home">
-    <meta property="og:url" content="https://eventhes.com">
-    <meta property="og:type" content="website">
+    <meta name="description" content="Спільні покупки ✔️Спільні покупки ✔️Сервіс бонусов ✔️Реферали✔️Бонуси за послуги✔️Накопичення бонусів✔️ Бонуси за послуги !" />
+    <meta name="keywords" content="Спільні покупки ✔️ Сервіс бонусов ✔️Реферали✔️Бонуси за послуги✔️Накопичення бонусів✔️ Бонуси за послуги !">
+    <meta property="og:title" content="Накопичуй бонуси, спільні покупки  та витрачай за послуги. Додаткові клієнти для бізнесу!" />
+    <meta property="og:description" content="Спільні покупки ✔️Сервіс бонусов ✔️Реферали✔️Бонуси за послуги✔️Накопичення бонусів✔️ Бонуси за послуги !">
     <meta property="og:image" content="uploads/settings/site_logo.png">
     <meta name="twitter:title" content="Eventhes">
     <meta name="twitter:description" content="home">
@@ -184,11 +184,8 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="{{ url('/lang/en') }}">English</a></li>
                                 <li><a class="dropdown-item" href="{{ url('/lang/ru') }}">Русский</a></li>
-                                <li><a class="dropdown-item" href="{{ url('/lang/es') }}">Español</a></li>
-                                <li><a class="dropdown-item" href="{{ url('/lang/fr') }}">Français</a></li>
                                 <li><a class="dropdown-item" href="{{ url('/lang/pl') }}">Polski</a></li>
                                 <li><a class="dropdown-item" href="{{ url('/lang/ua') }}">Українська</a></li>
-                                <li><a class="dropdown-item" href="{{ url('/lang/de') }}">Deutsch</a></li>
                             </ul>
                         </li>
                         <style>.flag-image {
@@ -275,11 +272,8 @@
                 <select name="lang" id="lang">
                     <option value="{{ url('/lang/en') }}" {{ App::getLocale() == 'en' ? 'selected' : '' }}>English</option>
                     <option value="{{ url('/lang/ru') }}" {{ App::getLocale() == 'ru' ? 'selected' : '' }}>Русский</option>
-                    <option value="{{ url('/lang/es') }}" {{ App::getLocale() == 'es' ? 'selected' : '' }}>Español</option>
-                    <option value="{{ url('/lang/fr') }}" {{ App::getLocale() == 'fr' ? 'selected' : '' }}>Français</option>
                     <option value="{{ url('/lang/pl') }}" {{ App::getLocale() == 'pl' ? 'selected' : '' }}>Polski</option>
                     <option value="{{ url('/lang/ua') }}" {{ App::getLocale() == 'ua' ? 'selected' : '' }}>Українська</option>
-                    <option value="{{ url('/lang/de') }}" {{ App::getLocale() == 'de' ? 'selected' : '' }}>Deutsch</option>
                 </select>
             </div>
             <script>

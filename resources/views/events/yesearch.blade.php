@@ -1,7 +1,7 @@
 @extends('layouts.filter')
 @section('content')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <div class="container" style="margin-top: -65px;">
+    <div class="container" >
         <div class="row justify-content-center">
             <div class="container margin_60">
                 <div class="row" >
@@ -15,22 +15,19 @@
                         <form action="{{ route('search') }}" method="GET">
                             <div id="filters_col">
                                 <input type="email" name="what" class="form-control" aria-describedby="emailHelp" placeholder="{{ __('translate.Search') }}">
-                                <span>&nbsp;</span>
                                 <input style="display: none;" id="salesman" name="salesman" value="{{$salesman}}">
-                                <div class="collapse show" >
+                                <div class="collapse show">
                                     <div class="filter_type">
-                                        <label for="category">Выберите категорию:</label>
-                                        <select  class="form-control" name="category" id="category">
-                                            <option value="">Все</option>
-                                            <option value="3">События</option>
-                                            <option value="2">Услуги</option>
-                                            <option value="1">Курсы</option>
+                                        <label for="category">{{ __('translate.Select category') }}:</label>
+                                        <select class="form-control" name="category" id="category">
+                                            <option value="">{{ __('translate.All') }}</option>
+                                            <option value="4">{{ __('translate.Goods') }}</option>
+                                            <option value="2">{{ __('translate.Services') }}</option>
                                         </select>
                                     </div>
                                 </div>
-                                <span>&nbsp;</span>
                                 <div class="form-group">
-                                    <label for="category">Выберите область:</label>
+                                    <label for="category">{{ __('translate.Select region') }}:</label>
                                     <select class="form-control" id="regionSelect" onchange="sendAjaxRequest(this.value)">
                                         @foreach ($regions as $region)
                                             <option value="{{ substr($region->code, 0, 2) }}">{{ $region->name }}</option>
@@ -38,19 +35,20 @@
                                     </select>
                                 </div>
                                 <div class="form-group" id="townSelectContainer" style="display: none;">
-                                    <label for="town">Выберите город:</label>
+                                    <label for="town">{{ __('translate.Select town') }}:</label>
                                     <select name="town" class="form-control" id="townSelect">
                                     </select>
                                 </div>
                                 <div class="collapse show" style="margin-top: 10px;">
                                     <div class="filter_type">
-                                        <h6>{{ __('translate.Price') }} $ From <output id="ong">50</output> - To <output id="ong2">50</output></h6>
-                                        <input id="rng" name="rng" type="range" min="1" max="100" value="50">
-                                        <input id="rng2" name="rng2" type="range" min="1" max="100" value="50">
+                                        <h6>{{ __('translate.Price') }} $ From <output id="ong">0</output> - To <output id="ong2">10000</output></h6>
+                                        <input id="rng" name="rng" type="range" min="1" max="10000" value="0">
+                                        <input id="rng2" name="rng2" type="range" min="1" max="10000" value="10000">
                                     </div>
                                 </div>
+                                <span>&nbsp;</span>
+                                <a href="#" onclick="updateHiddenFieldsAndSubmit(); return false;" style="text-decoration: none; margin-top:20px; " class="btn_map mb-2">{{ __('translate.Send') }}</a>
                             </div>
-                            <a href="#" onclick="updateHiddenFieldsAndSubmit(); return false;" style="text-decoration: none;" class="btn_map mb-2">{{ __('translate.Send') }}</a>
                         </form>
                         <script>
                             $(function() {
@@ -139,9 +137,11 @@
                                     </div>
                                     <div class="img_list">
                                         <a href="/{{$event->id}}">
-                                            <img
-                                                src="{{ asset('files/' . $event->user_id . '/' . $event->foto_title) }}"
-                                                alt="Image">
+                                            @if($event->first_image_path)
+                                                <img src="{{ $event->first_image_path }}" alt="Image">
+                                            @else
+                                                <img src="{{ asset('path/to/default/image.jpg') }}" alt="Default Image"> <!-- путь к изображению по умолчанию -->
+                                            @endif
                                         </a>
                                     </div>
                                 </div>
@@ -156,12 +156,19 @@
                                                 @endfor
                                             </div>
                                         </div>
-                                        <a href="http://eventhes.com/tours/galata-tower" class="tour_title"><strong>{{$event->title}}</strong></a>
+                                        <a href="http://eventhes.com/tours/galata-tower" class="tour_title"><img src="https://eventhes.com/storage/files/ua.png" alt="Flag" style="vertical-align: middle; width: 5%;"><strong>{{$event->title}}</strong></a>
                                         @if($event->shedule)
                                             <p style="width: 100%; white-space: nowrap; overflow: hidden; font-weight: bold; border-radius: 5px; background-color: #eeeeee">{{ $event->shedule->reserv }}</p>
                                         @else
                                             <p>No schedule available</p>
                                         @endif
+                                        <span>
+                                        @if ($event->town)
+                                                м.{{ $event->town->name }}
+                                            @else
+                                                On-Line
+                                            @endif
+                                        </span>
                                         <p>{!! $event->phone !!}</p>
                                         <i style="font-size: 30px; cursor: pointer;" onclick="likeButtonClicked({{ $event->id }});"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
                                                 <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
@@ -192,8 +199,20 @@
                                             </span>
                                             <span class="normal_price_list"></span>
                                             <small>*{{ __('translate.Per person') }}</small>
-                                            <p><a href="/{{$event->id}}" class="btn_1" target="_blank">{{ __('translate.Details') }}</a>
-                                            </p>
+                                            <p><a href="/{{$event->id}}" class="btn_1" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                                                        <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
+                                                        <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+                                                    </svg> {{ __('translate.Details') }}</a></p>
+                                            <p><a href="/{{$event->id}}" type="button" data-toggle="modal" data-target="#bonusProgramModal" style="text-decoration: none; color: #ffffff; background-color: #eaad14; padding: 10px 20px; border-radius: 5px; display: inline-block;" class="btn_1" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-check" viewBox="0 0 16 16">
+                                                        <path fill-rule="evenodd" d="M10.854 8.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708 0"/>
+                                                        <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>
+                                                    </svg> BONUS</a></p>
+                                            @if($event->category == 4 && $event->piple !== null)
+                                                <p>  <a class="btn_1" style="text-decoration: none; color: #ffffff; background-color: #008dc9; padding: 10px 20px; border-radius: 5px; display: inline-block;">{{$event->piple }} <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
+                                                            <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+                                                            <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5"/>
+                                                        </svg> - {{$event->discounte }} %</a></p>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

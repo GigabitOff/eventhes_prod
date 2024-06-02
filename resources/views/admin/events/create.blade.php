@@ -27,6 +27,8 @@
     }
 
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <div class="content-wrapper">
     <section class="content-header">
         <div class="container-fluid">
@@ -53,15 +55,17 @@
                                 <label for="type_pay">{{ __('translate.Category') }}</label>
                                     @if(isset($event->category))
                                     <select name="category" id="category" class="form-control" disabled>
-                                    <option value="2" {{ $event->category == "3" ? 'selected' : '' }}>{{ __('translate.Event') }}</option>
-                                    <option value="1" {{ $event->category == "4" ? 'selected' : '' }}>{{ __('translate.Service') }}</option>
-                                    <option value="0" {{ $event->category == "1" ? 'selected' : '' }}>{{ __('translate.Courses') }}</option>
+                                    <option {{ $event->category == "4" ? 'selected' : '' }}>{{ __('translate.Goods') }}</option>
+{{--                                    <option {{ $event->category == "3" ? 'selected' : '' }}>{{ __('translate.Event') }}</option>--}}
+                                    <option {{ $event->category == "2" ? 'selected' : '' }}>{{ __('translate.Service') }}</option>
+{{--                                    <option {{ $event->category == "1" ? 'selected' : '' }}>{{ __('translate.Courses') }}</option>--}}
                                     @else
                                          <select name="category" id="category" class="form-control" >
                                         <option value="0">Select options</option>
-                                        <option value="2">{{ __('translate.Event') }}</option>
+                                        <option value="4">{{ __('translate.Goods') }}</option>
+{{--                                        <option value="2">{{ __('translate.Event') }}</option>--}}
                                         <option value="3">{{ __('translate.Service') }}</option>
-                                        <option value="1">{{ __('translate.Courses') }}</option>
+{{--                                        <option value="1">{{ __('translate.Courses') }}</option>--}}
                                     @endif
                                 </select>
                             </div>
@@ -100,22 +104,27 @@
                             </div>
                             <div class="form-group">
                                 <label for="type_pay">{{ __('translate.Event paymant') }}</label>
-                                <select name="type_pay" id="type_pay" class="form-control" required onchange="showHidePanel()">
-                                    <option value="1">{{ __('translate.Yes') }}</option>
-                                    <option value="0">{{ __('translate.No') }}</option>
+                                <select name="type_pay" id="type_pay" class="form-control"  onchange="showHidePanel()">
+                                    <option value="1" >{{ __('translate.Оплата з календарем') }}</option>
+                                    <option value="0" >{{ __('translate.Оплата без календаря') }}</option>
+                                    <option value="2" >{{ __('translate.Календарь без оплати') }}</option>
                                 </select>
                             </div>
                             <div class="form-group" >
                                 <label for="discount">{{ __('translate.Discount') }}</label>
-                                <input type="text" name="discount"  class="form-control" placeholder="0" value="1" required>
+                                <input type="text" name="discount"  class="form-control" placeholder="0" value="1">
+                            </div>
+                            <div class="form-group" id="piple_panel" >
+                                <label for="amount_id">{{ __('translate.Piple') }}</label>
+                                <input type="text" name="piple" id="piple_id" class="form-control" placeholder="0">
                             </div>
                             <div class="form-group" id="amount_panel" style="display: none;">
-                                <label for="amount_id">{{ __('translate.Amount') }}</label>
-                                <input type="text" name="amount" id="amount_id" class="form-control" placeholder="0" value="0" required>
+                                <label for="amount_id">{{ __('translate.Price') }}</label>
+                                <input type="text" name="amount" id="amount_id" class="form-control" placeholder="0">
                             </div>
                             <div class="form-group" id="currency_panel" style="display: none;">
                                 <label for="amount_id">{{ __('translate.Currency') }}</label>
-                                <select name="currency"  class="form-control" required onchange="showHidePanel()">
+                                <select name="currency"  class="form-control"  onchange="showHidePanel()">
                                     <option value="0">$</option>
                                     <option value="1">&#8381;</option>
                                     <option value="2">&euro;</option>
@@ -195,25 +204,9 @@
                     <div class="card card-default">
                         <div class="card-header">
                             <div class="form-group">
-                                <label for="foto_title">{{ __('translate.Photo title') }}</label>
-                                <div class="file-input-wrapper">
-                                    <input type="file" name="foto_title" id="foto_title" class="form-control" required>
-                                    <div class="file-input-label" id="fileInputLabelTitle">{{ __('translate.Click here to select file') }}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="foto_logo">{{ __('translate.Photo logo') }}</label>
-                                <div class="file-input-wrapper">
-                                    <input type="file" name="foto_logo" id="foto_logo" class="form-control" required>
-                                    <div class="file-input-label" id="fileInputLabelLogo">{{ __('translate.Click here to select file') }}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
                                 <label for="allfoto">{{ __('translate.All photos') }}</label>
                                 <div class="file-input-wrapper">
-                                    <input type="file" name="allfoto[]" id="allfoto" class="form-control" required multiple>
+                                    <input type="file" name="allfoto[]" id="allfoto" class="form-control"multiple>
                                     <div class="file-input-label" id="fileInputLabelAll">{{ __('translate.Click here to select file') }}</div>
                                 </div>
                             </div>
@@ -400,6 +393,9 @@
             var url = '';
 
             switch(category) {
+                case '4':
+                    url = '/category/goods';
+                    break;
                 case '3':
                     url = '/category/event';
                     break;
@@ -415,8 +411,6 @@
                     url: url,
                     type: 'get',
                     success: function(response) {
-
-                        // Предполагается, что #content - это контейнер, куда будет загружен контент
                         $('#content').html(response);
                     }
                 });

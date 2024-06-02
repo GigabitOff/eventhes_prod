@@ -49,7 +49,7 @@ class LoginController extends Controller
 //            return '/admin'; // Если роль равна 1, перенаправляем в админскую панель
 //        };
 //        if (auth()->user()->role_id == 2) {
-            return '/partner'; // Иначе перенаправляем на главную страницу
+            return '/client'; // Иначе перенаправляем на главную страницу
 //        }
 //        if (auth()->user()->role_id == 0) {
 //            return '/restricted-access'; // Если роль равна 0, перенаправляем на страницу ограниченного доступа

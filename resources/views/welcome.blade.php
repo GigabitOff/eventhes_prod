@@ -18,10 +18,10 @@
     <link id="mlc_chatinlie_styletag" rel="stylesheet" href="storage/Home_files/chatinline.css">
     <link rel="stylesheet" href="storage/Home_files/css">
     <title>{{ config('app.name', 'EVENTHES') }} - Home</title>
-    <meta name="description" content="Сервіс бонусов ✔️Реферали✔️Бонуси за послуги✔️Накопичення бонусів✔️ Бонуси за послуги !" />
-    <meta name="keywords" content="Сервіс бонусов ✔️Реферали✔️Бонуси за послуги✔️Накопичення бонусів✔️ Бонуси за послуги !">
-    <meta property="og:title" content="Накопичуй бонуси та витрачай за послуги. Додаткові клієнти для бізнесу!" />
-    <meta property="og:description" content="Сервіс бонусов ✔️Реферали✔️Бонуси за послуги✔️Накопичення бонусів✔️ Бонуси за послуги !">
+    <meta name="description" content="Спільні покупки ✔️Спільні покупки ✔️Сервіс бонусов ✔️Реферали✔️Бонуси за послуги✔️Накопичення бонусів✔️ Бонуси за послуги !" />
+    <meta name="keywords" content="Спільні покупки ✔️ Сервіс бонусов ✔️Реферали✔️Бонуси за послуги✔️Накопичення бонусів✔️ Бонуси за послуги !">
+    <meta property="og:title" content="Накопичуй бонуси, спільні покупки  та витрачай за послуги. Додаткові клієнти для бізнесу!" />
+    <meta property="og:description" content="Спільні покупки ✔️Сервіс бонусов ✔️Реферали✔️Бонуси за послуги✔️Накопичення бонусів✔️ Бонуси за послуги !">
     <meta property="og:url" content="https://eventhes.com">
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://eventhes.com/storage/AdminLTE/fav.png" />
@@ -190,7 +190,7 @@
         <div class="row">
             <div class="col-3">
                 <div id="logo_home">
-                    <h1><a href="" title="EVENTHES">EVENTHES</a></h1>
+                    <h1><a href="/" title="EVENTHES">EVENTHES</a></h1>
                 </div>
             </div>
             <nav class="col-9">
@@ -233,7 +233,7 @@
                         </style>
                         <li class="nav-item" >
                             <a style="background-color: #0d6efd; height: 21px;  border-radius: 4px;" class="nav-link" href="/all" target="_self">
-                                {{ __('translate.Events') }}
+                                {{ __('translate.Events all') }}
                             </a>
                         </li>
                         @if(Auth::check() && (Auth::user()->role_id == 1 || Auth::user()->role_id == 3 ))
@@ -264,11 +264,8 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="{{ url('/lang/en') }}">English</a></li>
                                 <li><a class="dropdown-item" href="{{ url('/lang/ru') }}">Русский</a></li>
-                                <li><a class="dropdown-item" href="{{ url('/lang/es') }}">Español</a></li>
-                                <li><a class="dropdown-item" href="{{ url('/lang/fr') }}">Français</a></li>
                                 <li><a class="dropdown-item" href="{{ url('/lang/pl') }}">Polski</a></li>
                                 <li><a class="dropdown-item" href="{{ url('/lang/ua') }}">Українська</a></li>
-                                <li><a class="dropdown-item" href="{{ url('/lang/de') }}">Deutsch</a></li>
                             </ul>
                         </li>
                         <style>.flag-image {
@@ -300,9 +297,9 @@
 </header>
 <!-- End Header -->
 <section id="search_container"
-         style="background-image: url({{ asset('storage/files/istanbul.jpg') }}); background-repeat: round;">
+         style="background-image: url({{ asset('storage/files/istanbul.jpg') }}); margin-top: -50px; background-repeat: round;">
     <div id="search_2">
-        <div class="tab-pane active show" >
+        <div class="tab-pane active show">
             <form action="{{ route('search') }}" method="GET" id="home-search-form">
                 <div class="row no-gutters custom-search-input-2 justify-content-between">
                     <div class="col-lg-10">
@@ -315,9 +312,20 @@
                 </div>
             </form>
         </div>
+        <center>
+            <button type="button" style="margin-top: 150px;" class="btn btn-warning" onclick="scrollToMain()">
+                {{ __('translate.Catalog events') }}
+                <span style="display: inline-block; margin-left: 5px;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-arrow-down-circle" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293z"/>
+        </svg>
+    </span>
+            </button>
+        </center>
     </div>
 </section>
-<main>
+<!-- Ваша кнопка -->
+<main id="main">
     <style>
         .tour_container {
             height: 100%;
@@ -333,6 +341,69 @@
             margin-bottom: 20px;
         }
     </style>
+<br>
+    <div class="container margin_60" style="padding-top: 1px; padding-bottom: 1px;">
+        <div class="row">
+            @foreach($goods as $good)
+                <div class="col-lg-4 col-md-6 wow zoomIn" data-wow-delay="0.1s">
+                    <div class="tour_container">
+                        <div class="ribbon_3 popular">
+                            <span>{{ $good->discounte ? '- ' . $good->discounte . '%' : 'FREE' }}</span>
+                        </div>
+                        <div class="img_container">
+                            <a href="/{{$good->id}}">
+                                <img src="{{ $good->firstImage ?? asset('default/image/path.jpg') }}"
+                                     width="90%" height="90" class="img-fluid" alt="Image">
+                                <div class="short_info">
+                                    <i></i>{{$good->reserv}}
+                                    <span class="price">
+                            @if ($good->amount == 0 || $good->discounte === null)
+                                            FREE
+                                        @else
+                                            @php
+                                                $discountedAmount = $good->amount - ($good->amount * $good->discounte / 100);
+                                                $currencySymbols = [
+                                                    '0' => '$',
+                                                    '1' => '₽',
+                                                    '2' => '€',
+                                                    '3' => '₴',
+                                                    '4' => 'Zł',
+                                                ];
+                                                $currencySymbol = $currencySymbols[$good->currency] ?? ''; // Получаем символ валюты из массива
+                                            @endphp
+                                            <span style="color:#989fa6;font-size: smaller; text-decoration: line-through;">
+                                    {{ number_format($good->amount, 2) }} {{ $currencySymbol }}
+                                </span>
+                                            {{ number_format($discountedAmount, 2) }} {{ $currencySymbol }}
+                                        @endif
+                        </span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="tour_title">
+                            <h3><img src="https://eventhes.com/storage/files/ua.png" alt="Flag" style="vertical-align: middle; width: 5%;"><strong>{{$good->title}}</strong></h3>
+                            <div class="parent-container" style="display: flex; justify-content: flex-end;">
+                                <div class="rating">
+                                    <i style="font-size: 30px; cursor: pointer;" onclick="likeButtonClicked({{ $good->id }});">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
+                                        </svg>
+                                    </i>
+                                </div><!-- end rating -->
+                            </div>
+                            <a href="/{{$good->id}}" style="text-decoration: none; padding: 10px 20px; border-radius: 5px; display: inline-block;" class="btn_1" target="_blank"> {{ __('translate.Details') }}</a>
+                            <a href="/{{$good->id}}"  type="button" data-toggle="modal" data-target="#bonusProgramModal" style="text-decoration: none; color: #ffffff; background-color: #e8aa1b; padding: 10px 10px; border-radius: 5px; display: inline-block;" class="btn_1" target="_blank"> BONUS</a>
+                            <a class="btn_1" style="text-decoration: none; color: #ffffff; background-color: #008dc9; padding: 10px 20px; border-radius: 5px; display: inline-block;">{{$good->piple }} <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
+                                    <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+                                    <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5"/>
+                                </svg> - {{$good->discounte }} %</a>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+
+        </div><!-- End row -->
+    </div>
     <div class="container margin_60" style="padding-top: 16px; padding-bottom: 16px;">
         <div class="row">
             @foreach($services as $service)
@@ -343,10 +414,11 @@
                         </div>
                         <div class="img_container">
                             <a href="/{{$service->id}}">
-                                <img src="{{ asset('files/' . $service->user_id . '/' . $service->foto_title) }}"
+                                <img src="{{ $service->firstImage ?? asset('default/image/path.jpg') }}"
                                      width="90%" height="90" class="img-fluid" alt="Image">
                                 <div class="short_info">
-                                    <i></i>{{$service->reserv}}<span
+                                    <i></i>{{$service->reserv}}
+                                    <span
                                         class="price">@if ($service->amount == 0 || $service->discounte === null)
                                             FREE
                                         @else
@@ -370,8 +442,7 @@
                             </a>
                         </div>
                         <div class="tour_title">
-                            <h3>
-                                <strong>{{$service->title}}</strong></h3>
+                            <h3><img src="https://eventhes.com/storage/files/ua.png" alt="Flag" style="vertical-align: middle; width: 6%;"><strong>{{$service->title}}</strong></h3>
                             <div class="parent-container" style="display: flex; justify-content: flex-end;">
                                 <div class="rating">
                                     <i  style="font-size: 30px;  cursor: pointer;"
@@ -380,61 +451,14 @@
                                         </svg></i>
                                 </div><!-- end rating -->
                             </div>
-                            <a href="/{{$service->id}}" style="text-decoration: none;" class="btn_1" target="_blank">{{ __('translate.Details') }}</a>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-        </div><!-- End row -->
-    </div>
-    <div class="container margin_60" style="padding-top: 1px; padding-bottom: 1px;">
-        <div class="row">
-            @foreach($events as $event)
-                <div class="col-lg-4 col-md-6 wow zoomIn" data-wow-delay="0.1s">
-                    <div class="tour_container">
-                        <div class="ribbon_3 popular">
-                            <span>{{ $event->discounte ? '- ' . $event->discounte . '%' : 'FREE' }}</span>
-                        </div>
-                        <div class="img_container">
-                            <a href="/{{$event->id}}">
-                                <img src="{{ asset('files/' . $event->user_id . '/' . $event->foto_title) }}"
-                                     width="90%" height="90" class="img-fluid" alt="Image">
-                                <div class="short_info">
-                                    <i></i>{{$event->reserv}}<span
-                                        class="price">@if ($event->amount == 0 || $event->discounte === null)
-                                            FREE
-                                        @else
-                                            @php
-                                                $discountedAmount = $event->amount - ($event->amount * $event->discounte / 100);
-                                                $currencySymbols = [
-                                                    '0' => '$',
-                                                    '1' => '₽',
-                                                    '2' => '€',
-                                                    '3' => '₴',
-                                                    '4' => 'Zł',
-                                                ];
-                                                $currencySymbol = $currencySymbols[$event->currency] ?? ''; // Получаем символ валюты из массива
-                                            @endphp
-                                            <span style="color:#989fa6;font-size: smaller; text-decoration: line-through;">{{ number_format($event->amount, 2) }} {{ $currencySymbol }}</span>
-                                            {{ number_format($discountedAmount, 2) }} {{ $currencySymbol }}
-                                        @endif
-
-</span>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="tour_title">
-                            <h3>
-                                <strong>{{$event->title}}</strong></h3>
-                            <div class="parent-container" style="display: flex; justify-content: flex-end;">
-                                <div class="rating">
-                                    <i  style="font-size: 30px;  cursor: pointer;"
-                                        onclick="likeButtonClicked({{ $event->id }});"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
-                                        </svg></i>
-                                </div><!-- end rating -->
-                            </div>
-                            <a href="/{{$event->id}}" style="text-decoration: none;" class="btn_1" target="_blank">{{ __('translate.Details') }}</a>
+                            <a href="/{{$service->id}}" style="text-decoration: none;" class="btn_1" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                                    <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
+                                    <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+                                </svg> {{ __('translate.Details') }}</a>
+                            <a href="/{{$service->id}}"  type="button" data-toggle="modal" data-target="#bonusProgramModal" style="text-decoration: none; color: #ffffff; background-color: #e8aa1b; padding: 10px 20px; border-radius: 5px; display: inline-block;" class="btn_1" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-check" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M10.854 8.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708 0"/>
+                                    <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>
+                                </svg> BONUS</a>
                         </div>
                     </div>
                 </div>
@@ -442,58 +466,6 @@
         </div><!-- End row -->
     </div>
     <div class="container margin_60" style="padding-top: 16px; padding-bottom: 16px;">
-        <div class="row">
-            @foreach($courses as $course)
-                <div class="col-lg-4 col-md-6 wow zoomIn" data-wow-delay="0.1s">
-                    <div class="tour_container">
-                        <div class="ribbon_3 popular">
-                            <span>{{ $course->discounte ? '- ' . $course->discounte . '%' : 'FREE' }}</span>
-                        </div>
-                        <div class="img_container">
-                            <a href="/{{$course->id}}">
-                                <img src="{{ asset('files/' . $course->user_id . '/' . $course->foto_title) }}"
-                                     width="90%" height="90" class="img-fluid" alt="Image">
-                                <div class="short_info">
-                                    <i></i>{{$course->reserv}}<span
-                                        class="price">@if ($event->amount == 0 || $event->discounte === null)
-                                            FREE
-                                        @else
-                                            @php
-                                                $discountedAmount = $event->amount - ($event->amount * $event->discounte / 100);
-                                                $currencySymbols = [
-                                                    '0' => '$',
-                                                    '1' => '₽',
-                                                    '2' => '€',
-                                                    '3' => '₴',
-                                                    '4' => 'Zł',
-                                                ];
-                                                $currencySymbol = $currencySymbols[$event->currency] ?? ''; // Получаем символ валюты из массива
-                                            @endphp
-                                            <span style="color:#989fa6;font-size: smaller; text-decoration: line-through;">{{ number_format($event->amount, 2) }} {{ $currencySymbol }}</span>
-                                            {{ number_format($discountedAmount, 2) }} {{ $currencySymbol }}
-                                        @endif
-
-</span>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="tour_title">
-                            <h3>
-                                <strong>{{$course->title}}</strong></h3>
-                            <div class="parent-container" style="display: flex; justify-content: flex-end;">
-                                <div class="rating">
-                                    <i  style="font-size: 30px;  cursor: pointer;"
-                                       onclick="likeButtonClicked({{ $course->id }});"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
-                                        </svg></i>
-                                </div><!-- end rating -->
-                            </div>
-                            <a href="/{{$course->id}}" style="text-decoration: none;" class="btn_1" target="_blank">{{ __('translate.Details') }}</a>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-        </div><!-- End row -->
         <p class="text-center nopadding">
             <a href="/all" class="btn_1 medium" style="text-decoration: none;">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye"
@@ -502,7 +474,7 @@
                         d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
                     <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
                 </svg>
-                {{ __('translate.View all') }} ({{ count($eventsall) }})
+                {{ __('translate.View all') }}
             </a>
         </p>
     </div>
@@ -529,9 +501,9 @@
                                 <p>{{ __('translate.eventhes_register_now') }}</p>
                                 <h4><span>{{ __('translate.eventhes_maximum_performance') }}</span></h4>
                                 <p>{{ __('translate.eventhes_maximum_performance_description') }}</p>
-                                <h4><span>{{ __('translate.eventhes_register_now_and_get_bonuses') }}</span></h4>
+                                <h4>{{ __('translate.eventhes_register_now_and_get_bonuses') }}</h4>
+                                <h4><span>{{ __('translate.eventhes_biznes') }}</span></h4>
                                 <p>{{ __('translate.eventhes_accumulate_bonuses') }}</p>
-
                             </div>
                         </div>
                     </div>
@@ -541,13 +513,13 @@
             <div class="row">
 
                     <div class="col-lg-3 col-md-6 text-center">
-                        <h4><span>{{ __('translate.Site views payout for') }}</span>{{ __('translate.events_for_user') }}</h4>
+                        <h4>{{ __('translate.events_for_user') }}</h4>
                         <p>
                             {{ __('translate.all_text_1') }}
                         </p>
                     </div>
                     <div class="col-lg-3 col-md-6 text-center">
-                        <h4><span>{{ __('translate.Site views payout for') }} </span>{{ __('translate.events_for_partner') }}</h4>
+                        <h4>{{ __('translate.events_for_partner') }}</h4>
                         <p>
                             {{ __('translate.all_text_2') }}
                         </p>
@@ -581,7 +553,6 @@
                     <div class="content">
                         <h3>{{ __('translate.BONUS ANYWHERE') }} </h3>
                         <h3>{{ __('translate.CLIENTS ANYWHERE') }} </h3>
-                        <h3>{{ __('translate.BELONG ANYWHERE') }} </h3>
                     </div>
                 </div>
             </div>
@@ -641,6 +612,62 @@
         </div>
 </main>
 <!-- Footer================================================== -->
+<div class="modal fade modal-transparent" style="margin-top: 50px;" id="bonusProgramModal" tabindex="-1"
+     aria-labelledby="bonusModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="bonusModalLabel" style="color: #001f3f;">Программа BONUS+</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <center><p style="color: #001f3f;">Це програма розповсюдження реферальних посилань на послугу!</p>
+                    <h3>
+                        <p>
+                            @auth
+                                <?php $user = auth()->user(); ?>
+                                @if($user->code_part != NULL)
+                                    <label style="color: #001f3f;">
+                                        Реферальне посилання - <a style="color: #001f3f;" href="{{ route('events.show', ['id' => $event->id, 'code' => $user->code_part]) }}">https://eventhes.com/{{$event->id}}/{{$user->code_part}}</a>
+                                    </label>
+                        <p>
+                            <a style="color: #575151;" href="https://telegram.me/share/url?url=https://eventhes.com/{{$event->id}}/{{$user->code_part}}" data-share="https://telegram.me/share/url?url=https://www.facebook.com/sharer/sharer.php?u=https://eventhes.com/{{$event->id}}/{{$user->code_part}}" data-type="telegram" target="_blank" role="button">Поделиться в
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telegram" viewBox="0 0 16 16">
+                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.287 5.906q-1.168.486-4.666 2.01-.567.225-.595.442c-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294q.39.01.868-.32 3.269-2.206 3.374-2.23c.05-.012.12-.026.166.016s.042.12.037.141c-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8 8 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629q.14.092.27.187c.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.4 1.4 0 0 0-.013-.315.34.34 0 0 0-.114-.217.53.53 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09"/>
+                                </svg>
+                            </a>
+                        </p>
+                        <p>
+                            <a style="color: #575151;" href="https://www.facebook.com/sharer/sharer.php?u=https://eventhes.com/{{$event->id}}/{{$user->code_part}}" data-share="https://www.facebook.com/sharer/sharer.php?u=https://eventhes.com/{{$event->id}}/{{$user->code_part}}" target="_blank" role="button"> Поделиться в
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
+                                    <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"/>
+                                </svg>
+                            </a>
+                        </p>
+                        @else
+                            <label style="color: #001f3f;">
+                                <input style="color: #001f3f;" type="checkbox" id="referralCheckbox" name="referralCheckbox">
+                                Я згоден(-на) стати участником програми
+                            </label>
+                        @endif
+                        @endauth
+                        @guest
+                            <label style="color: #001f3f;">
+                                Автаризуйтесь спочатку!
+                            </label>
+                        @endguest
+                        <p style="color: #575151; font-size: 13px;">Поширюйте посилання на послугу або товар та отримуйте BONUS </p>
+                        </p>
+                    </h3></center>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="close" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 <footer>
     <div class="container">
         <div class="row">
@@ -678,11 +705,8 @@
                     <select name="lang" id="lang">
                         <option value="{{ url('/lang/en') }}" {{ App::getLocale() == 'en' ? 'selected' : '' }}>English</option>
                         <option value="{{ url('/lang/ru') }}" {{ App::getLocale() == 'ru' ? 'selected' : '' }}>Русский</option>
-                        <option value="{{ url('/lang/es') }}" {{ App::getLocale() == 'es' ? 'selected' : '' }}>Español</option>
-                        <option value="{{ url('/lang/fr') }}" {{ App::getLocale() == 'fr' ? 'selected' : '' }}>Français</option>
                         <option value="{{ url('/lang/pl') }}" {{ App::getLocale() == 'pl' ? 'selected' : '' }}>Polski</option>
                         <option value="{{ url('/lang/ua') }}" {{ App::getLocale() == 'ua' ? 'selected' : '' }}>Українська</option>
-                        <option value="{{ url('/lang/de') }}" {{ App::getLocale() == 'de' ? 'selected' : '' }}>Deutsch</option>
                     </select>
                 </div>
                 <script>
@@ -784,6 +808,36 @@
 <script src="storage/Home_files/functions.js"></script>
 <script src="storage/Home_files/cat_nav_mobile.js"></script>
 <script>
+    // Используем jQuery для простоты, убедитесь, что jQuery подключен на странице
+
+    $(document).ready(function () {
+        // Добавляем обработчик события нажатия на кнопку закрытия модального окна
+        $('#bonusProgramModal .close').click(function () {
+            $('#bonusProgramModal').modal('hide'); // Закрываем модальное окно
+        });
+    });
+
+    // Ждем загрузки DOM, чтобы гарантировать, что все элементы уже доступны
+    document.addEventListener("DOMContentLoaded", function () {
+        // Находим кнопку, которая открывает модальное окно
+        var modalButton = document.querySelector('[data-target="#bonusProgramModal"]');
+
+        // Если кнопка найдена
+        if (modalButton) {
+            // Добавляем обработчик события клика
+            modalButton.addEventListener("click", function () {
+                // Находим модальное окно по его идентификатору
+                var modal = document.querySelector('#bonusProgramModal');
+                // Показываем модальное окно
+                if (modal) {
+                    var modal = new bootstrap.Modal(modal);
+                    modal.show();
+                }
+            });
+        }
+    });
+</script>
+<script>
     $('#cat_nav').mobileMenu();
 </script>
 <script>
@@ -857,6 +911,12 @@
             .catch(error => {
                 console.error('Error:', error);
             });
+    }
+</script>
+<script>
+    function scrollToMain() {
+        var mainElement = document.getElementById('main');
+        mainElement.scrollIntoView({ behavior: 'smooth' });
     }
 </script>
 

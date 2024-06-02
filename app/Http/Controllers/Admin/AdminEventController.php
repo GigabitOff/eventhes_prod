@@ -240,7 +240,7 @@ class AdminEventController extends Controller
         $user = Auth::user();
         $admins = User::where('role_id', 1)->get();
         $events = Event::all();
-        $scheduleExists = Shedule::where('user_id', $user->id)->where('status', 0)->exists();
+        $scheduleExists = Shedule::where('user_id', $user->id)->where('status', 0)->orWhere('status', 1)->exists();
         $sheduleRes = $scheduleExists ? 1 : 0;
         $regions = Region::take(100)->get();
 
@@ -252,8 +252,9 @@ class AdminEventController extends Controller
 
         $schedules = [];
         foreach ($admins as $admin) {
-            $schedules[$admin->id] = Shedule::where('user_id', $admin->id)->where('status', 0)->get();
+            $schedules[$admin->id] = Shedule::where('user_id', $user->id)->where('status', 0)->orWhere('status', 1)->get();
         }
+
 
         return view('admin.events.create', compact('admins', 'currentAdmin', 'regions', 'events', 'schedules', 'sheduleRes'));
     }
@@ -269,8 +270,6 @@ class AdminEventController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'foto_logo' => 'required|image|max:2048', // Удалено ограничение по типу MIME
-            'foto_title' => 'required|image|max:2048', // Удалено ограничение по типу MIME
             'shedule_id' => 'required',
         ]);
 
@@ -282,8 +281,7 @@ class AdminEventController extends Controller
         $event = $this->createEvent($request, $user);
 
         if ($event) {
-            $this->processImage($request->file('foto_logo'), $user);
-            $this->processImage($request->file('foto_title'), $user);
+
             $this->processAllFotos($request->file('allfoto'), $user, $event->id);
             $schedule_id = $request->input('shedule_id');
             Shedule::where('id', $schedule_id)->update(['event_id' => $event->id, 'status' => 1]);
@@ -294,12 +292,12 @@ class AdminEventController extends Controller
 
     protected function createEvent($request, $user)
     {
-
         $event = new Event();
         $event->user_id = $user->id;
         $event->title = $request->title;
         $event->category = $request->category;
-        $event->town = $request->town;
+        $event->town_id = $request->town;
+        $event->piple = $request->piple;
         $event->data_create_order = '';
         $event->description = $request->input('description');
         $event->slug = $this->generateSlug($request->title);
@@ -309,8 +307,6 @@ class AdminEventController extends Controller
         $event->amount = $request->amount;
         $event->shedule_id = $request->shedule_id;
         $event->foto_folder_id = $request->foto_folder_id;
-        $event->foto_title = $request->foto_title;
-        $event->foto_logo = $request->foto_logo;
         $event->discounte = $request->input('discount');
         $event->updated_at = now();
         $event->created_at = now();
@@ -323,6 +319,9 @@ class AdminEventController extends Controller
         $event->social_show_youtube = $request->input('social_show_youtube', '');
         $event->social_show_telegram = $request->input('social_show_telegram', '');
         $event->social_show_x = $request->input('social_show_x', '');
+
+
+
         $event->save();
 
         $userFolder = public_path('storage/files/' . $user->id);
@@ -336,15 +335,6 @@ class AdminEventController extends Controller
         }
 
         return $event;
-    }
-
-    protected function processImage($image, $user)
-    {
-        if ($image) {
-            $uniqueFilename = $image->getClientOriginalName();
-            $path = 'files/' . $user->id;
-            $image->move(public_path($path), $uniqueFilename);
-        }
     }
 
     protected function processAllFotos($allFotos, $user, $eventId)
@@ -409,7 +399,6 @@ class AdminEventController extends Controller
         }
 
         $latestFotosString = implode(', ', $nearestDateFiles);
-
         $lessonType = LessonType::where('events_id', $event->id)
             ->orderBy('updated_at', 'desc')
             ->first();
@@ -451,6 +440,7 @@ class AdminEventController extends Controller
         $event->type_pay = $request->input('type_pay');
         $event->online = $request->input('online');
         $event->discounte = $request->input('discount');
+        $event->piple = $request->input('piple');
 
         $event->social_show_facebook = $request->input('social_show_facebook', '');
         $event->social_show_instagram = $request->input('social_show_instagram', '');

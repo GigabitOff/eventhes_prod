@@ -73,9 +73,10 @@
                         <div class="card-header">
                             <label for="type_pay">{{ __('translate.Category') }}</label>
                             <select name="category" id="category" class="form-control" disabled >
-                                <option value="2" {{ $event->category == "3" ? 'selected' : '' }}>{{ __('translate.Event') }}</option>
-                                <option value="1" {{ $event->category == "4" ? 'selected' : '' }}>{{ __('translate.Service') }}</option>
-                                <option value="0" {{ $event->category == "1" ? 'selected' : '' }}>{{ __('translate.Courses') }}</option>1
+                                <option {{ $event->category == "4" ? 'selected' : '' }}>{{ __('translate.Goods') }}</option>
+                                {{--                                    <option {{ $event->category == "3" ? 'selected' : '' }}>{{ __('translate.Event') }}</option>--}}
+                                <option {{ $event->category == "2" ? 'selected' : '' }}>{{ __('translate.Service') }}</option>
+                                {{--                                    <option {{ $event->category == "1" ? 'selected' : '' }}>{{ __('translate.Courses') }}</option>--}}
                             </select>
                             <div class="form-group">
                                  <label for="title">{{ __('translate.Title') }}</label>
@@ -102,18 +103,24 @@
                             <div class="form-group">
                                 <label for="type_pay">{{ __('translate.Event payment') }}</label>
                                 <select name="type_pay" id="type_pay" class="form-control"  onchange="showHidePanel()">
-                                    <option value="1" {{ $event->type_pay == "1" ? 'selected' : '' }}>{{ __('translate.Yes') }}</option>
-                                    <option value="0" {{ $event->type_pay == "0" ? 'selected' : '' }}>{{ __('translate.No') }}</option>
+                                    <option value="1" >{{ __('translate.Оплата з календарем') }}</option>
+                                    <option value="0" >{{ __('translate.Оплата без календаря') }}</option>
+                                    <option value="2" >{{ __('translate.Календарь без оплати') }}</option>
                                 </select>
                             </div>
-                            <div class="form-group" id="discount_panel" style="display: none;">
-                                <label for="discount">{{ __('translate.Discount') }}</label>
-                                <input type="text" name="discount" id="discount_id" class="form-control" placeholder="{{ $event->discounte }}" value="{{ $event->discounte }}"  required>
-                            </div>
-                            <div class="form-group" id="amount_panel" style="display: none;">
-                                <label for="amount_id">{{ __('translate.Amount') }}</label>
-                                <input type="text" name="amount" id="amount_id" class="form-control" placeholder="{{ $event->amount }}" value="{{ $event->amount }}" >
-                            </div>
+{{--                            <div class="form-group"  >--}}
+{{--                                <label for="discount">{{ __('translate.Discount') }}</label>--}}
+{{--                                <input type="text" name="discount"  class="form-control" placeholder="{{ $event->discounte }}" value="{{ $event->discounte }}"  required>--}}
+{{--                            </div>--}}
+
+{{--                            <div class="form-group"  >--}}
+{{--                                <label for="amount_id">{{ __('translate.Piple') }}</label>--}}
+{{--                                <input type="text" name="piple" id="piple_id" class="form-control" placeholder="{{ $event->piple}}" value="{{ $event->piple }}"  required>--}}
+{{--                            </div>--}}
+{{--                            <div class="form-group"  >--}}
+{{--                                <label for="amount_id">{{ __('translate.Price') }}</label>--}}
+{{--                                <input type="text" name="amount"  class="form-control" placeholder="{{ $event->amount }}" value="{{ $event->amount }}" >--}}
+{{--                            </div>--}}
                             <div class="form-group" id="currency_panel">
                                 <label for="amount_id">{{ __('translate.Currency') }}</label>
                                 <select name="currency" class="form-control"  onchange="showHidePanel()">
@@ -124,70 +131,6 @@
                                     <option value="4" {{ $event->currency == "4" ? 'selected' : '' }}>Z&#322;</option>
                                 </select>
                             </div>
-                            <div class="form-group" id="currency_panel">
-                                <label for="amount_id">Type lesson</label>
-                                <div class="custom-control custom-checkbox">
-                                    <input class="custom-control-input" type="checkbox" name="customCheckbox1" id="customCheckbox1" {{ isset($lessonType) && $lessonType->customCheckbox1 ? 'checked' : '' }}>
-                                    <label for="customCheckbox1" class="custom-control-label">One to one teacher</label>
-                                </div>
-                                <!-- Панель для customCheckbox1 -->
-                                <div id="panel1" class="hidden-panel" style="display:none;border: 1px solid rgba(0, 0, 0, 0.2); border-radius: 4px;padding: 10px;margin-top: 10px;">
-                                    <div class="group-panel">
-                                        <h4>Group 1</h4>
-                                        <label for="timeFrom1Group1">Time from:</label>
-                                        <input type="time" id="timeFrom1Group1" name="timeFrom1Group1" value="{{ $lessonType->timeFrom1Group1 ?? '' }}">
-                                        <label for="timeTo1Group1">Time to:</label>
-                                        <input type="time" id="timeTo1Group1" name="timeTo1Group1" value="{{ $lessonType->timeTo1Group1 ?? '' }}">
-                                    </div>
-                                    <div class="group-panel">
-                                        <label for="timeTo1Group1">Discount %:</label>
-                                        <input type="text" id="discount1" name="discount1" value="{{ $lessonType->discount1 ?? '' }}">
-                                    </div>
-                                    <div class="group-panel">
-                                        <h4>Groupe 2</h4>
-                                        <label for="timeFrom1Group2">Time from:</label>
-                                        <input type="time" id="timeFrom1Group2" name="timeFrom1Group2" value="{{ $lessonType->timeFrom1Group2 ?? '' }}">
-                                        <label for="timeTo1Group2">Time to:</label>
-                                        <input type="time" id="timeTo1Group2" name="timeTo1Group2" value="{{ $lessonType->timeTo1Group2 ?? '' }}">
-                                    </div>
-                                    <div class="group-panel">
-                                        <label for="timeTo1Group1">Discount %:</label>
-                                        <input type="text" id="discount2" name="discount2" value="{{ $lessonType->discount2 ?? '' }}">
-                                    </div>
-                                </div>
-
-                                <div class="custom-control custom-checkbox">
-                                    <input class="custom-control-input" type="checkbox" name="customCheckbox2" id="customCheckbox2" {{ isset($lessonType) && $lessonType->customCheckbox2 ? 'checked' : '' }}>
-                                    <label for="customCheckbox2" class="custom-control-label">Online group</label>
-                                </div>
-                                <!-- Панель для customCheckbox2 -->
-                                <div id="panel2" class="hidden-panel" style="display:none;border: 1px solid rgba(0, 0, 0, 0.2); border-radius: 4px;padding: 10px;margin-top: 10px;">
-                                    <div class="group-panel">
-                                        <h4>Group 1</h4>
-                                        <label for="timeFrom22Group22">Time from:</label>
-                                        <input type="time" id="timeFrom22Group22" name="timeFrom22Group22" value="{{ $lessonType->timeFrom22Group22 ?? '' }}">
-                                        <label for="timeTo22Group22">Time to:</label>
-                                        <input type="time" id="timeTo22Group22" name="timeTo22Group22" value="{{ $lessonType->timeTo22Group22 ?? '' }}">
-                                    </div>
-                                    <div class="group-panel">
-                                        <label for="timeTo1Group1">Discount %:</label>
-                                        <input type="text" id="discount3" name="discount3" value="{{ $lessonType->discount3 ?? '' }}">
-                                    </div>
-                                    <div class="group-panel">
-                                        <h4>Groupe 2</h4>
-                                        <label for="timeFrom33Group33">Time from:</label>
-                                        <input type="time" id="timeFrom33Group33" name="timeFrom33Group33" value="{{ $lessonType->timeFrom33Group33 ?? '' }}">
-                                        <label for="timeTo33Group33">Time to:</label>
-                                        <input type="time" id="timeTo1Group33" name="timeTo33Group33" value="{{ $lessonType->timeTo33Group33 ?? '' }}">
-                                    </div>
-                                    <div class="group-panel">
-                                        <label for="timeTo1Group1">Discount %:</label>
-                                        <input type="text" id="discount4" name="discount4" value="{{ $lessonType->discount4 ?? '' }}">
-                                    </div>
-                                </div>
-                            </div>
-
-
                             <div class="form-group">
                                 <label for="description">{{ __('translate.Description') }}</label>
                                 <div class="col-md-12">
@@ -223,44 +166,6 @@
                                 </label>
                                 <input type="text" name="online"  class="form-control" value="{{$event->online}}">
                             </div>
-                        </div>
-                    </div>
-                    <div class="card card-default">
-                        <div class="card-header">
-                            <div class="form-group">
-                                <label for="foto_title"><a href="#" >All lesson</a></label>
-                            </div>
-
-                                <div class="form-group">
-                                    <label for="title">
-                                        <a href="/admin/events/lesson/{{$event->id}}" type="submit" value="Create add Urok" class="btn btn-success float-right">+ Урок</a>
-                                    </label>
-                                </div>
-
-                            <style>
-                                .lesson-list {
-                                    border: 1px solid rgba(0, 0, 0, 0.2); /* Черная рамка */
-                                    padding: 10px;
-                                    border-radius: 5px;
-                                    margin: 10px 0;
-                                    list-style: none;
-                                }
-                                .lesson-list li {
-                                    margin-bottom: 5px;
-                                    font-weight: bold;
-                                }
-                            </style>
-                            @if($lessonTitles->isNotEmpty())
-                                <ul class="lesson-list">
-                                    @foreach($lessonTitles as $index => $title)
-                                        <li>{{ $title }} - <a href="/admin/events/{{$event->id}}/rl/{{$index}}" style="text-decoration: underline;">(redact)</a></li>
-                                    @endforeach
-
-                                </ul>
-                            @else
-                                <p>Уроки не найдены.</p>
-                            @endif
-
                         </div>
                     </div>
                     <div class="card card-default" >

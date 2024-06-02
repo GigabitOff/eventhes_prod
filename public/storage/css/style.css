@@ -1719,8 +1719,6 @@ a#filters_col_bt .icon_set_1_icon-65 {
 	padding: 25px 0 20px 0;
 	color: #fff;
 	font-size: 13px;
-	background: -webkit-linear-gradient(top,transparent,#000);
-    background: linear-gradient(to bottom,transparent,#000);
 	width: 100%;
 }
 
@@ -3190,7 +3188,7 @@ ul.list_order li span {
 
 /* Parallax bg */
 .parallax-window {
-	min-height: 470px;
+	min-height: 469px;
 	background: transparent;
 	position: relative;
 }
@@ -7510,8 +7508,8 @@ only screen and (min-device-pixel-ratio: 2) and (max-width: 991px) {
 	/* Parallax bg */
 	.parallax-window,
 	#hero_2 {
-		height: 340px;
-		min-height: 240px;
+		height: auto;
+		min-height: 380px;
 	}
 
 	.parallax-content-1 {

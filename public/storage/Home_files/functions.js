@@ -383,3 +383,20 @@ $('.panel-dropdown').hover(function () {
 $("body").mouseup(function () {
     if (!mouse_is_inside) close_panel_dropdown();
 });
+
+// Mobile Filter Button
+$("#menuFilterBtn").click(function() {
+    $('#menuFilterBtn').toggleClass('mobileFilterClosed');
+    if($(this).hasClass('mobileFilterClosed')){
+        $('#menuFilterBtn .menuFilterBtnOpen').css('display', 'none');
+        $('#menuFilterBtn .menuFilterBtnClose').css('display', 'block');
+
+        $(window).scrollTop(0);
+        $('.filterBlock form').attr('style', 'display: block !important');
+    } else {
+        $('#menuFilterBtn .menuFilterBtnOpen').css('display', 'block');
+        $('#menuFilterBtn .menuFilterBtnClose').css('display', 'none');
+
+        $('.filterBlock form').attr('style', 'display: none !important');
+    }
+});

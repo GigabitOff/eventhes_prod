@@ -25,10 +25,9 @@
     <meta name="keywords" content="home">
     <meta property="og:url" content="https://eventhes.com/{{ $event->id}}">
     <meta property="og:type" content="website">
-    <meta property="og:image"
-          content="@if(!empty($event->foto_title))files/{{$user->id}}/{{$event->foto_title}}@else storage/fonts/8150248.jpg @endif"
-    ">
+    <meta property="og:image" content="{{$event->firstFoto()}}">
     <meta name="twitter:title" content="{{ $event->title }}">
+
     <meta name="twitter:description" content="{{ $event->title }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -72,14 +71,14 @@
           data-turbolinks-eval="false" data-turbo-eval="false">
     <style>
         header #logo_home h1 a {
-            background-image: url("@if(!empty($event->foto_logo)){{ asset('files/'.$user->id.'/'.$event->foto_logo) }}@else{{ asset('storage/css/site_logo.png') }}@endif");
+            background-image: url("{{ asset('storage/css/site_logo.png') }}");
 
             background-repeat: no-repeat;
             margin-top: -11px;
         }
 
         header.sticky #logo_home h1 a {
-            background-image: url("@if(!empty($event->foto_logo)){{ asset('files/'.$user->id.'/'.$event->foto_logo) }}@else{{ asset('storage/css/site_logo.png') }}@endif");
+            background-image: url("{{ asset('storage/css/site_logo.png') }}");
 
             background-repeat: no-repeat;
             margin-top: -11px;
@@ -98,15 +97,14 @@
 <body class=" " style="overflow: visible;">
 
 <div class="mobile-hide" style="max-height: 100%; max-width: 100%;">
-    <img
-        src="@if(!empty($event->foto_title))files/{{$user->id}}/{{$event->foto_title}}@else storage/fonts/8150248.jpg @endif"
-        style="position: absolute; height: 100%; width: 100%; max-width: none; filter: blur(20px);">
+    <img src="{{ $event->firstFoto() }}" style="position: absolute; height: 100%; width: 100%; max-width: none; filter: blur(20px);">
 </div>
 <div class="parallax-mirror"
      style="visibility: visible; position: absolute; top: 0px; left: 0px; overflow: hidden; transform: translate3d(0px, 0px, 0px); height: 470px; width: 100%; display: flex; justify-content: center; align-items: center;">
     <img style="max-height: 100%; max-width: 100%;"
-         src="@if(!empty($event->foto_title))files/{{$user->id}}/{{$event->foto_title}}@else storage/fonts/8150248.jpg @endif">
+         src="{{ $event->firstFoto() }}">
 </div>
+
 <div class="layer"></div>
 <style>/* Стили для свернутого меню */
     #sidebar {
@@ -189,7 +187,7 @@
             <nav class="col-9" id="your_menu_id">
                 <a class="cmn-toggle-switch cmn-toggle-switch__htx open_close" href="javascript:void(0);"><span></span></a>
                 <div class="main-menu">
-                    <div id="header_menu">
+                      <div id="header_menu">
                         <img src="./show_files/site_logo.png" width="160" height="34" alt="EVENTHES">
                     </div>
                     <a href="" class="open_close" id="close_in"><i
@@ -202,14 +200,21 @@
                                 <i class="fa fa fa-home fa-fw"></i> Home
                             </a>
                         </li>
+                        @if ($event->category == 4)
+                        <li class="nav-item ">
+                            <a class="nav-link" href="#" data-target="goods">
+                                {{ __('translate.Goods') }}
+                            </a>
+                        </li>
+                        @endif
                         <li class="nav-item ">
                             <a class="nav-link" href="#" data-target="descript">
-                                Description
+                                {{ __('translate.Description') }}
                             </a>
                         </li>
                         <li class="nav-item ">
                             <a class="nav-link" href="#" data-target="portfol">
-                                Portfolio
+                                {{ __('translate.Portfolio') }}
                             </a>
                         </li>
                         <li class="nav-item dropdown">
@@ -221,11 +226,8 @@
                                 style="background-color: #000000;">
                                 <li><a class="dropdown-item" href="{{ url('/lang/en') }}">English</a></li>
                                 <li><a class="dropdown-item" href="{{ url('/lang/ru') }}">Русский</a></li>
-                                <li><a class="dropdown-item" href="{{ url('/lang/es') }}">Español</a></li>
-                                <li><a class="dropdown-item" href="{{ url('/lang/fr') }}">Français</a></li>
                                 <li><a class="dropdown-item" href="{{ url('/lang/pl') }}">Polski</a></li>
                                 <li><a class="dropdown-item" href="{{ url('/lang/ua') }}">Українська</a></li>
-                                <li><a class="dropdown-item" href="{{ url('/lang/de') }}">Deutsch</a></li>
                             </ul>
                         </li>
                         <script>   document.querySelector('.dropdown-menu').addEventListener('click', function (e) {
@@ -258,60 +260,148 @@
          data-natural-width="1400" data-natural-height="470">
     <div class="parallax-content-2">
         <div class="container">
+            <br>
             <div class="row">
-                <h1>
-                    <span style="background-color: #1bacea; border-radius: 5px; width: 5%;">&nbsp;&nbsp;&nbsp;{{ $event->title }}&nbsp;&nbsp;&nbsp; </span>
-                </h1>
-                <hr style="border: 0; border-top: 1px solid #000;">
-                <div class="col-md-8">
-                    @php
-                        $parts = explode('|', $reserv);
-                        $startDateString = trim(str_replace('Start date:', '', $parts[0]));
-                        $startDate = date('Y-m-d', strtotime($startDateString));
-                        $endDateString = trim(str_replace('End date:', '', $parts[1]));
-                        $endDate = date('Y-m-d', strtotime($endDateString));
-                    @endphp
-                    <h3 style="font-size: 17px;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
-                             fill="currentColor"
-                             class="bi bi-calendar-week" viewBox="0 0 16 16">
-                            <path
-                                d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-5 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z"/>
-                            <path
-                                d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
-                        </svg>
-                        - <i>{{ $startDate}} - {{$endDate}}</i></h3>
-                </div>
+                <h3>
+
+                    <span class="title-background"><span style="color:#ffffff;">{{ $event->title }} </span></span>
+                </h3>
                 <div class="row">
                     @if($time == '00:00:00')
                         <span>
-        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-clock"
-             viewBox="0 0 16 16">
-            <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/>
-            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0"/>
-        </svg>
-        - {{ __('translate.Any time') }}
-    </span>
+                        {{-- Time any --}}
+                    </span>
                         <br>
                     @else
                         <span>
-        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-clock"
-             viewBox="0 0 16 16">
-            <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/>
-            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0"/>
-        </svg>
-        - {{ $time }}
-    </span>
+                        {{-- Time specified --}}
+                    </span>
                     @endif
                 </div>
             </div>
         </div>
     </div>
+
+    <style>
+        .discount-box {
+            width: 10cm;
+            height: 1.1cm;
+            border-radius: 5px;
+            margin-left: 11px;
+            background-color: #af2424;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .title-background {
+            background-color: #201c23;
+            opacity: 0.7;
+            border-radius: 5px;
+            padding: 5px;
+            display: inline-block;
+        }
+
+        .title-background span {
+            opacity: 1;
+        }
+
+        .title-divider {
+            border: 0;
+            border-top: 1px solid #000;
+            margin-top: 10px;
+        }
+
+        .flag-icon {
+            vertical-align: middle;
+            margin-top: -5px;
+            width: 2%;
+        }
+
+        .event-location {
+            color: white;
+        }
+
+        .schedule {
+            width: 33%;
+            white-space: nowrap;
+            overflow: hidden;
+            font-weight: bold;
+            border-radius: 5px;
+            background-color: #eeeeee;
+            margin-top: 20px;
+        }
+
+        /* Media Query for Mobile Devices */
+        @media (max-width: 768px) {
+            .discount-box {
+                width: 5cm;
+                height: 0.55cm;
+                font-size: 10px;
+            }
+
+            .title-background {
+                font-size: 0.5em;
+            }
+
+            .title-divider {
+                margin-top: 5px;
+            }
+
+            .flag-icon {
+                width: 1%;
+            }
+
+            .schedule {
+                width: 16.5%;
+                margin-top: 10px;
+                font-size: 0.5em;
+            }
+        }
+    </style>
+
 </section>
 <main>
-    <div id="position" style="background-color: #e04f67; opacity: 0.8">
+    <div  style="background-color: rgba(245,11,47,0.93); opacity: 0.8">
         <center>
+            <td class="text-right" id="currency_sel" style="color:#ffffff;font-size: smaller;  font-weight: bold;">
+                <span style="color:#ffffff;font-size: smaller;  font-weight: bold;"> Ціна&nbsp;</span>
+                @php
+                    $discountedAmount = $event->amount - ($event->amount * $event->discounte / 100);
+                    $currencySymbols = [
+                        '0' => '$',
+                        '1' => '₽',
+                        '2' => '€',
+                        '3' => '₴',
+                        '4' => 'Zł',
+                    ];
+                    $currencySymbol = $currencySymbols[$event->currency] ?? $event->currency; // Если символ не найден, показываем код валюты
+                @endphp
+            </td>
+            <td class="text-right" id="totalAmount" style="color:#ffffff;font-size: smaller;  font-weight: bold;">
+                @if ($event_amount == 0 and $event_discount === null)
+                    FREE
+                @else
+                    @php
+                        echo "<span style='color:#ffffff;font-size: smaller;  font-weight: bold;'>" . ($event_amount - ($event_amount * $event_discount / 100)) . "</span>";
+                    @endphp
+                @endif
+            </td>
+            <span style="color:#ffffff;font-size: smaller;  font-weight: bold;"> {{ $currencySymbol }}(</span>
+            @if($event->category == 4 && $event->piple !== null)
+
+                <span style="color:#ffffff;font-size: smaller;  font-weight: bold;">{{$event->piple }}</span> <svg  style="color:#ffffff;font-size: smaller;  font-weight: bold;" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
+                    <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+                    <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5"/>
+                </svg>  <span style="color:#ffffff;font-size: smaller;  font-weight: bold;">- </span> <span style="color:#ffffff;font-size: smaller;  font-weight: bold;">{{$event->discounte }} %</span>    <span style="color:#ffffff;font-size: smaller; text-decoration: line-through; font-weight: bold;">
+{{ number_format($event->amount, 2) }} {{ $currencySymbol }}
+                    ) </span>  <span style="color:#ffffff;font-size: smaller;  font-weight: bold;">=</span>  <span style="color:#ffffff;font-size: smaller;  font-weight: bold;">{{ number_format($discountedAmount, 2) }} {{ $currencySymbol }}</span>
+
+            @endif
         </center>
+
+
     </div>
     <div class="container margin_60" id="container_booking">
         <div class="row">
@@ -367,16 +457,13 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{!empty($event->is_links) ? $event->is_links : 'javascript:void(0);'}}"
+                            <a href="{{!empty($event->social_show_youtube) ? $event->social_show_youtube : 'javascript:void(0);'}}"
                                target="_blank"
                                style="{{empty($event->is_links) ? 'cursor: default; pointer-events: none;' : ''}}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
-                                     fill="{{empty($event->is_links) ? '#000000' : 'currentColor'}}"
+                                     fill="{{empty($event->social_show_youtube) ? '#000000' : 'currentColor'}}"
                                      class="bi bi-link-45deg" viewBox="0 0 16 16">
-                                    <path
-                                        d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1 1 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4 4 0 0 1-.128-1.287z"/>
-                                    <path
-                                        d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243z"/>
+                                    <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.01 2.01 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.01 2.01 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31 31 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.01 2.01 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A100 100 0 0 1 7.858 2zM6.4 5.209v4.818l4.157-2.408z"></path>
                                 </svg>
                             </a>
                         </li>
@@ -413,132 +500,120 @@
                     {{--                                                                  data-text-swap="Hide map"--}}
                     {{--                                                                  data-text-original="View on map">{{ __('translate.View on map') }}</a>--}}
                 </p>
-                <!-- Map button for tablets/mobiles -->
-                <div class="row">
-                    <div class="col-lg-3">
-                        <h3>{{ __('translate.Description') }}</h3>
-                    </div>
-                    <div class="col-lg-9" id="descript">
-                        {!! $event->description !!}
-                    </div>
-                </div>
-                <hr>
+                @if($event->category == 4)
                 <div class="row">
     <span>
         <h3>{{ __('translate.Portfolio') }}</h3>
     </span>
-                    @foreach($imageData as $image)
-                        <div class="col-lg-4">
-                            <div class="gallery-item" id="portfol">
-                                <a href="{{ $image->path }}" data-fancybox="gallery">
-                                    <img src="{{ $image->path }}" class="img-fluid" alt="{{ $image->description }}">
-                                </a>
+                        @foreach($imageData as $image)
+                            <div class="col-lg-4">
+                                <div class="gallery-item" id="portfol">
+                                    <a href="{{ $image->path }}" data-fancybox="gallery">
+                                        <img src="{{ $image->path }}" class="img-fluid" alt="{{ $image->description }}">
+                                    </a>
+                                </div>
                             </div>
+                        @endforeach
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <h3>{{ __('translate.Description') }}</h3>
                         </div>
+                        <div class="col-lg-9" id="descript">
+                            {!! $event->description !!}
+                        </div>
+                    </div>
+                <hr>
+                @endif
+                <div class="row" id="goods" data-target="goods">
+                    <h3>Товари продавця</h3>
+                    </span>
+                    @foreach($events as $event)
+                        @if ($event->amount > 0)
+                            <div class="col-lg-4 col-md-6 wow zoomIn" data-wow-delay="0.1s">
+                                <div class="tour_container">
+                                    <div class="ribbon_3 popular">
+                                        <span>{{ $event->discounte ? '- ' . $event->discounte . '%' : 'FREE' }}</span>
+                                    </div>
+                                    <div class="img_container">
+                                        <a href="/{{$event->id}}">
+{{--                                            <img src="{{ isset($firstImages[$event->id]) ? $firstImages[$event->id]->path : 'Путь к изображению по умолчанию' }}"--}}
+{{--                                                 width="90%" height="90" class="img-fluid" alt="Image">--}}
+{{--                                            <div class="short_info">--}}
+                                            <img src="{{ $firstImages[$event->id]->path }}" width="90%" height="90" class="img-fluid" alt="Image">
+                                            <div class="short_info">
+                                                <i></i>{{$event->reserv}}<span
+                                                    class="price">@if ($event->amount == 0 || $event->discounte === null)
+                                                        FREE
+                                                    @else
+                                                        @php
+                                                            $discountedAmount = $event->amount - ($event->amount * $event->discounte / 100);
+                                                            $currencySymbols = [
+                                                                '0' => '$',
+                                                                '1' => '₽',
+                                                                '2' => '€',
+                                                                '3' => '₴',
+                                                                '4' => 'Zł',
+                                                            ];
+                                                            $currencySymbol = $currencySymbols[$event->currency] ?? '';
+                                                        @endphp
+                                                        <span style="color:#989fa6;font-size: smaller; text-decoration: line-through;">{{ number_format($event->amount, 2) }} {{ $currencySymbol }}</span>
+                                                        {{ number_format($discountedAmount, 2) }} {{ $currencySymbol }}
+                                                    @endif
+                            </span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="tour_title">
+                                        <h3><img src="https://eventhes.com/storage/files/ua.png" alt="Flag" style="vertical-align: middle;  width: 5%;"><strong style="font-size: 13px;">{{$event->title}}</strong></h3>
+                                        <a href="/{{$event->id}}" style="text-decoration: none;" class="btn_1" target="_blank">{{ __('translate.Details') }}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
                     @endforeach
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col-lg-3">
-                        <h3>{{ __('translate.Group') }}</h3>
-                    </div>
-                    <div class="col-lg-3 col-md-4">
-                        <div class="tour_container">
-                            <!-- Перенесли вывод переменных из массива $event -->
-                            <div class="ribbon_3 popular">
-                                <span>-{{$lessonType->discount1+$lessonType->discount2}}%</span>
-                            </div>
-                            <div class="img_container">
-                                <img width="90%" height="70%" src="./storage/css/33333.png" alt="Video Lesson">
-                                <div class="short_info"><i>On to on</i>
-                                    <span class="price"></span>
-                                </div>
-                            </div>
-                            <div class="tour_title">
-                                <h4><strong>Индивидуально по записи</strong></h4>
-                                <div class="parent-container" style="display: flex; justify-content: flex-end;">
-                                    <div class="rating"></div><!-- end rating -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-4">
-                        <div class="tour_container">
-                            <!-- Перенесли вывод переменных из массива $event -->
-                            <div class="ribbon_3 popular">
-                                <span>-{{$lessonType->discount2+$lessonType->discount3}}%</span>
-                            </div>
-                            <div class="img_container">
-                                <img width="90%" height="70%" src="./storage/css/11111.png" alt="Video Lesson">
-                                <div class="short_info"><i>Grop on-line</i>
-                                    <span class="price"></span>
-                                </div>
-                            </div>
-                            <div class="tour_title">
-                                <h7>Группа 1</h7>
-                                <p><strong>c {{$lessonType->timeFrom22Group22}}
-                                        до {{$lessonType->timeTo22Group22}}</strong></p>
-                                <h7>Группа 2</h7>
-                                <p><strong>c {{$lessonType->timeFrom33Group33}}
-                                        до {{$lessonType->timeTo33Group33}}</strong></p>
-                                <div class="parent-container" style="display: flex; justify-content: flex-end;">
-                                    <div class="rating"></div><!-- end rating -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-4">
-                        <div class="tour_container">
-                            <!-- Перенесли вывод переменных из массива $event -->
-                            <div class="ribbon_3 popular">
-                                <span>-50%</span>
-                            </div>
-                            <div class="img_container">
-                                <img width="90%" height="70%" src="./storage/css/22222.png" alt="Video Lesson">
-                                <div class="short_info"><i>Video lesson</i>
-                                    <span class="price"></span>
-                                </div>
-                            </div>
-                            <div class="tour_title">
-                                <h4><strong>В любое удобное время</strong></h4>
-                                <div class="parent-container" style="display: flex; justify-content: flex-end;">
-                                    <div class="rating"></div><!-- end rating -->
-                                </div>
-                            </div>
-                        </div>
+
+                    <div class="row">
+                        <center>
+                            <h3><a href="{{ url('search?what=&rng=&rng2=&cat=&salesman=' . $event->user_id) }}">Всі товари</a></h3>
+                        </center>
                     </div>
                 </div>
-                <hr>
-                <div class="row">
-                    <div class="col-lg-3">
-                        <h3>{{ __('translate.Schedule') }}</h3>
-                    </div>
-                    <div class="col-lg-9">
-                        <div class="table-responsive">
-                            <table class="table table-striped">
-                                <tbody>
-                                @foreach(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] as $day)
-                                    <tr>
-                                        <td>{{ $day }}</td>
-                                        <td>
-                                            @php
-                                                $dayLower = strtolower($day);
-                                                $startTime = $timeworks->pluck("time_work_start_$dayLower")->first();
-                                                $endTime = $timeworks->pluck("time_work_end_$dayLower")->first();
-                                            @endphp
-                                            @if($startTime != 'Start' && $endTime != 'End')
-                                                {{ $startTime }} - {{ $endTime }}
-                                            @else
-                                                {{ __('translate.Closed') }}
-                                            @endif
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
+                @if(($event->category == 4 && $event->amount == null) || ($event->category == 2))
+                    <hr>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <h3>{{ __('translate.Schedule') }}</h3>
+                        </div>
+                        <div class="col-lg-9">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <tbody>
+                                    @foreach(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] as $day)
+                                        <tr>
+                                            <td>{{ $day }}</td>
+                                            <td>
+                                                @php
+                                                    $dayLower = strtolower($day);
+                                                    $startTime = $timeworks->pluck("time_work_start_$dayLower")->first();
+                                                    $endTime = $timeworks->pluck("time_work_end_$dayLower")->first();
+                                                @endphp
+                                                @if($startTime != 'Start' && $endTime != 'End')
+                                                    {{ $startTime }} - {{ $endTime }}
+                                                @else
+                                                    {{ __('translate.Closed') }}
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endif
+
                 <hr style="height:0.5px;">
                 <div class="row">
                     <div class="col-lg-3">
@@ -610,10 +685,14 @@
             <aside class="col-lg-4">
                 <div class="box_style_1 expose">
                     <div id="booking-vue">
-                        <form name="bookingForm" action="{{ route('orders.store') }}" method="post"
-                              class="booking-form">
+                        <form name="bookingForm" action="{{ route('orders.store') }}" method="post" class="booking-form">
+                            @if ($event->category != 4)
                             <h3 class="inner">- {{ __('translate.Booking') }} -</h3>
-                            @if ($event->type_pay == 1)
+                            @else
+                                <h3 class="inner">- {{ __('translate.Buy') }} -</h3>
+                            @endif
+                            @if ($event_type_pay != 3)
+                                @if ($event_type_pay== 1 or $event_type_pay == 2)
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
@@ -628,6 +707,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                @endif
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
@@ -668,11 +748,11 @@
                                             {{ $currencySymbol }}
                                         </td>
                                         <td class="text-right" id="totalAmount">
-                                            @if ($event->amount == 0 || $event->discounte === null)
+                                            @if ($event_amount == 0 and $event_discount === null)
                                                 FREE
                                             @else
                                                 @php
-                                                    echo  $event->amount - ($event->amount * $event->discounte / 100);
+                                                    echo  $event_amount - ($event_amount * $event_discount / 100);
                                                 @endphp
                                             @endif
                                         </td>
@@ -695,28 +775,32 @@
                                             {{ $currencySymbolTu }}
                                         </td>
                                         <td class="text-right" id="totalCost">
-                                            @if ($event->amount == 0 || $event->discounte === null)
+                                            @if ($event_amount == 0 and $event_discount === null)
                                                 FREE
                                             @else
                                                 @php
-                                                    echo  $event->amount - ($event->amount * $event->discounte / 100);
+                                                    echo  $event_amount - ($event_amount * $event_discount / 100);
                                                 @endphp
                                             @endif
                                         </td>
                                     </tr>
                                     </tbody>
                                 </table>
-                            @endif
+
+                                    <hr>
                             @guest
+
                                 <button type="submit" class="btn_full">{{ __('translate.Send') }}</button>
                                 <input type="text" style="display: none;" value="0" id="reg1">
+
                             @else
                                 <input type="text" style="display: none;" value="1" id="reg2">
                                 <button type="submit" class="btn_full">{{ __('translate.Send') }}</button>
                             @endguest
+                            @endif
                         </form>
                     </div>
-                    @if(auth()->check())
+
                         <a id="my-link" onclick="likeButtonClicked({{ $event->id }});"
                            class="btn_full_outline ladda-button"
                            data-page_action="toggleSingleTourWishlistButton"
@@ -729,10 +813,22 @@
 </svg> {{ __('translate.Ad to wishlist') }}
                         </span>
                             <span class="ladda-spinner"></span></a>
-                        <button type="button" data-toggle="modal" data-target="#bonusProgramModal"
-                                style="background-color: #ff8f40; margin-top: 10px; border-color: #e27513;"
-                                class="btn_full">BONUS +
-                        </button>
+
+                    <button type="button" data-toggle="modal" data-target="#bonusProgramModal"
+                            style="background-color: #e8aa1b; margin-top: 10px; border-color: #e27513;"
+                            class="btn_full"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-check" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M10.854 8.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708 0"/>
+                            <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>
+                        </svg> BONUS +
+                    </button>
+                    @if($event->category == 4 && $event->piple !== null)
+                    <span type="button" data-toggle="modal" data-target="#bonusProgramModal"
+                            style="background-color: #008dc9; font-size: 22px;  border-color: #165a9d;"
+                            class="btn_full"> {{$event->piple }} <svg  style=" margin-top: -3px; " xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
+                            <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+                            <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5"/>
+                        </svg> - {{$event->discounte }} %
+                    </span>
                     @endif
                 </div>
                 <div class="box_style_4">
@@ -741,7 +837,7 @@
                         <path
                             d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877zM11 .5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V1.707l-4.146 4.147a.5.5 0 0 1-.708-.708L14.293 1H11.5a.5.5 0 0 1-.5-.5"/>
                     </svg>
-                    <h4><span>{{ __('translate.Book') }}</span> {{ __('translate.by phone') }}</h4>    <a
+                    <h4><span>  @if ($event->category != 4){{ __('translate.Book') }}@else{{ __('translate.Buy') }}@endif</span> {{ __('translate.by phone') }}</h4>    <a
                         href="tel://+38{{$event->phone}}" class="phone">+38{{$event->phone}}</a>
                     <small>Monday to Friday 9.00am - 7.30pm</small>
                 </div>
@@ -1050,17 +1146,10 @@
                         </option>
                         <option value="{{ url('/lang/ru') }}" {{ App::getLocale() == 'ru' ? 'selected' : '' }}>Русский
                         </option>
-                        <option value="{{ url('/lang/es') }}" {{ App::getLocale() == 'es' ? 'selected' : '' }}>Español
-                        </option>
-                        <option value="{{ url('/lang/fr') }}" {{ App::getLocale() == 'fr' ? 'selected' : '' }}>
-                            Français
-                        </option>
                         <option value="{{ url('/lang/pl') }}" {{ App::getLocale() == 'pl' ? 'selected' : '' }}>Polski
                         </option>
                         <option value="{{ url('/lang/ua') }}" {{ App::getLocale() == 'ua' ? 'selected' : '' }}>
                             Українська
-                        </option>
-                        <option value="{{ url('/lang/de') }}" {{ App::getLocale() == 'de' ? 'selected' : '' }}>Deutsch
                         </option>
                     </select>
                 </div>
@@ -1079,49 +1168,50 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="bonusModalLabel" style="color: #001f3f;">Программа BONUS+</h5>
+                        <h5 class="modal-title" id="bonusModalLabel" style="color: #001f3f;">Програма BONUS+</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p style="color: #001f3f;">Это программа распространения реферальных ссылок на услугу!</p>
-                        <h3>
-                            <p> <?php $user = auth()->user(); ?>
-                                @if( $user->code_part != NULL)
-                                    <label style="color: #001f3f;">
-                                        Реферальная ссылка - <a href="{{ route('events.show', ['id' => $event->id, 'code' => $user->code_part]) }}">https://eventhes.com/{{$event->id}}/{{$user->code_part}}</a>
-                            <p><a style="color: #575151;"
-                                  href="https://telegram.me/share/url?url=https://eventhes.com/{{$event->id}}/{{$user->code_part}}"
-                                  data-share="https://telegram.me/share/url?url=https://www.facebook.com/sharer/sharer.php?u=https://eventhes.com/{{$event->id}}/{{$user->code_part}}"
-                                  data-type="telegram" target="_blank" role="button">Поделиться в
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                         class="bi bi-telegram" viewBox="0 0 16 16">
-                                        <path
-                                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.287 5.906q-1.168.486-4.666 2.01-.567.225-.595.442c-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294q.39.01.868-.32 3.269-2.206 3.374-2.23c.05-.012.12-.026.166.016s.042.12.037.141c-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8 8 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629q.14.092.27.187c.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.4 1.4 0 0 0-.013-.315.34.34 0 0 0-.114-.217.53.53 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09"/>
-                                    </svg>
-                                </a></p>
-                            <p><a style="color: #575151;"
-                                  href="https://www.facebook.com/sharer/sharer.php?u=https://eventhes.com/{{$event->id}}/{{$user->code_part}}"
-                                  data-share="https://www.facebook.com/sharer/sharer.php?u=https://eventhes.com/{{$event->id}}/{{$user->code_part}}"
-                                  target="_blank" role="button"> Поделиться в
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                         class="bi bi-facebook" viewBox="0 0 16 16">
-                                        <path
-                                            d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"/>
-                                    </svg>
-                                </a></p>
-                            </label>
-                            @else
-                                <label style="color: #001f3f;">
-                                    <input style="color: #001f3f;" type="checkbox" id="referralCheckbox"
-                                           name="referralCheckbox">
-                                    Я согласен(-на) стать участником программы
-                                </label>
-                                @endif
+                        <center><p style="color: #001f3f;">Це програма розповсюдження реферальних посилань на послугу!</p>
+                            <h3>
+                                <p>
+                                    @auth
+                                        <?php $user = auth()->user(); ?>
+                                        @if($user->code_part != NULL)
+                                            <label style="color: #001f3f;">
+                                                Реферальне посилання - <a style="color: #001f3f;" href="{{ route('events.show', ['id' => $event->id, 'code' => $user->code_part]) }}">https://eventhes.com/{{$event->id}}/{{$user->code_part}}</a>
+                                            </label>
+                                <p>
+                                    <a style="color: #575151;" href="https://telegram.me/share/url?url=https://eventhes.com/{{$event->id}}/{{$user->code_part}}" data-share="https://telegram.me/share/url?url=https://www.facebook.com/sharer/sharer.php?u=https://eventhes.com/{{$event->id}}/{{$user->code_part}}" data-type="telegram" target="_blank" role="button">Поделиться в
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telegram" viewBox="0 0 16 16">
+                                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.287 5.906q-1.168.486-4.666 2.01-.567.225-.595.442c-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294q.39.01.868-.32 3.269-2.206 3.374-2.23c.05-.012.12-.026.166.016s.042.12.037.141c-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8 8 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629q.14.092.27.187c.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.4 1.4 0 0 0-.013-.315.34.34 0 0 0-.114-.217.53.53 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09"/>
+                                        </svg>
+                                    </a>
                                 </p>
-                                <p style="color: #575151;">Поделитесь ссылкой и получите БОНУСЫ</p>
-                        </h3>
+                                <p>
+                                    <a style="color: #575151;" href="https://www.facebook.com/sharer/sharer.php?u=https://eventhes.com/{{$event->id}}/{{$user->code_part}}" data-share="https://www.facebook.com/sharer/sharer.php?u=https://eventhes.com/{{$event->id}}/{{$user->code_part}}" target="_blank" role="button"> Поделиться в
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
+                                            <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"/>
+                                        </svg>
+                                    </a>
+                                </p>
+                                @else
+                                    <label style="color: #001f3f;">
+                                        <input style="color: #001f3f;" type="checkbox" id="referralCheckbox" name="referralCheckbox">
+                                        Я згоден(-на) стати участником програми
+                                    </label>
+                                @endif
+                                @endauth
+                                @guest
+                                    <label style="color: #001f3f;">
+                                        Автаризуйтесь спочатку!
+                                    </label>
+                                @endguest
+                                <p style="color: #575151; font-size: 13px;">Поширюйте посилання на нас та отримуйте BONUS </p>
+                                </p>
+                            </h3></center>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="close" data-dismiss="modal">Close</button>
@@ -1503,6 +1593,15 @@
 
         $('html, body').animate({
             scrollTop: $portfolioElement.offset().top - headerHeight
+        }, 1000);
+    });
+    $('nav a[data-target="goods"]').click(function (e) {
+        e.preventDefault();
+        var headerHeight = 100; // Замените это значением фактической высоты вашего меню.
+        var $goodsElement = $('#goods');
+
+        $('html, body').animate({
+            scrollTop: $goodsElement.offset().top - headerHeight
         }, 1000);
     });
 </script>

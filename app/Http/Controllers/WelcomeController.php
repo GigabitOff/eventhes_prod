@@ -11,6 +11,8 @@ use App\Http\Controllers\EventController;
 use App\Models\Event;
 use App\Models\Shedule;
 use App\Models\User;
+use App\Models\PortfolioFoto;
+use Illuminate\Support\Str;
 
 class WelcomeController extends Controller
 {
@@ -21,23 +23,50 @@ class WelcomeController extends Controller
         $currentLocale = session('locale', config('app.locale'));
         App::setLocale($currentLocale);
 
-        $events = Event::latest()
-            ->where('status', 1)
+        $event = Event::where('status', 1)
             ->where('category', 1)
+            ->inRandomOrder()
             ->take(3)
             ->get();
 
-        $courses = Event::latest()
-            ->where('status', 1)
+        $goods = Event::where('status', 1)
+            ->where('category', 4)
+            ->where('amount', '>', 0) // Добавленное условие для исключения товаров с amount равным 0
+            ->inRandomOrder()
+            ->take(6)
+            ->get();
+
+        foreach ($goods as $good) {
+            $firstImage = PortfolioFoto::where('event_id', $good->id)->first();
+            if ($firstImage) {
+                $good->firstImage = asset('files/' . $good->user_id . '/' . $good->id . '/' . $firstImage->title);
+            } else {
+                $good->firstImage = null; // или путь к изображению по умолчанию
+            }
+        }
+
+
+
+        $courses = Event::where('status', 1)
             ->where('category', 3)
+            ->inRandomOrder()
             ->take(3)
             ->get();
 
-        $services = Event::latest()
-            ->where('status', 1)
+        $services = Event::where('status', 1)
             ->where('category', 2)
-            ->take(3)
+            ->inRandomOrder()
+            ->take(6)
             ->get();
+
+        foreach ($services as $service) {
+            $firstImage = PortfolioFoto::where('event_id', $service->id)->first();
+            if ($firstImage) {
+                $service->firstImage = asset('files/' . $service->user_id . '/' . $service->id . '/' . $firstImage->title);
+            } else {
+                $service->firstImage = null; // или путь к изображению по умолчанию
+            }
+        }
 
         $eventsall = Event::latest()->where('status', 1)->get();
 
@@ -51,13 +80,30 @@ class WelcomeController extends Controller
         }
 
         if ($user && $user->role_id == 1) {
-            return view('welcome', ['showTestRecord' => true, 'currentLocale' => $currentLocale,'services' => $services,  'courses' => $courses, 'events' => $events, 'eventsall' => $eventsall]);
+            return view('welcome', [
+                'showTestRecord' => true,
+                'currentLocale' => $currentLocale,
+                'goods' => $goods,
+                'services' => $services,
+                'courses' => $courses,
+                'event' => $event,
+                'eventsall' => $eventsall
+            ]);
         } else {
             $currentLocale = app()->getLocale();
-            return view('welcome', ['showTestRecord' => false, 'currentLocale' => $currentLocale, 'services' => $services, 'courses' => $courses, 'events' => $events, 'eventsall' => $eventsall]);
+            return view('welcome', [
+                'showTestRecord' => false,
+                'currentLocale' => $currentLocale,
+                'goods' => $goods,
+                'services' => $services,
+                'courses' => $courses,
+                'event' => $event,
+                'eventsall' => $eventsall
+            ]);
         }
-
     }
+
+
 
     public function Shedule($id)
     {
@@ -91,7 +137,6 @@ class WelcomeController extends Controller
             ->limit(3)
             ->get();
 
-       // return view('events.yesearch', compact('events', 'searchTerm', 'phone'));
     }
 
     public function search(Request $request)
@@ -111,7 +156,7 @@ class WelcomeController extends Controller
         $rng1 = $request->input('rng');
         $rng2 = $request->input('rng2');
         $selectedCategory = $request->input('cat');
-        $salesman= $request->input('salesman');
+        $user_id = $request->input('salesman');
 
         $eventsQuery = Event::where('title', 'like', '%' . $searchTerm . '%')
             ->where('status', 1);
@@ -124,19 +169,36 @@ class WelcomeController extends Controller
             $eventsQuery->where('category', $selectedCategory);
         }
 
+        if ($user_id !== null) {
+            $eventsQuery->where('user_id', $user_id);
+        }
+
         $events = $eventsQuery->orderBy('events.id')->paginate(10);
+
+        // Получение первого изображения для каждого события
+        foreach ($events as $event) {
+            $firstImage = PortfolioFoto::where('event_id', $event->id)->first();
+            if ($firstImage) {
+                $event->first_image_path = asset('files/' . $event->user_id . '/' . $event->id . '/' . $firstImage->title);
+            } else {
+                $event->first_image_path = null;
+            }
+        }
 
         return view('events.yesearch', [
             'events' => $events,
             'currentLocale' => $currentLocale,
             'searchTerm' => $searchTerm,
             'rng1' => $rng1,
-           'salesman' => $salesman,
+            'user_id' => $user_id,
             'regions' => $regions,
             'cities' => $cities,
+            'salesman' => $user_id,
             'rng2' => $rng2
         ]);
     }
+
+
 
 }
 

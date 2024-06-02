@@ -10,22 +10,19 @@ class Event extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id', 'created_at', 'updated_at', 'slug', 'allfoto','data_create_order','currency','amount','social_show_facebook','social_show_instagram','is_live','is_links','social_show_youtube','social_show_telegram','social_show_x'];
+    protected $guarded = ['id', 'created_at', 'updated_at', 'slug', 'allfoto', 'data_create_order', 'currency', 'amount', 'social_show_facebook', 'social_show_instagram', 'is_live', 'is_links', 'social_show_youtube', 'social_show_telegram', 'social_show_x'];
 
-    public function setFotoLogoAttribute($value)
+
+    public function portfolioFotos()
     {
-        if ($value) {
-            $originalName = $value->getClientOriginalName();
-            $this->attributes['foto_logo'] = $originalName;
-        }
+        return $this->hasMany(PortfolioFoto::class);
     }
 
-    public function setFotoTitleAttribute($value)
+    public function firstFoto()
     {
-        if ($value) {
-            $originalName = $value->getClientOriginalName();
-            $this->attributes['foto_title'] = $originalName;
-        }
+        // Возвращаем путь к первому фото или изображение по умолчанию
+        $firstFoto = $this->portfolioFotos()->first();
+        return $firstFoto ? 'files/' . $this->user_id . '/' . $this->id . '/' . $firstFoto->title : 'storage/fonts/8150248.jpg';
     }
 
     public function user()
@@ -41,6 +38,16 @@ class Event extends Model
     public function lessonType()
     {
         return $this->hasOne(LessonType::class, 'events_id', 'id');
+    }
+
+    public function user_orders()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function town()
+    {
+        return $this->belongsTo(Town::class, 'town_id', 'id');
     }
 
 

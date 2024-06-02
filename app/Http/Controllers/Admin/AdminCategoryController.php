@@ -27,12 +27,14 @@ class AdminCategoryController extends Controller
             'courses' => 1,
             'trade' => 2,
             'event' => 3,
+            'goods' => 4,
         ];
 
         $categoryId = $categoriesMap[$category] ?? null;
         $categoryData = Category::where('select_id', $categoryId)->get();
 
         switch ($category) {
+
             case 'courses':
                 $view = 'admin.events.category.category_courses';
                 break;
@@ -41,6 +43,9 @@ class AdminCategoryController extends Controller
                 break;
             case 'trade':
                 $view = 'admin.events.category.category_trade';
+                break;
+            case 'goods':
+                $view = 'admin.events.category.category_goods';
                 break;
         }
 
