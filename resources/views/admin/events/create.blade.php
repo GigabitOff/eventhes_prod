@@ -112,7 +112,7 @@
                             </div>
                             <div class="form-group" >
                                 <label for="discount">{{ __('translate.Discount') }}</label>
-                                <input type="text" name="discount"  class="form-control" placeholder="0" value="1">
+                                <input type="text" name="discount"  class="form-control" placeholder="0" >
                             </div>
                             <div class="form-group" id="piple_panel" >
                                 <label for="amount_id">{{ __('translate.Piple') }}</label>
@@ -311,15 +311,18 @@
         var fotoPanel = document.getElementById("amount_panel");
         var fotoPanelTu = document.getElementById("currency_panel");
 
-        if (selectElement.value === "1") {
-            fotoPanel.style.display = "block";
-            fotoPanelTu.style.display = "block";
-        } else {
+        if (selectElement.value === "2") {  // Если выбрано "Календарь без оплати"
             fotoPanel.style.display = "none";
             fotoPanelTu.style.display = "none";
+        } else {
+            fotoPanel.style.display = "block";
+            fotoPanelTu.style.display = "block";
         }
     }
-    showHidePanel();
+
+    // Вызываем функцию при загрузке страницы
+    window.onload = showHidePanel;
+
 </script>
 <script>
     $(document).ready(function(){

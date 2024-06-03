@@ -86,10 +86,10 @@
                                 <label for="slug">{{ __('translate.Slug') }}</label>
                                 <input type="text" name="slug" id="slug" class="form-control" value="{{$event->slug}}">
                             </div>
-                            <div class="form-group">
-                                <label for="shedule_id">{{ __('translate.Shedule') }}</label>
-                                <input type="text" name="shedule_id" id="shedule_id" class="form-control" value="{{$schedule->reserv}}" disabled >
-                            </div>
+{{--                            <div class="form-group">--}}
+{{--                                <label for="shedule_id">{{ __('translate.Shedule') }}</label>--}}
+{{--                                <input type="text" name="shedule_id" id="shedule_id" class="form-control" value="{{$schedule->reserv}}" disabled >--}}
+{{--                            </div>--}}
                             <div class="form-group" style="display: none;">
                                 <label for="foto_folder_id">{{ __('translate.Foto num') }}</label>
                                 <input type="text" name="foto_folder_id" id="foto_folder_id" value="{{$event->foto_title}}" class="form-control"
@@ -108,19 +108,19 @@
                                     <option value="2" >{{ __('translate.Календарь без оплати') }}</option>
                                 </select>
                             </div>
-{{--                            <div class="form-group"  >--}}
-{{--                                <label for="discount">{{ __('translate.Discount') }}</label>--}}
-{{--                                <input type="text" name="discount"  class="form-control" placeholder="{{ $event->discounte }}" value="{{ $event->discounte }}"  required>--}}
-{{--                            </div>--}}
+                            <div class="form-group"  >
+                                <label for="discount">{{ __('translate.Discount') }}</label>
+                                <input type="text" name="discount"  class="form-control" placeholder="{{ $event->discounte }}" value="{{ $event->discounte }}"  required>
+                            </div>
 
-{{--                            <div class="form-group"  >--}}
-{{--                                <label for="amount_id">{{ __('translate.Piple') }}</label>--}}
-{{--                                <input type="text" name="piple" id="piple_id" class="form-control" placeholder="{{ $event->piple}}" value="{{ $event->piple }}"  required>--}}
-{{--                            </div>--}}
-{{--                            <div class="form-group"  >--}}
-{{--                                <label for="amount_id">{{ __('translate.Price') }}</label>--}}
-{{--                                <input type="text" name="amount"  class="form-control" placeholder="{{ $event->amount }}" value="{{ $event->amount }}" >--}}
-{{--                            </div>--}}
+                            <div class="form-group"  >
+                                <label for="amount_id">{{ __('translate.Piple') }}</label>
+                                <input type="text" name="piple" id="piple_id" class="form-control" placeholder="{{ $event->piple}}" value="{{ $event->piple }}"  required>
+                            </div>
+                            <div class="form-group"  >
+                                <label for="amount_id">{{ __('translate.Price') }}</label>
+                                <input type="text" name="amount"  class="form-control" placeholder="{{ $event->amount }}" value="{{ $event->amount }}" >
+                            </div>
                             <div class="form-group" id="currency_panel">
                                 <label for="amount_id">{{ __('translate.Currency') }}</label>
                                 <select name="currency" class="form-control"  onchange="showHidePanel()">
@@ -158,18 +158,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card card-default">
-                        <div class="card-header">
-                            <div class="form-group">
-                                <label for="social_show_facebook">
-                                    <label for="foto_title"><a href="#" >Link online</a></label>
-                                </label>
-                                <input type="text" name="online"  class="form-control" value="{{$event->online}}">
-                            </div>
-                        </div>
-                    </div>
                     <div class="card card-default" >
-
                         <div class="card-header">
                         <div class="form-group">
                         <label for="foto_title"><a href="#" style="text-decoration: underline;" id="toggleLink">Social links</a></label>
@@ -229,32 +218,32 @@
                     </div>
                     <div class="card card-default">
                         <div class="card-header">
-                            <div class="form-group">
-                                <label for="foto_title">{{ __('translate.Photo title') }}</label>
-                                <div class="file-input-wrapper">
-                                    <input type="file" name="foto_title" id="foto_title" value="{{$event->foto_title}}" class="form-control">
-                                    <div class="file-input-label" id="fileInputLabelTitle">{{$event->foto_title}}</div>
-                                </div>
-                            </div>
-                            <div  class="image-grid">
-                                <div class="img-wrapper" id="wrapper-0">
-                                    <img src="/files/{{$event->user_id}}/{{$event->foto_title}}" class="responsive-image">
-                                    <label><input type="checkbox" name="deleteImages[]" value="{{$event->foto_logo}}"></label>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="foto_logo">{{ __('translate.Photo logo') }}</label>
-                                <div class="file-input-wrapper">
-                                    <input type="file" name="foto_logo" id="foto_logo" value="{{$event->foto_logo}}" class="form-control">
-                                    <div class="file-input-label" id="fileInputLabelLogo">{{$event->foto_logo}}</div>
-                                </div>
-                            </div>
-                            <div  class="image-grid">
-                                <div class="img-wrapper" id="wrapper-0">
-                                    <img src="/files/{{$event->user_id}}/{{$event->foto_logo}}" class="responsive-image">
-                                    <label><input type="checkbox" name="deleteImages[]" value="{{$event->foto_logo}}"></label>
-                                </div>
-                            </div>
+{{--                            <div class="form-group">--}}
+{{--                                <label for="foto_title">{{ __('translate.Photo title') }}</label>--}}
+{{--                                <div class="file-input-wrapper">--}}
+{{--                                    <input type="file" name="foto_title" id="foto_title" value="{{$event->foto_title}}" class="form-control">--}}
+{{--                                    <div class="file-input-label" id="fileInputLabelTitle">{{$event->foto_title}}</div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div  class="image-grid">--}}
+{{--                                <div class="img-wrapper" id="wrapper-0">--}}
+{{--                                    <img src="/files/{{$event->user_id}}/{{$event->foto_title}}" class="responsive-image">--}}
+{{--                                    <label><input type="checkbox" name="deleteImages[]" value="{{$event->foto_logo}}"></label>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="form-group">--}}
+{{--                                <label for="foto_logo">{{ __('translate.Photo logo') }}</label>--}}
+{{--                                <div class="file-input-wrapper">--}}
+{{--                                    <input type="file" name="foto_logo" id="foto_logo" value="{{$event->foto_logo}}" class="form-control">--}}
+{{--                                    <div class="file-input-label" id="fileInputLabelLogo">{{$event->foto_logo}}</div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div  class="image-grid">--}}
+{{--                                <div class="img-wrapper" id="wrapper-0">--}}
+{{--                                    <img src="/files/{{$event->user_id}}/{{$event->foto_logo}}" class="responsive-image">--}}
+{{--                                    <label><input type="checkbox" name="deleteImages[]" value="{{$event->foto_logo}}"></label>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
                             <div class="form-group">
                                 <label for="allfoto">{{ __('translate.All photos') }}</label>
                                 <div class="file-input-wrapper">

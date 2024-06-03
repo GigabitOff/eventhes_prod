@@ -364,6 +364,7 @@ class AdminEventController extends Controller
 
     public function edit($id)
     {
+
         $currentAdmin = auth()->user();
         $admins = User::where('role_id', 1)->get();
         $event = Event::findOrFail($id);
@@ -376,9 +377,10 @@ class AdminEventController extends Controller
         $qrcode = new QRCode($qrOptions);
         $qrCodeData = $qrcode->render('/' . $event->id);
 
-        $schedule = Shedule::where('event_id', $event->id)
-            ->where('status', 1)
-            ->firstOrFail();
+
+//        $schedule = Shedule::where('event_id', $event->id)
+//            ->where('status', 1)
+//            ->firstOrFail();
 
         $lessonTitles = Lesson::where('events_id', $event->id)
             ->where('lesson_chapter', 0)
@@ -403,7 +405,7 @@ class AdminEventController extends Controller
             ->orderBy('updated_at', 'desc')
             ->first();
 
-        return view('admin.events.edit', compact('admins','lessonType', 'lessonTitles', 'event', 'currentAdmin', 'qrCodeData', 'schedule', 'latestFotosString'));
+        return view('admin.events.edit', compact('admins','lessonType', 'lessonTitles', 'event', 'currentAdmin', 'qrCodeData',  'latestFotosString'));
     }
 
     public function redactLessonUpdate($id)

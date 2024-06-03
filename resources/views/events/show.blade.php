@@ -527,7 +527,7 @@
                 <hr>
                 @endif
                 <div class="row" id="goods" data-target="goods">
-                    <h3>Товари продавця</h3>
+                    <h3><a href="{{ url('search?what=&rng=&rng2=&cat=&salesman=' . $event->user_id) }}" target="_blank" class="text-dark">Товари продавця</a></h3>
                     </span>
                     @foreach($events as $event)
                         @if ($event->amount > 0)
@@ -541,8 +541,9 @@
 {{--                                            <img src="{{ isset($firstImages[$event->id]) ? $firstImages[$event->id]->path : 'Путь к изображению по умолчанию' }}"--}}
 {{--                                                 width="90%" height="90" class="img-fluid" alt="Image">--}}
 {{--                                            <div class="short_info">--}}
-                                            <img src="{{ $firstImages[$event->id]->path }}" width="90%" height="90" class="img-fluid" alt="Image">
-                                            <div class="short_info">
+
+                                                <img src="{{ isset($firstImages[$event->id]) ? $firstImages[$event->id]->path : 'Путь к изображению по умолчанию' }}" width="90%" height="90" class="img-fluid" alt="Image">
+                                                <div class="short_info">
                                                 <i></i>{{$event->reserv}}<span
                                                     class="price">@if ($event->amount == 0 || $event->discounte === null)
                                                         FREE
@@ -573,12 +574,14 @@
                             </div>
                         @endif
                     @endforeach
-
-                    <div class="row">
+                    <div class="row" style="margin-top:40px;">
                         <center>
-                            <h3><a href="{{ url('search?what=&rng=&rng2=&cat=&salesman=' . $event->user_id) }}">Всі товари</a></h3>
+                            <div class="tour_title">
+                                <button type="button" class="btn btn-secondary" onclick="window.location.href='{{ url('search?what=&rng=&rng2=&cat=&salesman=' . $event->user_id) }}'">Всі товари</button>
+                            </div>
                         </center>
                     </div>
+
                 </div>
                 @if(($event->category == 4 && $event->amount == null) || ($event->category == 2))
                     <hr>

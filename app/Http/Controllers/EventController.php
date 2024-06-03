@@ -178,8 +178,8 @@ class EventController extends Controller
         if ($event) {
             $userId = $event->user_id;
             $events = Event::where('user_id', $userId)
-                ->whereNotIn('id', [$id]) // исключаем выбранный $id
-                ->take(6)
+                ->whereNotIn('id', [$id])
+                ->take(7)
                 ->get();
         } else {
             $events = collect();
@@ -221,7 +221,7 @@ class EventController extends Controller
 
         $eventss = Event::where('user_id', $userId)
             ->whereNotIn('id', [$id])
-            ->take(6)
+            ->take(9)
             ->get();
 
 
